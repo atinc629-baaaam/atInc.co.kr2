@@ -1,0 +1,12 @@
+atInc site — third-party code in assets/fx
+
+three.module.min.js, RoomEnvironment.js
+  three.js r169 — https://github.com/mrdoob/three.js — MIT License, Copyright 2010-2024 Three.js Authors.
+  (react-three-fiber, https://github.com/pmndrs/react-three-fiber, is the React layer over this same engine.
+   This site is plain HTML, so the engine is used directly — the moving light and the 3D cells.)
+
+sg-shaders.js, field.js (moving light)
+  ShaderGradient — https://github.com/ruucm/shadergradient — MIT License.
+
+field.js (glass)
+  Refraction model adapted from liquid-glass-js — https://github.com/dashersw/liquid-glass-js — MIT License, Copyright (c) 2025 Armagan Amcalar.
