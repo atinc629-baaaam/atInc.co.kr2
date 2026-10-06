@@ -49,6 +49,11 @@ def shd(label, title, more=None, more_href=None, h='h2'):
     return f'<div class="shd"><div><p class="shd__label">{E(label)}</p><{h} class="shd__t">{E(title)}</{h}></div>{m}</div>'
 
 
+def lines(t):
+    # each headline line slides up from behind a mask (the 'cut' on every slide change)
+    return ''.join(f'<span class="ln"><span>{x}</span></span>' for x in t.split('<br>'))
+
+
 def page_home2():
     # 1. main visual: four faceless photographs, one message each
     slides_d = [
@@ -67,7 +72,7 @@ def page_home2():
         on = ' is-on' if i == 0 else ''
         sl += (f'<div class="slide{on}" role="group" aria-roledescription="slide" aria-label="{i + 1} / {n}">'
                f'{pic(k, "slide__pic", "100vw", (960, 1600, 2400), eager=(i == 0))}<span class="slide__veil" aria-hidden="true"></span>'
-               f'<div class="wrap slide__in"><p class="slide__label">{E(lab)}</p><p class="slide__t">{t}</p>'
+               f'<div class="wrap slide__in"><p class="slide__label">{E(lab)}</p><p class="slide__t">{lines(t)}</p>'
                f'<p class="slide__d">{E(d)}</p><div class="slide__act">{act}</div></div></div>')
     hero = (f'<section class="phx" data-hdr-over aria-roledescription="carousel" aria-label="주요 안내"><h1 class="sr-only">atinc 프라이빗 헬스케어 컨시어지</h1>'
             f'<div class="phx__slides" data-slides>{sl}</div>'
@@ -148,5 +153,9 @@ def page_home2():
                f'<p><a class="link" href="consultation.html">상담 진행 방식 자세히 보기</a></p></div>'
                f'{appt_card("상담 예약", "")}</div></section>')
 
-    main = hero + quick + why + areas + progs + process + net_s + intl + contact
+    words = ['정밀검진', '세포 보관·재생의료', '성형·피부', '여성건강', '난임', '남성건강', '한방 재활', '해외 진료']
+    run = ''.join(f'<span>{E(w)}</span><i aria-hidden="true"></i>' for w in words)
+    band = (f'<div class="mq" aria-label="진료 분야: {E(", ".join(words))}"><div class="mq__track" aria-hidden="true">'
+            f'<div class="mq__run">{run}</div><div class="mq__run">{run}</div></div></div>')
+    main = hero + quick + band + why + areas + progs + process + net_s + intl + contact
     page('index.html', 'atinc | 프라이빗 헬스케어 컨시어지', '검진, 재생의료, 성형·피부, 여성·남성 진료, 한방까지. 필요한 병원 정보를 정리해 드리고 예약과 통역, 결과 이후 일정까지 함께 챙깁니다.', main, 'home', light=False)

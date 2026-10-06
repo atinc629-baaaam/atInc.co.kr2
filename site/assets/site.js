@@ -226,4 +226,39 @@
   };
   applyFold();
   if (foldMq.addEventListener) foldMq.addEventListener('change', applyFold);
+
+  // motion: scroll reveal (staggered within a row) and gentle parallax on large photos
+  var calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!calm && 'IntersectionObserver' in window) {
+    var RV = ['.shd', '.tile', '.flow li', '.ways > li', '.hwhy__line', '.intl2__pic', '.intl2__txt', '.contact2__txt', '.appt',
+              '.svcs > li', '.ptn > li', '.steps > li', '.guide__col', '.mfaq > div', '.phero__pic', '.clist__row', '.mcard', '.mac',
+              '.netgroup', '.mapcard', '.cband__main', '.grid2 > .card', '.grid3 > .card', '.grid4 > .card', '.ojourney', '.msec__note', '.hnote'];
+    var els = document.querySelectorAll('main ' + RV.join(', main '));
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+    els.forEach(function (el) {
+      if (el.closest('.phx, .hero, details')) return;  // folded content must never stay hidden
+      var sib = el.parentElement ? Array.prototype.indexOf.call(el.parentElement.children, el) : 0;
+      el.style.setProperty('--d', Math.min(sib, 5));
+      el.setAttribute('data-rv', '');
+      io.observe(el);
+    });
+    document.documentElement.classList.add('rv');
+    var px = document.querySelectorAll('.hero--photo .hero__pic img, .intl2__pic img, .phero__pic img');
+    px.forEach(function (im) { im.setAttribute('data-px', ''); });
+    var ticking = false;
+    var movePx = function () {
+      ticking = false;
+      var vh = window.innerHeight;
+      px.forEach(function (im) {
+        var r = im.parentElement.getBoundingClientRect();
+        if (r.bottom < -100 || r.top > vh + 100) return;
+        var y = Math.max(-36, Math.min(36, (r.top + r.height / 2 - vh / 2) * -0.07));
+        im.style.transform = 'translateY(' + y.toFixed(1) + 'px) scale(1.1)';
+      });
+    };
+    window.addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(movePx); } }, { passive: true });
+    movePx();
+  }
 })();
