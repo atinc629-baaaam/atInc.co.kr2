@@ -8,7 +8,7 @@
   var SHORT = { '11': '서울', '21': '부산', '22': '대구', '23': '인천', '24': '광주', '25': '대전', '26': '울산', '29': '세종', '31': '경기', '32': '강원', '33': '충북', '34': '충남', '35': '전북', '36': '전남', '37': '경북', '38': '경남', '39': '제주' };
   var EN = { '11': 'Seoul', '21': 'Busan', '22': 'Daegu', '23': 'Incheon', '24': 'Gwangju', '25': 'Daejeon', '26': 'Ulsan', '29': 'Sejong', '31': 'Gyeonggi', '32': 'Gangwon', '33': 'Chungbuk', '34': 'Chungnam', '35': 'Jeonbuk', '36': 'Jeonnam', '37': 'Gyeongbuk', '38': 'Gyeongnam', '39': 'Jeju' };
   var CAPITAL = { '11': 1, '23': 1, '31': 1 };
-  var GOLD = '#D8CCBA', IVORY = '#F4F1EC';
+  var GOLD = '#E3C394', IVORY = '#F6EFE3';
   var REDUCE = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
@@ -86,8 +86,8 @@
   function overlap(a, b) { return a.x < b.x + b.w && a.x + a.w > b.x && a.y < b.y + b.h && a.y + a.h > b.y; }
   function T(x, y, t, anchor, size, weight, fill, italic) {
     return '<text x="' + x.toFixed(1) + '" y="' + y.toFixed(1) + '" text-anchor="' + anchor + '" font-family="' + "'Pretendard Variable',Pretendard,'Apple SD Gothic Neo','Noto Sans KR',sans-serif" +
-      '" font-size="' + size + '" font-weight="' + weight + '" fill="' + fill + '"' + (italic ? ' letter-spacing=".04em"' : '') +
-      ' stroke="#1B1A19" stroke-opacity=".9" stroke-width="4" stroke-linejoin="round" paint-order="stroke">' + esc(t) + '</text>';
+      '" font-size="' + size + '" font-weight="' + weight + '" fill="' + fill + '"' + (italic ? ' letter-spacing=".03em"' : '') +
+      ' stroke="#1A120D" stroke-opacity=".9" stroke-width="4" stroke-linejoin="round" paint-order="stroke">' + esc(t) + '</text>';
   }
   function cluster(list, px, py, dist) {
     var out = [];
@@ -132,7 +132,7 @@
     var uid = (host.getAttribute('data-uid') || 'm') + n;
     var s = ['<svg class="atmap__svg" viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-labelledby="t-' + uid + '" xmlns="http://www.w3.org/2000/svg"><title id="t-' + uid + '">atInc 협력 네트워크 지도: ' +
       esc(GROUPS.map(function (g) { return SHORT[g.prov]; }).join(', ')) + '</title>',
-      '<defs><radialGradient id="gl-' + uid + '"><stop offset="0" stop-color="' + GOLD + '" stop-opacity=".16"/><stop offset="1" stop-color="' + GOLD + '" stop-opacity="0"/></radialGradient>' +
+      '<defs><radialGradient id="gl-' + uid + '"><stop offset="0" stop-color="' + GOLD + '" stop-opacity=".55"/><stop offset="1" stop-color="' + GOLD + '" stop-opacity="0"/></radialGradient>' +
       '<linearGradient id="rt-' + uid + '" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="' + GOLD + '"/><stop offset="1" stop-color="' + GOLD + '" stop-opacity=".35"/></linearGradient></defs>'];
     // base dots
     var b = '';
@@ -142,7 +142,24 @@
       b += '<path class="dm' + (lit[c] ? ' on' : provOn[m.p] ? ' pv' : '') + '" d="' + m.d + '"/>';
     }
     s.push('<g class="atmap__base">' + b + '</g>');
-    s.push('<rect x="' + I.x + '" y="' + I.y + '" width="' + I.w + '" height="' + I.h + '" rx="14" fill="#232220"/>');
+    // expansion: light keeps spreading from the capital across the whole country
+    if (!REDUCE) {
+      var cap0 = sites.filter(function (x) { return CAPITAL[x.prov]; });
+      var hub0 = cap0.filter(function (x) { return x.prov === '11'; })[0] || cap0[0];
+      var wx = hub0 ? hub0.x : M.prov['11'].c[0], wy = hub0 ? hub0.y : M.prov['11'].c[1];
+      var all = '';
+      for (c in M.muni) { if (M.muni[c].d) all += M.muni[c].d; }
+      var ring = function (begin) {
+        return '<circle cx="' + wx.toFixed(1) + '" cy="' + wy.toFixed(1) + '" r="0" fill="url(#wr-' + uid + ')">' +
+          '<animate attributeName="r" values="0;720" dur="10s" begin="' + begin + 's" repeatCount="indefinite"/>' +
+          '<animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.12;.72;1" dur="10s" begin="' + begin + 's" repeatCount="indefinite"/></circle>';
+      };
+      s.push('<defs><radialGradient id="wr-' + uid + '"><stop offset=".7" stop-color="#fff" stop-opacity="0"/><stop offset=".9" stop-color="#fff" stop-opacity="1"/>' +
+        '<stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>' +
+        '<mask id="wm-' + uid + '" maskUnits="userSpaceOnUse" x="0" y="0" width="' + W + '" height="' + H + '">' + ring(-1) + ring(-6) + '</mask></defs>');
+      s.push('<path class="dw" d="' + all + '" mask="url(#wm-' + uid + ')"/>');
+    }
+    s.push('<rect x="' + I.x + '" y="' + I.y + '" width="' + I.w + '" height="' + I.h + '" rx="14" fill="#1F1611"/>');
     var bi = '';
     for (c in M.muni) {
       m = M.muni[c];
@@ -152,7 +169,8 @@
     s.push('<g class="atmap__base">' + bi + '</g>');
 
     function route(id, d, width, op, dur, begin) {
-      return '<path id="' + id + '" d="' + d + '" fill="none" stroke="url(#rt-' + uid + ')" stroke-opacity="' + op + '" stroke-width="' + width + '"/>' ;
+      return '<path id="' + id + '" d="' + d + '" fill="none" stroke="url(#rt-' + uid + ')" stroke-opacity="' + op + '" stroke-width="' + width + '"/>' +
+        '<circle r="2.2" fill="' + IVORY + '" class="spark"><animateMotion dur="' + dur + 's" begin="-' + begin.toFixed(2) + 's" repeatCount="indefinite"><mpath href="#' + id + '"/></animateMotion></circle>';
     }
     function curve(x1, y1, x2, y2, bend) {
       var mx = (x1 + x2) / 2, my = (y1 + y2) / 2, dx = x2 - x1, dy = y2 - y1;
@@ -160,7 +178,8 @@
     }
     function mk(x, y, r, d) {
       return '<circle cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) + '" r="' + (r * 5).toFixed(1) + '" fill="url(#gl-' + uid + ')"/>' +
-        '<circle cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) + '" r="' + r + '" fill="' + GOLD + '" stroke="#1B1A19" stroke-width="1.6"/>';
+        '<circle class="pulse" cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) + '" r="' + (r * 2.4).toFixed(1) + '" fill="none" stroke="' + GOLD + '" stroke-width="1" style="animation-delay: ' + d + 's"/>' +
+        '<circle cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) + '" r="' + r + '" fill="' + GOLD + '" stroke="#20160F" stroke-width="1.6"/>';
     }
     function g(cats, inner) { return '<g class="hub" data-cats="' + cats.join(',') + '">' + inner + '</g>'; }
 
@@ -170,7 +189,7 @@
       var sx = -6, sy = [70, 250, 420][k];
       s.push(route('a' + k + '-' + uid, curve(sx, sy, icn[0], icn[1], k === 2 ? -0.18 : 0.12), 1, .45, a[1], k * 1.3));
     });
-    s.push(T(12, 36, 'Global arrivals · Incheon (ICN)', 'start', 13, 500, GOLD, false));
+    s.push(T(12, 36, 'Global arrivals · Incheon (ICN)', 'start', 14, 500, GOLD, true));
 
     // capital hub (Seoul if present, else first capital site)
     var cap = sites.filter(function (x) { return CAPITAL[x.prov]; });
@@ -230,8 +249,8 @@
     s.push(T(icn[2], icn[3] + 20, 'ICN', 'middle', 10.5, 600, IVORY));
     // Ulleung / Dokdo
     s.push('<rect x="470" y="14" width="80" height="76" rx="10" fill="none" stroke="' + GOLD + '" stroke-opacity=".35" stroke-width=".9"/>' +
-      '<polygon points="' + M.islands + '" fill="#5F5B56" fill-opacity=".7"/><circle cx="529" cy="56" r="2" fill="#8F8982"/><circle cx="533" cy="57" r="1.6" fill="#8F8982"/>' +
-      T(496, 80, '울릉도', 'middle', 9.5, 500, '#B3ACA4') + T(531, 80, '독도', 'middle', 9.5, 500, '#B3ACA4'));
+      '<polygon points="' + M.islands + '" fill="#6E5646" fill-opacity=".7"/><circle cx="529" cy="56" r="2" fill="#9C7C62"/><circle cx="533" cy="57" r="1.6" fill="#9C7C62"/>' +
+      T(496, 80, '울릉도', 'middle', 9.5, 500, '#B9A58F') + T(531, 80, '독도', 'middle', 9.5, 500, '#B9A58F'));
     s.push('</svg>');
     host.innerHTML = s.join('');
   });

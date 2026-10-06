@@ -1405,13 +1405,11 @@ em, i, .eyebrow, .en-it, .drop a span { font-style: normal; }
 .contact2__pic { aspect-ratio: 1 / 1; overflow: hidden; background: var(--photo-bg); }
 
 /* network map: calm, neutral */
-.mapcard, .netx .mapcard, .map.mapcard { position: relative; padding: clamp(14px, 2vw, 28px); background: #1E1D1B; box-shadow: none; outline: 0; }
-.atmap .dm, .atmap .di { stroke: #5E5A55; stroke-opacity: .75; }
-.atmap .dm.pv, .atmap .di.pv { stroke: #9A938A; stroke-opacity: .9; }
-.atmap .dm.on, .atmap .di.on { stroke: #F1ECE4; stroke-opacity: 1; }
-.atmap .spark, .atmap .pulse, .atmap .dw { display: none; }
+/* the map keeps its warm light and motion: arrivals into ICN, pulsing hubs, the expansion wave */
+.mapcard, .netx .mapcard, .map.mapcard { position: relative; padding: clamp(14px, 2vw, 28px); background: radial-gradient(110% 80% at 62% 30%, #3B2A1F 0%, #261B14 58%, #1D150F 100%); box-shadow: none; }
+.atmap .dw { fill: none; stroke: #FBEACB; stroke-opacity: .95; stroke-width: 2.9; stroke-linecap: round; }
 .atmap__note { position: absolute; left: clamp(14px, 2.4%, 28px); bottom: clamp(14px, 3%, 30px); display: grid; gap: 2px; max-width: 46%; pointer-events: none; }
-.atmap__note em { font-size: 11.5px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--gold); }
+.atmap__note em { font-size: 11.5px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: #E3C394; }
 .atmap__note span { font-size: 13px; line-height: 1.5; color: rgba(246, 244, 241, .82); }
 .hubs__next { opacity: 1 !important; }
 .hubs__next b { color: var(--brown); }
