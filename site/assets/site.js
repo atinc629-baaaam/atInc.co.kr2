@@ -63,6 +63,22 @@
     window.addEventListener('pageshow', toTop);
   }
 
+  // hero photographs: slow crossfade, paused when the tab is hidden or the hero is off screen
+  document.querySelectorAll('[data-slides]').forEach(function (box) {
+    var slides = box.querySelectorAll('.slide');
+    if (slides.length < 2 || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var i = 0, inView = true;
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (en) { inView = en[0].isIntersecting; }).observe(box);
+    }
+    setInterval(function () {
+      if (document.hidden || !inView) return;
+      slides[i].classList.remove('is-on');
+      i = (i + 1) % slides.length;
+      slides[i].classList.add('is-on');
+    }, 6500);
+  });
+
   // mobile menu
   var mnav = document.getElementById('mnav');
   var openBtn = document.getElementById('menu-open');

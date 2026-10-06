@@ -252,6 +252,27 @@ PROMISES = ['성함과 문의 내용만 적으시면 됩니다', '진단서나 �
 
 
 # ------------------------------------------------------------------ shell
+# ------------------------------------------------------------------ photos (build/photos.json)
+PHOTOS = json.load(open(f'{SP}/photos.json', encoding='utf-8'))
+
+
+def photo_url(key, w):
+    src = PHOTOS[key]['src']
+    if src.startswith('unsplash:'):
+        return f'https://images.unsplash.com/photo-{src[9:]}?auto=format&fit=crop&w={w}&q=72'
+    return src
+
+
+def pic(key, cls='', sizes='100vw', widths=(640, 960, 1400, 2000), eager=False):
+    p = PHOTOS[key]
+    if p['src'].startswith('unsplash:'):
+        srcset = ' srcset="' + ', '.join(f'{photo_url(key, w)} {w}w' for w in widths) + f'" sizes="{sizes}"'
+    else:
+        srcset = ''
+    load = ' fetchpriority="high"' if eager else ' loading="lazy"'
+    return f'<img class="pic {cls}" src="{photo_url(key, widths[min(1, len(widths) - 1)])}"{srcset} alt="{E(p["alt"])}" decoding="async"{load}>'
+
+
 def form_link(label, cat='', cls='btn btn--dark', icon='out'):
     return f'<a class="{cls}" href="{FORM_URL}" target="_blank" rel="noopener" data-form="{E(cat)}">{E(label)}{ic(icon) if icon else ""}</a>'
 
@@ -437,7 +458,7 @@ def page(fn, title, desc, main, cur=None, light=False):
     title, desc = TITLES.get(fn, title), DESCS.get(fn, desc)
     main = main.replace(ic('arrow'), '')
     title, desc, main = brand(title), brand(desc), brand(principle(main))
-    glass = 'data-fx=' in main
+    glass = 'data-fx=' in main or 'data-hdr-over' in main
     hdr = header(cur).replace(' data-glass-hdr', ' data-glass' if glass else '')
     body = apply_copy(brand(f'<div class="page{" hdr-light" if light or glass else ""}{" hdr-glass" if glass else ""}">{hdr}{mnav()}<main id="main">{main}</main>{footer()}</div>'))
     url = SITE_URL + ('' if fn == 'index.html' else fn)
@@ -663,7 +684,7 @@ def page_home():
     f4 = fields(HB['04'])
     cards = ''
     for i, (c, r) in enumerate(zip(CATS, table(HB['04'])['rows']), 1):
-        cards += (f'<a class="mcard" href="{c["page"]}">{photo(c["card"][0], c["card"][1], "", c["ko"])}'
+        cards += (f'<a class="mcard mcard--pic" href="{c["page"]}"><figure class="mcard__pic">{pic("cat-" + c["id"], "", "(max-width: 600px) 100vw, (max-width: 1100px) 50vw, 33vw", (480, 720, 1080))}</figure>'
                   f'<div class="mcard__txt"><span class="mcard__no">0{i}</span><h3 class="en-title">{E(c["en"])}</h3><p class="mcard__ko">{E(c["ko"])}</p>'
                   f'<p class="body" style="font-size: 14.5px">{E(r[1])}</p><span class="link">자세히 보기{ic("arrow")}</span></div></a>')
     med = (f'<section class="sec sec--sand"><div class="wrap"><div class="shead"><div>{eyebrow("MEDICAL AREAS")}<h2 class="h1">{E(f4["제목"])}</h2></div>'
@@ -742,7 +763,7 @@ def page_home():
 def page_about():
     f1 = fields(AB['01'])
     hero = phero([('HOME', 'index.html'), ('ABOUT', None)], 'ABOUT atinc', f1['제목'], f1['본문'],
-                 photo(ARCH, '50% 40%', 'ph--45 ph--arch', '자연광이 드는 상담 공간'),
+                 f'<figure class="phero__pic">{pic("building", "", "(max-width: 900px) 100vw, 40vw", (640, 960, 1400), eager=True)}</figure>',
                  f'<p class="notice" style="max-width: 62ch; padding-left: 16px; border-left: 2px solid var(--latte)">{E(f1["고지 문장"])}</p>')
     b2 = AB['02']
     f2 = fields(b2)
@@ -787,7 +808,7 @@ def page_medical():
     rows = table(b)['rows']
     cards = ''
     for i, (c, r) in enumerate(zip(CATS, rows), 1):
-        cards += (f'<a class="mcard" href="{c["page"]}">{photo(c["card"][0], c["card"][1], "", c["ko"])}'
+        cards += (f'<a class="mcard mcard--pic" href="{c["page"]}"><figure class="mcard__pic">{pic("cat-" + c["id"], "", "(max-width: 600px) 100vw, (max-width: 1100px) 50vw, 33vw", (480, 720, 1080))}</figure>'
                   f'<div class="mcard__txt"><span class="mcard__no">0{i}</span><h2 class="en-title">{E(c["en"])}</h2><p class="mcard__ko">{E(c["ko"])}</p>'
                   f'<p class="body" style="font-size: 14.5px">{E(r[1])}</p><span class="link">자세히 보기{ic("arrow")}</span></div></a>')
     hero = phero([('HOME', 'index.html'), ('MEDICAL', None)], 'MEDICAL', f['제목'], f['본문'])
@@ -932,7 +953,7 @@ def page_category(c):
     btn = btn_label(f12['버튼'])
     cat = prefill(f12['버튼'], c['ko'])
     en = c['en'].split(' ', 1)
-    hero = (f'<section class="hero" data-num="{CATS.index(c) + 1:02d}" data-fx="deep" data-fx-seed="{20 + 37 * CATS.index(c)}"><div class="hero__bg" style="background-image: url({HERO}); background-position: {c["pos"]}"></div>'
+    hero = (f'<section class="hero hero--photo" data-hdr-over><div class="hero__pic" aria-hidden="true">{pic("cat-" + c["id"], "", "100vw", (960, 1600, 2400), eager=True)}</div>'
             f'<div class="wrap hero__in hero__in--short"><nav class="crumb" aria-label="현재 위치"><a href="index.html">HOME</a> / <a href="medical.html">MEDICAL</a> / <span>{E(c["ko"])}</span></nav>'
             f'<h1><span class="display rise" style="display: block; font-size: clamp(44px, 6.2vw, 96px)">{E(en[0])}<br><span>{E(en[1])}</span></span>'
             f'<span class="hero__ko rise rise-2" style="display: block; margin-top: 22px">{E(f1["제목"])}</span></h1>'
@@ -993,10 +1014,10 @@ def page_care_index():
     rows = ''
     for i, (p, r) in enumerate(zip(CARE, t['rows']), 1):
         ko = r[0].split(' · ', 1)[1]
-        rows += (f'<a href="{p["page"]}"><span class="clist__no">0{i}</span><div><h2 class="en-title" style="font-size: clamp(26px, 2.6vw, 38px)">{E(p["en"])}</h2>'
+        rows += (f'<a class="clist__row" href="{p["page"]}"><figure class="clist__pic">{pic("prog-" + p["id"], "", "(max-width: 600px) 100vw, 320px", (480, 720))}</figure><span class="clist__no">0{i}</span><div><h2 class="en-title" style="font-size: clamp(26px, 2.6vw, 38px)">{E(p["en"])}</h2>'
                  f'<p class="clist__ko">{E(ko)}</p><p class="clist__line">{E(r[1])}</p></div><span class="clist__meta">{E(r[2])}</span></a>')
     hero = phero([('HOME', 'index.html'), ('atinc CARE', None)], 'atinc CARE', f['제목'], f['본문'],
-                 photo(HERO, '62% 55%', 'ph--45 ph--arch', '프라이빗 상담 공간'),
+                 f'<figure class="phero__pic">{pic("room", "", "(max-width: 900px) 100vw, 40vw", (640, 960, 1400), eager=True)}</figure>',
                  f'<p class="notice" style="max-width: 62ch; padding-left: 16px; border-left: 2px solid var(--latte)">{E(f["구분 안내"])}</p>')
     lst = f'<section class="sec"><div class="wrap"><div class="clist">{rows}</div></div></section>'
     f12 = fields(HB['12'])
@@ -1018,7 +1039,7 @@ def page_care(p):
     trust_h = f'<p class="small" style="color: var(--on-dark-sub)">{E(trust[0].split(":", 1)[1].strip())}</p>' if trust else ''
     idx = CARE.index(p) + 1
     num = {'private-checkup': '30', 'longevity-90': '90', 'executive-365': '365'}.get(p['id'])
-    hero = (f'<section class="hero"{f" data-num={chr(34)}{num}{chr(34)}" if num else ""} data-fx="deep" data-fx-seed="{240 + 41 * CARE.index(p)}"><div class="hero__bg" style="background-image: url({HERO}); background-size: 135% auto; background-position: {p["pos"]}"></div>'
+    hero = (f'<section class="hero hero--photo" data-hdr-over><div class="hero__pic" aria-hidden="true">{pic("prog-" + p["id"], "", "100vw", (960, 1600, 2400), eager=True)}</div>'
             f'<div class="wrap hero__in hero__in--short"><nav class="crumb" aria-label="현재 위치"><a href="index.html">HOME</a> / <a href="care.html">atinc CARE</a> / <span>{E(ko)}</span></nav>'
             f'<h1><span class="display rise" style="display: block; font-size: clamp(40px, 5.6vw, 86px); letter-spacing: -.04em">{E(p["two"][0])}<br><span>{E(p["two"][1])}</span></span>'
             f'<span class="hero__ko rise rise-2" style="display: block; margin-top: 22px">{E(lead_s)}</span></h1>'
@@ -1111,7 +1132,7 @@ def page_network():
 def page_partners():
     B = blocks(net, 'FOR PARTNERS')
     f1 = fields(B['01'])
-    hero = phero([('HOME', 'index.html'), ('FOR PARTNERS', None)], 'FOR PARTNERS', f1['제목'], f1['본문'], '',
+    hero = phero([('HOME', 'index.html'), ('FOR PARTNERS', None)], 'FOR PARTNERS', f1['제목'], f1['본문'], f'<figure class="phero__pic">{pic("hero-consult", "", "(max-width: 900px) 100vw, 40vw", (640, 960, 1400), eager=True)}</figure>',
                  f'<div class="hero__actions"><a class="btn btn--dark" href="{PARTNER_MAIL}">제휴 문의 메일 보내기</a>'
                  f'<a class="link" href="#process">제휴 절차 보기</a></div>')
     f4 = {it['key']: [x.strip() for x in it['value'].split(' / ')] for it in B['04']['items'] if it['type'] == 'field'}
@@ -1161,7 +1182,7 @@ def page_partners():
 def page_consult():
     B = blocks(net, 'CONSULTATION')
     f1 = fields(B['01'])
-    hero = phero([('HOME', 'index.html'), ('CONSULTATION', None)], 'PRIVATE CONSULTATION', f1['제목'], f1['본문'], '',
+    hero = phero([('HOME', 'index.html'), ('CONSULTATION', None)], 'PRIVATE CONSULTATION', f1['제목'], f1['본문'], f'<figure class="phero__pic">{pic("step-listen", "", "(max-width: 900px) 100vw, 40vw", (640, 960, 1400), eager=True)}</figure>',
                  f'<div class="hero__actions">{form_link("상담 신청서 열기", "", "btn btn--dark")}</div>'
                  f'{contact_links("contacts contacts--dark", intl=True)}')
     st = items(B['02'], 'step')

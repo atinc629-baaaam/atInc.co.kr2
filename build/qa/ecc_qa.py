@@ -89,6 +89,8 @@ with sync_playwright() as p:
     for w in (1440, 390):
         ctx = b.new_context(viewport={'width': w, 'height': 900})
         ctx.add_init_script(INIT)
+        # photos are hotlinked from Unsplash; stand in for them when the network can't reach it
+        ctx.route('https://images.unsplash.com/**', lambda r: r.fulfill(status=200, content_type='image/svg+xml', body='<svg xmlns="http://www.w3.org/2000/svg" width="16" height="10"><rect width="16" height="10" fill="#6b5444"/></svg>'))
         for fn in pages:
             pg = ctx.new_page()
             errs, bad = [], []

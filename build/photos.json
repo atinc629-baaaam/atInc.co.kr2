@@ -1,0 +1,29 @@
+{
+  "_안내": "임시 사진입니다(Unsplash 라이선스, 무료 상업 이용 가능). 협력 병원 실제 사진이 들어오면 src에 'assets/img/파일명.jpg'를 적으면 그 사진으로 바뀝니다. 키 이름은 그대로 두세요.",
+  "hero-seoul":      { "src": "unsplash:1546874177-9e664107314e", "alt": "해 질 무렵 서울 도심 전경" },
+  "hero-consult":    { "src": "unsplash:1758691462878-6edc3d3da1be", "alt": "진료실에서 의사와 상담하는 모습" },
+  "hero-equipment":  { "src": "unsplash:1666214282459-c7dff167ecc0", "alt": "정밀 영상 검사 장비" },
+  "hero-lab":        { "src": "unsplash:1532187863486-abf9dbad1b69", "alt": "연구실에서 시험관에 시약을 옮기는 모습" },
+
+  "cat-checkup":     { "src": "unsplash:1666214280352-db292c05fd80", "alt": "검사 테이블이 있는 정밀 검사실" },
+  "cat-regenerative":{ "src": "unsplash:1576086213369-97a306d36557", "alt": "현미경으로 본 세포" },
+  "cat-aesthetic":   { "src": "unsplash:1552693673-1bf958298935", "alt": "얼굴 피부 관리를 받는 모습" },
+  "cat-women":       { "src": "unsplash:1631217868264-e5b90bb7e133", "alt": "진료실에서 의사가 환자와 이야기하는 모습" },
+  "cat-men":         { "src": "unsplash:1758691462863-9e1b8a863140", "alt": "진료실에서 의사와 상담하는 모습" },
+  "cat-korean-medicine": { "src": "unsplash:1545840716-c82e9eec6930", "alt": "말린 약재가 담긴 유리병과 놋그릇" },
+
+  "step-listen":     { "src": "unsplash:1527689368864-3a821dbccc34", "alt": "노트북을 함께 보며 상담하는 두 사람" },
+  "step-arrange":    { "src": "unsplash:1576091160550-2173dba999ef", "alt": "노트북과 청진기가 놓인 진료 책상" },
+  "step-escort":     { "src": "unsplash:1558222209-134191edfe0d", "alt": "검은 차량 옆에서 기다리는 기사" },
+  "step-after":      { "src": "unsplash:1505751172876-fa1923c5c528", "alt": "책상 위의 청진기" },
+
+  "prog-private-checkup": { "src": "unsplash:1666214282459-c7dff167ecc0", "alt": "정밀 영상 검사 장비" },
+  "prog-longevity-90":    { "src": "unsplash:1508963493744-76fce69379c0", "alt": "바다를 바라보며 벤치에 앉은 두 사람" },
+  "prog-executive-365":   { "src": "unsplash:1497366754035-f200968a6e72", "alt": "유리문이 이어진 사무 공간" },
+  "prog-global-medical-journey": { "src": "unsplash:1530521954074-e64f6810b32d", "alt": "공항 라운지에서 비행기를 바라보는 여행자" },
+
+  "global":          { "src": "unsplash:1532649097480-b67d52743b69", "alt": "초승달이 뜬 서울의 밤" },
+  "contact":         { "src": "unsplash:1512678080530-7760d81faba6", "alt": "소파가 놓인 1인 병실" },
+  "room":            { "src": "unsplash:1512678080530-7760d81faba6", "alt": "소파가 놓인 1인 병실" },
+  "building":        { "src": "unsplash:1764885517847-79d62138cc58", "alt": "곡선 입구가 있는 현대식 유리 건물" }
+}
