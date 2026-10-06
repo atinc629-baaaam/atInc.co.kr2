@@ -10,33 +10,34 @@
      en    : 영문 지역 표기
   4) cats  : 분야. checkup(건강검진) regenerative(재생의료·줄기세포) aesthetic(성형·피부)
              women(여성건강) men(남성건강) korean-medicine(한방·웰니스) 가운데 해당하는 것
-  5) note  : 네트워크 페이지 카드에 들어갈 한 줄 설명
+  5) note  : 네트워크 페이지 카드에 들어갈 한 줄 설명. 그 지역에서 '받으실 수 있는 것'만 적고,
+             장비 사양·규모·인증·운영 재단처럼 병원을 알아볼 수 있는 내용은 적지 않습니다.
 
   같은 지역에 병원이 여러 곳이면 한 줄씩 따로 적으면 됩니다. 지도에서는 한 점으로 묶이고 '외 n곳'으로 표시됩니다.
 */
 window.ATINC_NETWORK = [
   { area: '서울 강남구', name: '서울 강남·압구정', short: '강남·압구정', en: 'Seoul · Gangnam, Apgujeong',
     cats: ['checkup', 'women', 'aesthetic', 'korean-medicine'],
-    note: '정밀검진 센터와 여성 클리닉, 피부 클리닉, 한방병원이 한 지역에 있습니다.' },
+    note: '건강검진과 여성 진료, 피부 시술, 한방 진료를 받으실 수 있습니다.' },
   { area: '인천 연수구', name: '인천 송도', short: '송도', en: 'Incheon · Songdo',
     cats: ['aesthetic'],
-    note: '인천국제공항과 가까운 송도에서 성형외과·피부과 협진 클리닉과 함께합니다.' },
+    note: '공항에서 가까운 곳에서 성형·피부 상담과 시술을 받으실 수 있습니다.' },
   { area: '인천 서구', name: '인천 검단', short: '검단', en: 'Incheon · Geomdan',
     cats: ['korean-medicine'],
-    note: '한·양방 협진 진료와 입원 회복을 함께 받으실 수 있습니다.' },
+    note: '한방 진료와 입원 회복을 받으실 수 있습니다.' },
   { area: '경기 성남시 분당구', name: '경기 분당', short: '분당', en: 'Gyeonggi · Bundang',
     cats: ['regenerative'],
-    note: '첨단재생의료 실시기관으로 지정된 병원에서 재생의료 상담을 받으실 수 있습니다.' },
+    note: '재생의료 진료 상담을 받으실 수 있습니다.' },
   { area: '경기 군포시', name: '경기 군포', short: '군포', en: 'Gyeonggi · Gunpo',
     cats: ['regenerative'],
-    note: 'GMP 기준 세포처리시설에서 본인 세포를 배양하고 초저온으로 보관합니다.' },
+    note: '본인 세포의 배양과 보관 상담을 받으실 수 있습니다.' },
   { area: '경기 용인시', name: '경기 용인', short: '용인', en: 'Gyeonggi · Yongin',
     cats: ['checkup'],
-    note: '여성 전용 검진 공간과 국제진료센터를 갖춘 정밀검진 센터입니다.' },
+    note: '정밀 건강검진을 받으실 수 있습니다.' },
   { area: '대구', name: '대구', short: '대구', en: 'Daegu',
     cats: [],
     note: '대구·경북에 계신 분은 가까운 협력 병원에서 상담과 검사를 받으실 수 있습니다.' },
   { area: '부산 남구', name: '부산', short: '부산', en: 'Busan',
     cats: ['checkup'],
-    note: 'VIP와 남녀 동선을 나눈 정밀검진 센터와 국제진료센터가 있습니다.' }
+    note: '정밀 건강검진과 외국어 안내를 받으실 수 있습니다.' }
 ];

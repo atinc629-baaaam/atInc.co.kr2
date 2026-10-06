@@ -478,6 +478,8 @@ def page(fn, title, desc, main, cur=None, light=False):
     hdr = header(cur).replace(' data-glass-hdr', ' data-glass' if glass else '')
     body = apply_copy(brand(f'<div class="page{" hdr-light" if light or glass else ""}{" hdr-glass" if glass else ""}">{hdr}{mnav()}<main id="main">{main}</main>{footer()}{quick_contact()}</div>'))
     body = body.replace('>먼저 이야기를 듣겠습니다</h2>', '>프라이빗 상담 신청</h2>')
+    for a_, b_ in MED_FIX:
+        body = body.replace(a_, b_)
     url = SITE_URL + ('' if fn == 'index.html' else fn)
     ld = [{'@context': 'https://schema.org', '@type': 'Organization', 'name': 'atInc', 'legalName': '주식회사 애트',
            'url': SITE_URL, 'logo': SITE_URL + 'assets/og.png', 'email': EMAIL, 'telephone': '+82-10-5857-0129',
@@ -964,61 +966,75 @@ def render_checklist(b):
     return f'<dl class="checklist">{out}</dl>{note_h}'
 
 
+MEDPAGES = json.load(open(f'{SP}/medical_pages.json', encoding='utf-8'))
+# phrases that read as efficacy claims or point to one particular hospital
+MED_FIX = [
+    ('본인 세포를 쓰기 때문에 면역 거부 부담이 적습니다.', ''),
+    ('자가 세포는 본인 것이라 면역 거부 부담이 적습니다.', '어떤 세포가 맞는지, 위험은 무엇인지는 의료진 상담에서 설명을 들으실 수 있습니다.'),
+    ('영하 196℃ 초저온으로 냉동해 최대 40년까지 보관할 수 있고', '영하 196℃ 초저온으로 냉동해 오래 보관할 수 있고'),
+    ('최대 40년까지 보관할 수 있습니다.', '오래 보관할 수 있으며, 보관 기간은 기관과 계약에 따라 다릅니다.'),
+    ('건강할 때 내 세포를 미리 보관해 두는 라인이 있고, 줄기세포 연구 기반의 프리미엄 라인도 있습니다.', '건강할 때 내 세포를 미리 보관해 두는 방법과, 지정 재생의료기관에서 받을 수 있는 진료를 안내해 드립니다.'),
+    ('면역과 웰에이징 관리를 시작하고 싶을 때', '웰에이징 관리를 시작하고 싶을 때'),
+    ('세포를 이용한 두피·모발 관리가 궁금할 때', '모발 유래 세포 보관이 궁금할 때'),
+    ('네. 입원 병동과 1인실을 갖추고 있고, 365일 입원할 수 있습니다.', '네. 입원 병동과 1인실이 있는 협력 병원으로 안내해 드립니다.'),
+    ('협력 병원의 한·양방 협진 센터에서는', '한·양방 협진 병원에서는'),
+    ('입원 재활까지 같은 재단 병원에서 받으실 수 있습니다.', '입원 재활까지 한 곳에서 받으실 수 있습니다.'),
+    ('>조직 재생 관리, 향후 세포 활용 대비<', '>향후 세포 활용 대비 보관<'),
+    ('>면역 관리<', '>보관<'),
+    ('>두피·모발 관리<', '>보관<'),
+    ('>줄기세포 연구 기반 프리미엄 라인<', '>의료진 상담 후 결정<'),
+]
+
+
 def page_category(c):
-    import site_enrich as SE
     doc = parse(c['file'])
     B = blocks(doc)
     f1 = fields(B['01'])
     f12 = fields(B['12'])
     btn = btn_label(f12['버튼'])
     cat = prefill(f12['버튼'], c['ko'])
-    en = c['en'].split(' ', 1)
+    M = MEDPAGES[c['id']]
     hero = (f'<section class="hero hero--photo" data-hdr-over><div class="hero__pic" aria-hidden="true">{pic("cat-" + c["id"], "", "100vw", (960, 1600, 2400), eager=True)}</div>'
             f'<div class="wrap hero__in hero__in--short"><nav class="crumb" aria-label="현재 위치"><a href="index.html">홈</a> / <a href="medical.html">진료 분야</a> / <span>{E(c["ko"])}</span></nav>'
             f'<p class="hero__label rise">{E(c["en"])}</p><h1 class="hero__title rise">{E(c["ko"])}</h1>'
             f'<p class="hero__sub rise rise-2">{E(f1["제목"])}</p>'
             f'<div class="hero__row"><p class="hero__body rise rise-3">{E(f1["본문"])}</p>'
             f'<div class="rise rise-4">{form_link(btn, cat, "btn btn--light")}</div></div></div></section>')
-    sub = [('approach', '접근 방식'), ('what', '이 분야란'), ('options', '선택지')]
-    if c['id'] == 'women':
-        sub.append(('fertility', '난임'))
-    sub += [('profile', '협력 의료기관'), ('facts', '공식 자료'), ('process', '진행 과정'), ('check', '확인사항·FAQ'), ('contact', '상담')]
-    subnav = '<nav class="subnav" aria-label="페이지 안 이동"><div class="wrap subnav__in">' + ''.join(f'<a href="#{a}">{t}</a>' for a, t in sub) + '</div></nav>'
-    # support list (old 11)
-    raw = ' / '.join(it.get('text', '') for it in B['11']['items'] if it['type'] in ('text', 'bullet'))
-    support = [x.strip() for x in raw.split(' / ') if x.strip()]
-    S = [SE.category_approach(c['id'], support)]
-    # what + types
-    b2, b3 = B['02'], B['03']
-    texts = [it['text'] for it in b3['items'] if it['type'] == 'text']
-    types_h = ''.join(tbl(it) for it in b3['items'] if it['type'] == 'table')
-    rest = [it for it in b3['items'] if it['type'] in ('field', 'bullet')]
-    if rest:
-        types_h += render_rows(rest).replace('class="rows"', 'class="rows" style="margin-top: 28px"')
-    b5 = B['05']
-    how_h = f'<details class="more" id="how"><summary>원리와 방식</summary>{render_how(b5["items"])}</details>'
-    S.append(f'<section class="sec" id="what"><div class="wrap">{section_head(None, None, josa(c["ko"], "이란", "란"))}{render_rows(b2["items"])}'
-             f'<div class="sub-h" id="types"><h3>어떤 종류가 있나요</h3>{("<p class=\"body\">" + E(texts[0]) + "</p>") if texts else ""}</div>{types_h}{how_h}</div></section>')
-    # options
-    b6 = B['06']
-    t6 = '프리미엄 셀 케어 라인업' if '라인업' in b6['title'] else '프로그램과 선택지'
-    S.append(f'<section class="sec" id="options"><div class="wrap">{section_head(None, None, t6)}{render_options(b6)}</div></section>')
-    if c['id'] == 'women':
-        S.append(SE.fertility_section())
-    S.append(SE.profile_section(c['id']))
-    S.append(SE.facts_section(c['id']))
-    # process
+
+    def shd(label, title, more=None, href=None):
+        m = f'<a class="shd__more" href="{href}">{E(more)}</a>' if more else ''
+        return f'<div class="shd"><div><p class="shd__label">{E(label)}</p><h2 class="shd__t">{E(title)}</h2></div>{m}</div>'
+
+    # 1. what you can have done through atInc
+    sv = ''.join(f'<li><h3>{E(t)}</h3><p>{E(d)}</p></li>' for t, d in M['services'])
+    cols = ' svcs--4' if len(M['services']) % 4 == 0 else ''
+    s1 = (f'<section class="sec msec" id="services"><div class="wrap">{shd("Services", "받으실 수 있는 진료와 상담")}'
+          f'<ul class="svcs{cols}">{sv}</ul>'
+          f'<p class="msec__note">어떤 검사와 진료를 받을지는 의료진이 진찰한 뒤 정합니다. atInc는 그 앞뒤의 상담과 예약, 일정을 맡습니다.</p></div></section>')
+    # 2. how atInc works for this field
+    wy = ''.join(f'<li><span class="ways__no">{i:02d}</span><h3>{E(t)}</h3><p>{E(d)}</p></li>' for i, (t, d) in enumerate(M['ways'], 1))
+    s2 = f'<section class="sec sec--sand msec"><div class="wrap">{shd("Our way", "atInc가 함께하는 방식")}<ol class="ways">{wy}</ol></div></section>'
+    # 3. the kind of places we connect to (never the names)
+    pt = ''.join(f'<li><h3>{E(t)}</h3><p>{E(d)}</p></li>' for t, d in M['partners'])
+    s3 = (f'<section class="sec msec" id="partners"><div class="wrap">{shd("Partners", "연결해 드리는 곳", "지역별 협력 네트워크", "network.html")}'
+          f'<ul class="ptn">{pt}</ul><p class="msec__note">기관 이름과 위치는 상담에서 목적을 들은 뒤 알려 드립니다.</p></div></section>')
+    # 4. process
     steps = ''.join(f'<li class="step"><span class="step__no">{i:02d}</span><h3 class="h3">{E(st["title"])}</h3><p class="body">{E(st["text"])}</p></li>'
                     for i, st in enumerate(items(B['07'], 'step'), 1))
-    S.append(f'<section class="sec sec--sand" id="process"><div class="wrap">{section_head(None, None, "진행 과정")}<ol class="steps">{steps}</ol></div></section>')
-    # check + faq
-    S.append(f'<section class="sec" id="check"><div class="wrap cf"><div class="cf__col">{section_head(None, None, "가기 전에 확인하세요")}{render_checklist(B["09"])}</div>'
-             f'<div class="cf__col" id="faq">{section_head(None, None, "자주 묻는 질문")}{render_faq(B["10"])}</div></div></section>')
+    s4 = f'<section class="sec sec--sand msec" id="process"><div class="wrap">{shd("Process", "진행 과정")}<ol class="steps">{steps}</ol></div></section>'
+    # 5. questions, with the background reading folded underneath
+    b2, b3, b5 = B['02'], B['03'], B['05']
+    types_h = ''.join(tbl(it) for it in b3['items'] if it['type'] == 'table')
+    more = (f'<div class="mmore"><details class="more"><summary>{E(josa(c["ko"], "이란", "란"))}</summary>{render_rows(b2["items"])}{types_h}</details>'
+            f'<details class="more"><summary>원리와 방식</summary>{render_how(b5["items"])}</details>'
+            f'<details class="more"><summary>가기 전에 확인하세요</summary>{render_checklist(B["09"])}</details></div>')
+    s5 = (f'<section class="sec msec" id="faq"><div class="wrap mfaq"><div>{shd("FAQ", "자주 묻는 질문")}{render_faq(B["10"])}</div>'
+          f'<div>{shd("More", "더 알아보기")}{more}</div></div></section>')
     reasons = [it['text'] for it in B['04']['items'] if it['type'] == 'bullet']
     cta_title = '부담 없이 먼저 물어보세요' if c['id'] == 'men' else f12['문장']
     cta = cband(cta_title, '건강 목적과 일정을 남겨 주시면, 내용을 확인한 뒤 담당자가 직접 연락드립니다.', btn, cat,
                 reasons=reasons, reasons_title='이럴 때 상담하세요')
-    main = hero + subnav + ''.join(S) + cta
+    main = hero + s1 + s2 + s3 + s4 + s5 + cta
     page(c['page'], f'{c["ko"]} | atinc', f1['본문'], main, 'medical', light=True)
 
 

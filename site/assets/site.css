@@ -1526,3 +1526,40 @@ em, i, .eyebrow, .en-it, .drop a span { font-style: normal; }
   .phx__bar i.run { animation: none; }
 }
 .crumb a { display: inline-flex; align-items: center; justify-content: center; min-width: 24px; min-height: 28px; }
+
+/* ---------- field pages: what you can have done, how, where (never which) ---------- */
+.msec { padding-block: clamp(72px, 7vw, 112px); }
+.msec .shd { margin-bottom: clamp(24px, 2.6vw, 36px); }
+.svcs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 clamp(20px, 2.4vw, 36px); }
+.svcs--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.svcs li { display: grid; align-content: start; gap: 8px; padding: 24px 0 28px; border-top: 1px solid var(--line-strong); }
+.svcs h3 { font-size: var(--fs-h3); font-weight: 600; letter-spacing: -.02em; color: var(--ink); }
+.svcs p { font-size: 15px; line-height: 1.7; color: var(--body); }
+.msec__note { margin-top: 20px; font-size: 14.5px; color: var(--sub); }
+.ways { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.ways li { display: grid; align-content: start; gap: 10px; padding: 28px; background: #fff; }
+.ways__no { font-size: 14px; font-weight: 600; color: var(--brown); font-variant-numeric: tabular-nums; }
+.ways h3 { font-size: var(--fs-h3); font-weight: 600; letter-spacing: -.02em; }
+.ways p { font-size: 15px; line-height: 1.7; color: var(--body); }
+.ptn { border-top: 1px solid var(--ink); }
+.ptn li { display: grid; grid-template-columns: minmax(0, 300px) minmax(0, 1fr); gap: 8px 32px; align-items: baseline; padding: 22px 0; border-bottom: 1px solid var(--line); }
+.ptn h3 { font-size: 17px; font-weight: 600; letter-spacing: -.02em; }
+.ptn p { font-size: 15.5px; color: var(--body); }
+.mfaq { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, .8fr); gap: clamp(36px, 5vw, 88px); align-items: start; }
+.mmore { border-top: 1px solid var(--ink); }
+.mmore details.more { border-bottom: 1px solid var(--line); }
+.mmore details.more > summary { padding: 20px 0; font-size: 17px; font-weight: 600; }
+.mmore details.more[open] { padding-bottom: 20px; }
+@media (max-width: 1100px) {
+  .svcs--4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .mfaq { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 900px) {
+  .svcs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ways { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 600px) {
+  .svcs, .svcs--4 { grid-template-columns: minmax(0, 1fr); }
+  .svcs li { padding: 18px 0 20px; }
+  .ptn li { grid-template-columns: minmax(0, 1fr); }
+}
