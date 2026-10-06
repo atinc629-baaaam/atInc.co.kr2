@@ -1736,3 +1736,48 @@ body { background: var(--ivory); color: var(--ink); }
 .pline__links { display: flex; flex-wrap: wrap; gap: 6px 22px; }
 .pline__links a { font-size: 15px; font-weight: 600; color: var(--brown-deep); text-underline-offset: 5px; }
 .facts-dark { background: var(--espresso); }
+
+/* ---------- v13 · ECC review pass (service-first detail pages, calmer CTAs) ---------- */
+/* quick menu: four destinations (consult and call live in the header and floating buttons) */
+.qmenu__list { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+@media (max-width: 1100px) {
+  .qmenu__list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .qmenu__list li:nth-child(4) { border-left: 1px solid var(--line); }
+  .qmenu__list li:nth-child(3) { border-left: 0; }
+  .qmenu__list li:nth-child(n+3) { border-top: 1px solid var(--line); }
+  .qmenu__list li:nth-child(4) { border-top: 1px solid var(--line); }
+}
+/* why atInc (home) */
+.hwhy .ways li { padding-top: 4px; }
+.hwhy__k { margin: 2px 0 6px; font-size: 13px; font-weight: 600; letter-spacing: .02em; color: var(--brown); }
+.hwhy__line { margin-top: clamp(24px, 2.6vw, 36px); padding-top: 20px; border-top: 1px solid var(--line); font-size: clamp(17px, 1.4vw, 19px); font-weight: 600; letter-spacing: -.02em; color: var(--ink); }
+/* section lead under a Korean-only heading */
+.shd__lead { margin-top: 10px; max-width: 60ch; font-size: 15.5px; line-height: 1.7; color: var(--body); }
+/* foldable lists: open on desktop, folded on phones (site.js removes [open]) */
+details.fold > summary { display: block; list-style: none; cursor: default; }
+details.fold > summary::-webkit-details-marker { display: none; }
+details.fold > summary > * { margin: 0; }
+details.fold > summary h3 + p { margin-top: 4px; }
+@media (min-width: 701px) { details.fold > summary { pointer-events: none; } }
+@media (max-width: 700px) {
+  details.fold > summary { position: relative; padding-right: 28px; cursor: pointer; }
+  details.fold > summary::after { content: ""; position: absolute; right: 4px; top: 6px; width: 8px; height: 8px; border-right: 1.5px solid var(--brown); border-bottom: 1.5px solid var(--brown); transform: rotate(45deg); transition: transform .2s; }
+  details.fold[open] > summary::after { transform: rotate(-135deg); top: 10px; }
+  .guide__col details.fold > summary h3 { margin: 0; }
+  .svcs--steps details.fold > summary { display: grid; gap: 4px; }
+}
+/* appointment card: single frame, no doubled label */
+.appt::before { content: none; }
+/* "more" accordions: one rule between items */
+.mmore details.more { margin-top: 0; border-top: 0; }
+/* labels with Korean text read better without wide tracking */
+.slide__label { letter-spacing: .08em; }
+/* floating buttons: only on wide screens, and only after the first screen */
+.fab { opacity: 0; visibility: hidden; transition: opacity .25s, visibility .25s; }
+.fab.is-scrolled { opacity: 1; visibility: visible; }
+@media (max-width: 1439px) { .fab { display: none; } }
+/* detail heroes: the action sits right under the text it belongs to */
+.hero__row { flex-direction: column; align-items: flex-start; justify-content: flex-start; gap: 22px; }
+/* why atInc runs straight into the medical tiles */
+.hwhy { padding-bottom: clamp(24px, 3vw, 40px); }
+.hwhy + .hsec { padding-top: clamp(56px, 6vw, 96px); }

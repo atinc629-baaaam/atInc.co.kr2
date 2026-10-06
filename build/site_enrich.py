@@ -182,6 +182,9 @@ ACCESS = [('cancer-second-opinion', '암 진료·세컨드 오피니언'), ('fer
           ('brain-memory', '뇌·기억력·인지건강'), ('vision-care', '프리미엄 아이케어')]
 
 
+BTN = {'암 진료·세컨드 오피니언': '세컨드 오피니언 상담 예약', '난임·생식의학': '난임 상담 예약', '뇌·기억력·인지건강': '뇌·기억력 상담 예약', '프리미엄 아이케어': '안과 상담 예약'}
+
+
 def access_section():
     cards = ''
     for pid, ko in ACCESS:
@@ -192,7 +195,7 @@ def access_section():
                   f'<p class="mac__st">{E(p["statement"])}</p><p class="body">{E(fix(p["summary"]))}</p>'
                   f'<ul class="mac__nodes">{nodes}</ul>'
                   f'<div class="mac__foot"><span class="small">{E(m["format"])} · {E(m["timeline"])}</span>'
-                  f'{form_link("전문 상담 신청", ko, "link", "out")}</div></article>')
+                  f'{form_link(BTN.get(ko, ko + " 상담 예약"), ko, "link", "out")}</div></article>')
     return (f'<section class="sec sec--sand" id="access"><div class="wrap"><div class="idx__head"><div style="display: grid; gap: 18px">'
             f'<h2 class="disp-2">특정 진료가 필요하다면,<br>전문 분야로 바로 연결합니다</h2></div>'
             f'<p class="lead">고객의 목적과 기존 자료를 기준으로 필요한 전문 분야와 의료기관의 상담 접근을 선별합니다. '
@@ -290,7 +293,6 @@ FACTS = {
         title='숫자로 보는 한국 의료',
         items=[('201', '만 명', '2025년 한 해 한국 의료를 이용한 외국인 환자 수입니다. 2009년 집계 이후 처음으로 200만 명을 넘었습니다.', '보건복지부·한국보건산업진흥원 · 2025년 외국인환자 유치 실적(2026년 4월)', 'khidi'),
                ('30.8', '%', '국적별로는 중국이 30.8%로 가장 많았고, 일본·대만·미국·태국이 뒤를 이었습니다.', '보건복지부 2025년 외국인환자 유치 실적 · 코리아넷(2026년 4월)', 'koreanet'),
-               ('73.7', '%', '한국의 암 5년 상대생존율입니다(2019~2023년 진단).', '국가암정보센터 · 2023년 국가암등록통계(2026년 1월 발표)', 'cancer_surv'),
                ('등록제', '', '외국인환자 유치는 법에 따라 시·도지사에게 등록한 의료기관과 유치업자만 할 수 있으며, 등록 유효기간은 3년입니다. atinc 등록번호: 제 A-2026-08-01-07161 호', '국가법령정보센터 · 의료 해외진출 및 외국인환자 유치 지원에 관한 법률 제6조', 'law_attract')]),
 }
 

@@ -216,4 +216,14 @@
     }, { rootMargin: '-45% 0px -50% 0px' });
     Object.keys(links).forEach(function (id) { var s = document.getElementById(id); if (s) io.observe(s); });
   }
+
+  // foldable lists ([data-fold]): open on desktop, folded on phones so long lists don't run for screens
+  var foldMq = window.matchMedia('(max-width: 700px)');
+  var applyFold = function () {
+    document.querySelectorAll('details[data-fold]').forEach(function (d) {
+      if (foldMq.matches) d.removeAttribute('open'); else d.setAttribute('open', '');
+    });
+  };
+  applyFold();
+  if (foldMq.addEventListener) foldMq.addEventListener('change', applyFold);
 })();

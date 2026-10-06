@@ -9,11 +9,11 @@
   "cat-regenerative":{ "src": "unsplash:1748263582756-082fe4adaa5b", "alt": "랙에 나란히 꽂힌 검체 튜브", "pos": "50% 50%" },
   "cat-aesthetic":   { "src": "unsplash:1787651343620-8d5303006ecb", "alt": "베이지 시트가 덮인 관리실 베드", "pos": "50% 50%" },
   "cat-women":       { "src": "unsplash:1677000753622-03c5b7e987f8", "alt": "햇빛이 비치는 리넨 커튼", "pos": "50% 50%" },
-  "cat-men":         { "src": "unsplash:1507680434567-5739c80be1ac", "alt": "셔츠 소매와 손목시계", "pos": "50% 50%" },
+  "cat-men":         { "src": "unsplash:1615486511484-92e172cc4fe0", "alt": "팔에 감은 혈압계 커프", "pos": "50% 50%" },
   "cat-korean-medicine": { "src": "unsplash:1545840716-c82e9eec6930", "alt": "말린 약재가 담긴 유리병과 놋그릇", "pos": "50% 50%" },
 
-  "prog-private-checkup": { "src": "unsplash:1780571525506-67e3bb9ca947", "alt": "고리에 걸린 흰 가운 두 벌", "pos": "50% 40%" },
-  "prog-longevity-90":    { "src": "unsplash:1508963493744-76fce69379c0", "alt": "바다를 바라보는 벤치", "pos": "50% 50%" },
+  "prog-private-checkup": { "src": "unsplash:1777805865927-a6ee4c4eacb1", "alt": "갈색 바탕 위의 청진기와 클립보드", "pos": "50% 50%" },
+  "prog-longevity-90":    { "src": "unsplash:1477332552946-cfb384aeaf1c", "alt": "가을 햇살 속 시골길을 걷는 사람의 뒷모습", "pos": "50% 55%" },
   "prog-executive-365":   { "src": "unsplash:1764410481612-7544525b2991", "alt": "큰 창이 있는 집무실의 책상과 의자", "pos": "50% 50%" },
   "prog-global-medical-journey": { "src": "unsplash:1729350038150-495c628bd695", "alt": "해 질 무렵 비행기 창밖의 날개", "pos": "50% 50%" },
 
@@ -22,5 +22,6 @@
   "desk":            { "src": "unsplash:1512394005248-f047741d263e", "alt": "안경과 찻잔이 놓인 책상", "pos": "50% 50%" },
   "notes":           { "src": "unsplash:1642543492421-5a1f854e126c", "alt": "찻잔 옆 노트에 메모하는 손", "pos": "50% 50%" },
   "hospital-space":  { "src": "unsplash:1787496994867-939269b4d323", "alt": "그림이 걸린 밝은 클리닉 복도", "pos": "50% 50%" },
-  "office":          { "src": "unsplash:1774953037913-af0cf688491a", "alt": "도시가 내다보이는 사무실 라운지와 회의실", "pos": "50% 50%" }
+  "office":          { "src": "unsplash:1774953037913-af0cf688491a", "alt": "도시가 내다보이는 사무실 라운지와 회의실", "pos": "50% 50%" },
+  "partners":        { "src": "unsplash:1617177435596-1c9e30d6d608", "alt": "갈색 봉투 위에 놓인 만년필", "pos": "50% 50%" }
 }

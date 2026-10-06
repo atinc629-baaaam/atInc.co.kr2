@@ -252,7 +252,7 @@ medical = parse('03_MEDICAL_인덱스.md')
 care = parse('04_atinc_CARE.md')
 net = parse('05_NETWORK_PARTNERS_상담_LEGAL.md')
 
-PROMISES = ['성함과 문의 내용만 적으시면 됩니다', '진단서나 검사 결과는 처음에 받지 않습니다', '필요한 자료는 통화 후에 알려드립니다']
+PROMISES = ['신청서에는 연락처와 관심 분야 같은 기본 정보만 적으시면 됩니다', '고르신 방법(전화·카카오톡·이메일)으로 담당 매니저가 먼저 연락드립니다', '필요한 자료는 통화한 뒤에 알려 드립니다']
 
 
 # ------------------------------------------------------------------ shell
@@ -347,7 +347,7 @@ def footer():
             f'<div><h2>atinc</h2><ul><li><a href="about.html">회사소개</a></li><li><a href="network.html">협력 네트워크</a></li><li><a href="partners.html">제휴 안내</a></li><li><a href="consultation.html">상담 안내</a></li></ul></div></div>'
             f'<div class="ftr__bot"><div class="ftr__legal"><a href="privacy.html">개인정보처리방침</a><a href="medical-notice.html">의료서비스 관련 고지</a></div>'
             f'<p>{E(company_line())}</p>'
-            f'<p>atinc는 의료기관이 아닌 헬스케어 컨시어지입니다. 검사·진단·치료는 협력 의료기관의 의료진이 맡고, atinc는 그 앞뒤의 상담·예약·통역·사후관리를 맡습니다. 사이트의 사진은 이해를 돕기 위한 참고 이미지입니다.</p>'
+            f'<p>atinc는 의료기관이 아닌 헬스케어 컨시어지입니다. 검사·진단·치료는 협력 의료기관의 의료진이 맡고, atinc는 그 앞뒤의 상담·예약·통역·사후관리를 맡습니다. 사이트의 사진은 이해를 돕기 위한 참고 이미지이며, 협력 의료기관의 실제 시설이 아닙니다.</p>'
             f'<p>© 2026 atinc. All rights reserved.</p></div></div></footer>')
 
 
@@ -447,7 +447,7 @@ def brand(h):
 
 
 TITLES = {
-    'about.html': '회사 소개 · 대표 한수연 | atInc',
+    'about.html': '회사소개 — 프라이빗 헬스케어 컨시어지 | atInc',
     'medical.html': '의료 분야 안내 — 검진·재생의료·성형·여성·남성·한방 | atInc',
     'medical-checkup.html': '건강검진 — 정밀검진 기관 비교와 예약 | atInc',
     'medical-regenerative.html': '재생의료·줄기세포 — 세포 보관과 전문의 상담 | atInc',
@@ -455,17 +455,20 @@ TITLES = {
     'medical-women.html': '여성건강 — 산부인과 진료와 여성 검진 | atInc',
     'medical-men.html': '남성건강 — 비뇨의학과 상담과 남성 검진 | atInc',
     'medical-korean-medicine.html': '한방·웰니스 — 한·양방 협진과 회복 | atInc',
-    'care.html': 'atInc CARE — 검진 이후까지 이어지는 관리 프로그램 | atInc',
+    'care.html': '케어 프로그램 — 검진 이후까지 이어지는 관리 | atInc',
     'care-private-checkup.html': 'PRIVATE CHECKUP — 나에게 맞춘 검진 설계 | atInc',
     'care-longevity-90.html': 'LONGEVITY 90 — 검진 결과 이후 90일 관리 | atInc',
-    'care-executive-365.html': 'EXECUTIVE 365 — CEO·임원 연간 건강관리 | atInc',
+    'care-executive-365.html': 'EXECUTIVE 365 — 연간 헬스 오피스 | atInc',
     'care-global-medical-journey.html': 'GLOBAL MEDICAL JOURNEY — 해외 고객의 한국 의료 일정 | atInc',
     'network.html': '협력 병원 네트워크 — 서울에서 전국으로 | atInc',
     'partners.html': '제휴 안내 — 병원·기업·해외 에이전시 | atInc',
     'consultation.html': '상담 신청 안내 | atInc',
 }
 DESCS = {
-    'network.html': '서울 강남, 인천 송도·검단, 경기 분당·군포·용인, 대구, 부산의 협력 병원과 함께하고, 지역마다 협력 병원을 계속 늘려 가고 있습니다. 병원 이름은 상담에서 안내합니다.',
+    'network.html': '서울 강남, 인천 송도·검단, 경기 분당·군포·용인, 대구, 부산의 협력 병원과 함께합니다. 지역마다 받으실 수 있는 진료를 안내하고, 병원 이름은 상담에서 알려 드립니다.',
+    'medical-regenerative.html': '본인 세포 보관과 지정 재생의료기관 상담을 안내합니다. 협력 기관의 의료진 상담과 채취·배양·보관 일정을 atInc가 하나로 잡아 드립니다.',
+    'care-executive-365.html': '경영진과 그 가족처럼 일정이 빠듯한 분들을 위해 1년 동안의 검진, 재검, 전문의 상담 일정을 담당 매니저가 잡고 건강 기록을 한데 정리해 드리는 연간 헬스 오피스입니다.',
+    'care.html': '케어 프로그램은 병원 예약에 더해 사전 준비, 일정 조율, 결과 이후 관리까지 atInc가 맡는 서비스입니다. 목적과 기간에 따라 네 가지로 나뉩니다.',
     'partners.html': '병원, 기업, 해외 에이전시와 함께 일합니다. 협력 방식과 진행 절차, 함께 일할 병원을 고르는 기준을 안내합니다.',
     'privacy.html': '주식회사 애트(atInc)가 상담 신청 과정에서 받는 개인정보의 항목과 이용 목적, 보관 기간, 정보주체의 권리를 안내합니다.',
     'medical-notice.html': 'atInc는 의료기관이 아닌 헬스케어 컨시어지입니다. 검사·진단·치료는 협력 의료기관 의료진이 맡습니다. 회사 정보와 의료서비스 관련 고지입니다.',
@@ -482,6 +485,8 @@ def page(fn, title, desc, main, cur=None, light=False):
     body = body.replace('>먼저 이야기를 듣겠습니다</h2>', '>프라이빗 상담</h2>')
     for a_, b_ in MED_FIX:
         body = body.replace(a_, b_)
+    import site_revise as RV
+    body, title, desc = RV.revise(body, fn), RV.revise(title, fn), RV.revise(desc, fn)
     url = SITE_URL + ('' if fn == 'index.html' else fn)
     ld = [{'@context': 'https://schema.org', '@type': 'Organization', 'name': 'atInc', 'legalName': '주식회사 애트',
            'url': SITE_URL, 'logo': SITE_URL + 'assets/og.png', 'email': EMAIL, 'telephone': '+82-10-5857-0129',
@@ -555,13 +560,13 @@ def eyebrow(t, light=False):
     return ''  # section labels removed: headings carry the meaning
 
 
-def appt_card(btn='상담 예약 요청', cat=''):
+def appt_card(btn='상담 예약', cat=''):
     """The concierge 'appointment card' used wherever we ask for a consultation."""
-    return (f'<aside class="appt"><p class="appt__label">Private Consultation</p><p class="appt__t">프라이빗 상담 예약</p>'
+    return (f'<aside class="appt"><p class="appt__t">프라이빗 상담 예약</p>'
             f'<dl class="appt__dl"><dt>담당 매니저</dt><dd>첫 통화부터 결과 이후까지 같은 매니저가 맡습니다</dd>'
-            f'<dt>첫 상담</dt><dd>성함과 연락처만 주세요. 의료자료는 처음에 받지 않습니다</dd>'
-            f'<dt>기관 안내</dt><dd>기관 이름은 상담에서 고객님께만 말씀드립니다</dd></dl>'
-            f'{form_link(btn, cat, "btn btn--dark btn--wide")}<p class="appt__form">Google 양식으로 열립니다</p>'
+            f'<dt>첫 상담</dt><dd>진단서나 검사 결과는 아직 보내지 않으셔도 됩니다</dd>'
+            f'<dt>비용 안내</dt><dd>병원비와 atInc 조율료, 통역·차량 같은 실비를 나눠서 알려 드립니다</dd></dl>'
+            f'{form_link(btn, cat, "btn btn--dark btn--wide")}<p class="appt__form">신청서는 새 창에서 열립니다</p>'
             f'<p class="appt__lines"><a href="tel:{VIP_TEL}">매니저 직통 {VIP}</a><a href="mailto:{EMAIL}">{EMAIL}</a></p>'
             f'<p class="appt__intl" lang="en">From overseas, email us or call <a href="tel:{VIP_TEL}">+82 10 5857 0129</a>.</p>'
             f'<p class="appt__intl" lang="zh-Hans">海外客户请发送电子邮件，或致电 <a href="tel:{VIP_TEL}">+82 10 5857 0129</a>。</p></aside>')
@@ -573,7 +578,7 @@ def cband(title, body, btn, cat, eyebrow_t=None, note=None, sid='contact', reaso
     lst = reasons if reasons else PROMISES
     pro = ''.join(f'<li>{ic("check")}<span>{E(p)}</span></li>' for p in lst)
     rt = f'<p class="cband__rt">{E(reasons_title)}</p>' if reasons_title else ''
-    btn = {'프라이빗 상담 신청': '상담 예약 요청'}.get(btn, btn)
+    btn = {'프라이빗 상담 신청': '상담 예약', '상담 예약 요청': '상담 예약'}.get(btn, btn)
     return (f'<section class="sec cband" id="{sid}"><div class="wrap cband__grid">'
             f'<div class="cband__main"><p class="cband__label">Private Consultation</p><h2 class="h1">{E(title)}</h2><p class="lead">{E(body)}</p>'
             f'<div class="cband__why">{rt}<ul class="plist">{pro}</ul></div></div>'
@@ -810,7 +815,7 @@ def page_about():
             + ''.join(f'<div class="card"><h3 class="h3">{E(r[0])}</h3><p class="body">{E(r[1])}</p></div>' for r in do['rows']) + '</div></div></section>')
     pr = table(AB['04'])
     prin = (f'<section class="sec"><div class="wrap"><div class="shead"><div>{eyebrow("PRINCIPLES")}<h2 class="h1">운영 원칙</h2></div></div><div class="grid4">'
-            + ''.join(f'<div class="card{" card--dark" if i == 3 else ""}"><p class="en-title">{E(r[0])}</p><p class="body">{E(r[1])}</p></div>' for i, r in enumerate(pr['rows'])) + '</div></div></section>')
+            + ''.join(f'<div class="card"><p class="en-title">{E(r[0])}</p><p class="body">{E(r[1])}</p></div>' for i, r in enumerate(pr['rows'])) + '</div></div></section>')
     f5 = fields(AB['05'])
     name, role = f5['이름'].split(' · ', 1)
     edu = ''.join(f'<li>{E(x.strip())}</li>' for x in f5['학력'].split(' / '))
@@ -824,14 +829,17 @@ def page_about():
           f'</div></section>')
     ct = table(AB['06'])
     lk = {'이메일': f'<a href="mailto:{EMAIL}">{EMAIL}</a>', 'VIP 연락처': f'<a href="tel:{VIP_TEL}">{VIP}</a>'}
+    ct['rows'] = [['매니저 직통', r[1]] if r[0] == 'VIP 연락처' else r for r in ct['rows']]
+    lk['매니저 직통'] = lk['VIP 연락처']
     kv = ''.join(f'<dt>{E(r[0])}</dt><dd>{lk.get(r[0], E(r[1]))}</dd>' for r in ct['rows'] if '입력' not in r[1] or COMPANY_ADDRESS)
     if COMPANY_ADDRESS:
         kv = kv.replace('[회사 주소 입력]', E(COMPANY_ADDRESS))
     comp = (f'<section class="sec"><div class="wrap split"><div class="split__label">{eyebrow("COMPANY")}</div><div class="split__main"><h2 class="h2">회사 정보</h2>'
             f'<dl class="kv" style="font-size: 15.5px; gap: 14px 40px">{kv}</dl></div></div></section>')
     f12 = fields(HB['12'])
-    main = hero + why + work + prin + comp + cband(f12['제목'], f12['본문'], '상담 예약 요청', '')  # 대표 소개(fo)는 당분간 숨김
-    main = main.replace('건강을 넘어, 삶의 품격을 설계합니다.', '병원을 고르는 일부터<br>결과 이후까지, 한 매니저가 맡습니다.', 1)
+    main = hero + why + work + prin + comp + cband(f12['제목'], f12['본문'], '상담 예약', '')  # 대표 소개(fo)는 당분간 숨김
+    main = main.replace('건강을 넘어, 삶의 품격을 설계합니다.', '병원을 먼저<br>권하지 않습니다.', 1)
+    main = main.replace('<h2 class="h1">병원을 먼저 권하지 않습니다</h2>', '<h2 class="h1">비교하고, 준비하고, 결과 이후까지</h2>', 1)
     page('about.html', 'ABOUT | atinc', f1['본문'], main, 'about')
 
 
@@ -848,13 +856,13 @@ def page_medical():
     hero = phero([('홈', 'index.html'), ('진료 분야', None)], 'MEDICAL', f['제목'], f['본문'])
     grid = f'<section class="sec" style="padding-top: clamp(48px, 5vw, 72px)"><div class="wrap"><div class="grid3">{cards}</div></div></section>'
     pointer = f['아래 안내'].split(' → ')[0]
-    band = (f'<section class="sec sec--sand sec--tight"><div class="wrap shead" style="margin-bottom: 0; align-items: center"><div>{eyebrow("atinc CARE")}'
+    band = (f'<section class="sec sec--sand sec--tight"><div class="wrap shead" style="margin-bottom: 0; align-items: center"><div>{eyebrow("Care Programs")}'
             f'<h2 class="h2">{E(pointer)}</h2><p class="notice">{E(f["공통 고지"])}</p></div>'
-            f'<div style="justify-self: end"><a class="btn btn--ghost" href="care.html">atinc CARE 보기{ic("arrow")}</a></div></div></section>')
+            f'<div style="justify-self: end"><a class="btn btn--ghost" href="care.html">케어 프로그램 보기{ic("arrow")}</a></div></div></section>')
     f12 = fields(HB['12'])
     import site_enrich as SE
     band = band.replace('sec sec--sand sec--tight', 'sec sec--tight')
-    page('medical.html', 'MEDICAL | atinc', f['본문'], hero + grid + SE.access_section() + band + cband(f12['제목'], f12['본문'], '프라이빗 상담 신청', ''), 'medical')
+    page('medical.html', 'MEDICAL | atinc', f['본문'], hero + grid + SE.access_section() + band + cband(f12['제목'], f12['본문'], '상담 예약', ''), 'medical')
 
 
 # ------------------------------------------------------------------ category pages
@@ -1013,46 +1021,50 @@ def page_category(c):
             f'<div class="hero__row"><p class="hero__body rise rise-3">{E(f1["본문"])}</p>'
             f'<div class="rise rise-4">{form_link(btn, cat, "btn btn--light")}</div></div></div></section>')
 
-    def shd(label, title, more=None, href=None):
+    def shd(label, title, more=None, href=None, lead=None):
+        # detail pages: Korean heading only (English labels stay on the home page and heroes)
         m = f'<a class="shd__more" href="{href}">{E(more)}</a>' if more else ''
-        return f'<div class="shd"><div><p class="shd__label">{E(label)}</p><h2 class="shd__t">{E(title)}</h2></div>{m}</div>'
+        ld = f'<p class="shd__lead">{E(lead)}</p>' if lead else ''
+        return f'<div class="shd"><div><h2 class="shd__t">{E(title)}</h2>{ld}</div>{m}</div>'
 
-    # 1. what you can have done through atInc
-    sv = ''.join(f'<li><h3>{E(sv_[0])}</h3><p>{E(sv_[1])}</p>'
-                 + (('<ul class="svcs__sub">' + ''.join(f'<li>{E(x)}</li>' for x in sv_[2]) + '</ul>') if len(sv_) > 2 else '') + '</li>'
+    # 1. how atInc works for this field (service first)
+    wy = ''.join(f'<li><span class="ways__no">{i:02d}</span><h3>{E(t)}</h3><p>{E(d)}</p></li>' for i, (t, d) in enumerate(M['ways'], 1))
+    s2 = (f'<section class="sec msec"><div class="wrap">{shd("Our way", "atInc가 함께하는 방식", lead="병원을 고르고 예약하는 일부터 결과 이후까지, 이 분야에서 저희가 맡는 일입니다.")}'
+          f'<ol class="ways">{wy}</ol></div></section>')
+    # 2. what the partner institutions offer (information, not promises)
+    sv = ''.join(f'<li><details class="fold" open data-fold><summary><h3>{E(sv_[0])}</h3><p>{E(sv_[1])}</p></summary>'
+                 + (('<ul class="svcs__sub">' + ''.join(f'<li>{E(x)}</li>' for x in sv_[2]) + '</ul>') if len(sv_) > 2 else '') + '</details></li>'
                  for sv_ in M['services'])
     cols = ' svcs--4' if len(M['services']) % 4 == 0 else ''
-    s1 = (f'<section class="sec msec" id="services"><div class="wrap">{shd("Services", "받으실 수 있는 진료와 상담")}'
+    s1 = (f'<section class="sec sec--sand msec" id="services"><div class="wrap">{shd("Services", "협력 기관에서 받으실 수 있는 진료와 상담")}'
           f'<ul class="svcs{cols}">{sv}</ul>'
-          f'<p class="msec__note">어떤 검사와 진료를 받을지는 의료진이 진찰한 뒤 정합니다. atInc는 그 앞뒤의 상담과 예약, 일정을 맡습니다.</p></div></section>')
-    # 2. how atInc works for this field
-    wy = ''.join(f'<li><span class="ways__no">{i:02d}</span><h3>{E(t)}</h3><p>{E(d)}</p></li>' for i, (t, d) in enumerate(M['ways'], 1))
-    s2 = f'<section class="sec sec--sand msec"><div class="wrap">{shd("Our way", "atInc가 함께하는 방식")}<ol class="ways">{wy}</ol></div></section>'
+          f'<p class="msec__note">어떤 검사와 진료를 받을지는 의료진이 진찰한 뒤 정합니다. atInc는 맞는 기관을 찾아 예약하고, 그 앞뒤의 상담과 일정을 맡습니다.</p></div></section>')
     # 3. the kind of places we connect to (never the names)
     pt = ''.join(f'<li><h3>{E(t)}</h3><p>{E(d)}</p></li>' for t, d in M['partners'])
     s3 = (f'<section class="sec msec" id="partners"><div class="wrap">{shd("Partners", "함께하는 의료기관", "지역별로 보기", "network.html")}'
           f'<ul class="ptn">{pt}</ul><p class="msec__note">기관 이름은 상담에서 고객님께만 따로 말씀드립니다.</p></div></section>')
     # 4. process
+    st_items = items(B['07'], 'step')
     steps = ''.join(f'<li class="step"><span class="step__no">{i:02d}</span><h3 class="h3">{E(st["title"])}</h3><p class="body">{E(st["text"])}</p></li>'
-                    for i, st in enumerate(items(B['07'], 'step'), 1))
-    s4 = f'<section class="sec sec--sand msec" id="process"><div class="wrap">{shd("Process", "진행 과정")}<ol class="steps">{steps}</ol></div></section>'
+                    for i, st in enumerate(st_items, 1))
+    s4 = f'<section class="sec sec--sand msec" id="process"><div class="wrap">{shd("Process", "진행 과정")}<ol class="steps{" steps--5" if len(st_items) == 5 else ""}">{steps}</ol></div></section>'
     # 5. questions, with the background reading folded underneath
     b2, b3, b5 = B['02'], B['03'], B['05']
     types_h = ''.join(tbl(it) for it in b3['items'] if it['type'] == 'table')
     more = (f'<div class="mmore"><details class="more"><summary>{E(josa(c["ko"], "이란", "란"))}</summary>{render_rows(b2["items"])}{types_h}</details>'
             f'<details class="more"><summary>원리와 방식</summary>{render_how(b5["items"])}</details>'
             f'<details class="more"><summary>가기 전에 확인하세요</summary>{render_checklist(B["09"])}</details></div>')
-    s5 = (f'<section class="sec msec" id="faq"><div class="wrap mfaq"><div>{shd("FAQ", "자주 묻는 질문")}{render_faq(B["10"])}</div>'
+    s5 = (f'<section class="sec sec--sand msec" id="faq"><div class="wrap mfaq"><div>{shd("FAQ", "자주 묻는 질문")}{render_faq(B["10"])}</div>'
           f'<div>{shd("More", "더 알아보기")}{more}</div></div></section>')
     reasons = [it['text'] for it in B['04']['items'] if it['type'] == 'bullet']
     cta_title = '부담 없이 먼저 물어보세요' if c['id'] == 'men' else f12['문장']
     cta = cband(cta_title, '건강 목적과 일정을 남겨 주시면, 담당 매니저가 직접 연락드립니다.', btn, cat,
                 reasons=reasons, reasons_title='이럴 때 상담하세요')
-    # 4b. preparation and recovery, gathered from what partner institutions publish (nothing that names them)
-    gd = ''.join(f'<div class="guide__col"><h3>{E(t)}</h3><ul>' + ''.join(f'<li>{E(x)}</li>' for x in xs) + '</ul></div>' for t, xs in M.get('guide', []))
-    s4b = (f'<section class="sec msec" id="guide"><div class="wrap">{shd("Guide", "준비와 회복 안내")}<div class="guide">{gd}</div>'
-           f'<p class="msec__note">일반적인 안내입니다. 실제 준비와 회복 일정은 진찰한 의료진의 안내를 따릅니다.</p></div></section>') if gd else ''
-    main = hero + s1 + s2 + s3 + s4 + s4b + s5 + cta
+    # 4b. preparation and recovery as the partner institutions explain it (nothing that names them)
+    gd = ''.join(f'<div class="guide__col"><details class="fold" open data-fold><summary><h3>{E(t)}</h3></summary><ul>' + ''.join(f'<li>{E(x)}</li>' for x in xs) + '</ul></details></div>' for t, xs in M.get('guide', []))
+    s4b = (f'<section class="sec msec" id="guide"><div class="wrap">{shd("Guide", "협력 기관이 안내하는 준비와 회복")}<div class="guide">{gd}</div>'
+           f'<p class="msec__note">협력 기관들이 고객에게 안내하는 일반적인 내용입니다. 실제 준비와 회복 일정은 예약하신 기관의 담당 의료진이 정하고, atInc는 그 안내를 일정에 넣어 전날 다시 알려 드립니다.</p></div></section>') if gd else ''
+    main = hero + s2 + s1 + s3 + s4 + s4b + s5 + cta
     page(c['page'], f'{c["ko"]} | atinc', f1['본문'], main, 'medical', light=True)
 
 
@@ -1070,12 +1082,12 @@ def page_care_index():
         ko = r[0].split(' · ', 1)[1]
         rows += (f'<a class="clist__row" href="{p["page"]}"><figure class="clist__pic">{pic("prog-" + p["id"], "", "(max-width: 600px) 100vw, 320px", (480, 720))}</figure><span class="clist__no">0{i}</span><div><p class="clist__en">{E(p["en"].title() if p["id"] != "global-medical-journey" else "Global Medical Journey")}</p><h2 class="clist__t">{E(PROG_KO[p["id"]])}</h2>'
                  f'<p class="clist__line">{E(r[1])}</p></div><span class="clist__meta">{E(r[2])}</span></a>')
-    hero = phero([('홈', 'index.html'), ('케어 프로그램', None)], 'atinc CARE', f['제목'], f['본문'],
+    hero = phero([('홈', 'index.html'), ('케어 프로그램', None)], 'Care Programs', f['제목'], f['본문'],
                  f'<figure class="phero__pic">{pic("desk", "", "(max-width: 900px) 100vw, 40vw", (640, 960, 1400), eager=True)}</figure>',
                  '')
     lst = f'<section class="sec"><div class="wrap"><div class="clist">{rows}</div></div></section>'
     f12 = fields(HB['12'])
-    page('care.html', 'atinc CARE | atinc', f['본문'], hero + lst + cband(f12['제목'], f12['본문'], 'atinc CARE 상담하기', 'atinc CARE'), 'care')
+    page('care.html', 'atinc CARE | atinc', f['본문'], hero + lst + cband(f12['제목'], f12['본문'], '케어 프로그램 상담 예약', 'atinc CARE'), 'care')
 
 
 def page_care(p):
@@ -1100,7 +1112,7 @@ def page_care(p):
             f'<p class="hero__body rise rise-3">{E(overview)}</p>{trust_h}<div class="rise rise-4">{SE.care_meta(p["id"])}</div></div></section>')
     def shd(label, title, more=None, href=None):
         m = f'<a class="shd__more" href="{href}">{E(more)}</a>' if more else ''
-        return f'<div class="shd"><div><p class="shd__label">{E(label)}</p><h2 class="shd__t">{E(title)}</h2></div>{m}</div>'
+        return f'<div class="shd"><div><h2 class="shd__t">{E(title)}</h2></div>{m}</div>'
     pj = SE.PROG[p['id']]
     # 1. who it is for
     who = [x.strip() for x in T('02').split(' / ')]
@@ -1112,7 +1124,9 @@ def page_care(p):
     s_inc = (f'<section class="sec sec--sand msec"><div class="wrap">{shd("Included", "포함된 것")}<div class="guide">'
              f'<div class="guide__col"><h3>atInc가 맡는 일</h3><ul>' + ''.join(f'<li>{E(x)}</li>' for x in does) + '</ul></div>'
              f'<div class="guide__col"><h3>받으시는 자료</h3><ul>' + ''.join(f'<li>{E(x)}</li>' for x in docs) + '</ul></div></div>'
-             f'<p class="msec__note">{E(T("08"))}</p></div></section>')
+             f'<p class="msec__note">{E(T("08"))}</p>'
+             + ('<p class="msec__note">한국에 계시는 동안 응급 상황이 생기면 먼저 119에 전화하세요. 그다음 담당 매니저에게 연락 주시면 병원 연락과 통역을 돕겠습니다.</p>' if p['id'] == 'global-medical-journey' else '')
+             + '</div></section>')
     # 3. stages
     t4 = table(B['04'])
     st = ''
@@ -1121,8 +1135,8 @@ def page_care(p):
         if ' · ' in nm:
             en_n, nm = nm.split(' · ', 1)
         items_ = ''.join(f'<li>{E(x.strip())}</li>' for x in r[1].split(' / ') if x.strip())
-        st += (f'<li><span class="ways__no">{i:02d}</span><h3>{E(nm)}</h3>' + (f'<p class="svcs__en">{E(en_n)}</p>' if en_n else '')
-               + f'<ul class="svcs__sub">{items_}</ul></li>')
+        st += (f'<li><details class="fold" open data-fold><summary><span class="ways__no">{i:02d}</span><h3>{E(nm)}</h3>' + (f'<p class="svcs__en">{E(en_n)}</p>' if en_n else '')
+               + f'</summary><ul class="svcs__sub">{items_}</ul></details></li>')
     cols = ' svcs--4' if len(t4['rows']) == 4 else ''
     s_proc = f'<section class="sec msec" id="process"><div class="wrap">{shd("Process", "진행 단계")}<ol class="svcs svcs--steps{cols}">{st}</ol></div></section>'
     # 4. options
@@ -1137,7 +1151,7 @@ def page_care(p):
         body7 = f'<p class="lead">{E(t7)}</p>'
     if pj.get('specialized_journeys'):
         sj = ['정밀검진', '암 세컨드 오피니언', '여성 건강', '롱제비티·웰니스', '회복·재활', '뷰티·웰니스']
-        body7 += ('<div class="ojourney"><h3>이런 목적으로 많이 오십니다</h3><ul>' + ''.join(f'<li>{E(x)}</li>' for x in sj) + '</ul></div>')
+        body7 += ('<div class="ojourney"><h3>이런 목적의 일정을 준비해 드립니다</h3><ul>' + ''.join(f'<li>{E(x)}</li>' for x in sj) + '</ul></div>')
     s_opt = (f'<section class="sec sec--sand msec"><div class="wrap">{shd("Options", "구성 선택")}{body7}'
              f'<p class="msec__note">구성별 범위는 상담에서 목적과 일정에 맞춰 정하고, 비용은 상담 뒤 따로 알려 드립니다.</p></div></section>')
     # executive: three questions people always ask
@@ -1145,8 +1159,8 @@ def page_care(p):
     if p['id'] == 'executive-365':
         pv = [('누가 알게 되는지', '건강 정보와 병원 일정은 본인이 정한 사람에게만 알립니다. 가족이나 비서실과 어디까지 나눌지는 첫 상담에서 함께 정합니다.'),
               ('대신 연락해도 되는지', '비서실이나 가족이 대신 연락하셔도 됩니다. 예약과 일정 변경은 미리 정해 둔 담당자와만 주고받습니다.'),
-              ('비용은 어떻게 나뉘는지', '병원에 내는 진료비와 atinc 조율료, 통역·차량 같은 실비를 각각 나눠서 알려드립니다. 병원비에 다른 비용을 섞지 않습니다.')]
-        s_qa = (f'<section class="sec msec"><div class="wrap">{shd("Privacy", "많이 물어보시는 세 가지")}<ul class="ptn">'
+              ('비용은 어떻게 나뉘는지', '병원에 내는 진료비와 atinc 조율료, 통역·차량 같은 실비를 각각 나눠서 알려 드립니다. 병원비에 다른 비용을 섞지 않습니다.')]
+        s_qa = (f'<section class="sec msec"><div class="wrap">{shd("Questions", "많이 물어보시는 세 가지")}<ul class="ptn">'
                 + ''.join(f'<li><h3>{E(q)}</h3><p>{E(a_)}</p></li>' for q, a_ in pv) + '</ul></div></section>')
     fx = SE.facts_section('global', cls='sec facts-dark') if p['id'] == 'global-medical-journey' else ''
     # other programmes and the related field
@@ -1189,7 +1203,7 @@ def page_network():
 def page_partners():
     B = blocks(net, 'FOR PARTNERS')
     f1 = fields(B['01'])
-    hero = phero([('홈', 'index.html'), ('제휴 안내', None)], 'FOR PARTNERS', f1['제목'], f1['본문'], f'<figure class="phero__pic">{pic("hospital-space", "", "(max-width: 900px) 100vw, 40vw", (640, 960, 1400), eager=True)}</figure>',
+    hero = phero([('홈', 'index.html'), ('제휴 안내', None)], 'FOR PARTNERS', f1['제목'], f1['본문'], f'<figure class="phero__pic">{pic("partners", "", "(max-width: 900px) 100vw, 40vw", (640, 960, 1400), eager=True)}</figure>',
                  f'<div class="hero__actions"><a class="btn btn--dark" href="{PARTNER_MAIL}">제휴 문의 메일 보내기</a>'
                  f'<a class="link" href="#process">제휴 절차 보기</a></div>')
     f4 = {it['key']: [x.strip() for x in it['value'].split(' / ')] for it in B['04']['items'] if it['type'] == 'field'}
@@ -1266,16 +1280,22 @@ def page_privacy():
     D = []
     D.append(f'<p>주식회사 애트(atinc, 이하 "회사")는 「개인정보 보호법」에 따라 상담 신청자의 개인정보를 보호하고, 관련 문의를 신속하게 처리하기 위해 다음과 같이 개인정보처리방침을 둡니다.</p>')
     D.append('<section><h2>1. 수집하는 개인정보 항목과 방법</h2><ul class="dots"><li>필수: 성명, 국가·거주지역, 연락처, 선호 연락수단, 관심 분야, 문의내용</li><li>선택: 이메일, 방문 예정일</li>'
-             '<li>수집 방법: 홈페이지의 상담 신청서(Google Forms)</li></ul><p>진단서, 검사결과 같은 의료자료는 상담 신청서로 받지 않습니다. 상담 진행에 필요한 자료는 담당자가 별도로 안내하고, 받을 때 따로 동의를 구합니다.</p></section>')
+             '<li>수집 방법: 홈페이지의 상담 신청서(Google Forms)</li></ul><p>진단서, 검사결과 같은 의료자료는 상담 신청서로 받지 않습니다. 상담 진행에 필요한 자료는 담당자가 별도로 안내하고, 받을 때 따로 동의를 구합니다. 관심 분야와 문의 내용에 건강 상태가 적힐 수 있어, 이 내용은 3항에 따라 다룹니다.</p></section>')
     D.append('<section><h2>2. 수집·이용 목적</h2><ul class="dots"><li>상담 신청 확인과 연락</li><li>의료기관 상담 연결과 일정 조율</li><li>상담 이후 후속 안내</li></ul></section>')
-    D.append(f'<section><h2>3. 보유·이용 기간</h2><p>상담 종료 후 {todo("[기간]")} 동안 보관한 뒤 지체 없이 파기합니다. 관계 법령에 따라 보존해야 하는 경우에는 그 법령이 정한 기간 동안 보관합니다.</p></section>')
-    D.append('<section><h2>4. 제3자 제공</h2><p>회사는 정보주체의 동의 없이 개인정보를 제3자에게 제공하지 않습니다. 의료기관 상담 연결을 위해 제공이 필요한 경우, 제공받는 자, 제공 항목, 이용 목적, 보유 기간을 알리고 별도로 동의를 받은 뒤 필요한 범위에서만 제공합니다.</p></section>')
-    D.append('<section><h2>5. 처리 위탁과 국외 이전</h2><p>상담 신청서의 내용은 Google LLC가 제공하는 Google Forms와 Google Sheets에 저장됩니다. 이 과정에서 개인정보가 Google의 해외 데이터센터에 저장될 수 있습니다.</p>'
-             '<ul class="dots"><li>이전받는 자: Google LLC</li><li>이전 항목: 상담 신청서에 입력한 항목</li><li>이전 방법: 신청서 제출 시 네트워크를 통한 전송</li><li>보유 기간: 3항과 같음</li></ul></section>')
-    D.append(f'<section><h2>6. 정보주체의 권리와 행사 방법</h2><p>정보주체는 언제든지 개인정보의 열람, 정정, 삭제, 처리정지를 요구할 수 있습니다. 요청은 <a href="mailto:{EMAIL}">{EMAIL}</a>로 보내주시면 지체 없이 처리합니다.</p></section>')
-    D.append('<section><h2>7. 파기 절차와 방법</h2><p>보유 기간이 지나거나 처리 목적이 달성된 개인정보는 지체 없이 파기합니다. 전자 파일은 복구할 수 없는 방법으로 삭제합니다.</p></section>')
-    D.append(f'<section><h2>8. 개인정보 보호책임자</h2><p>개인정보 보호책임자: {todo("[이름·연락처]")}<br>문의: <a href="mailto:{EMAIL}">{EMAIL}</a></p></section>')
-    D.append(f'<section><h2>9. 시행일</h2><p>이 개인정보처리방침은 {todo("[시행일]")}부터 적용됩니다.</p></section>')
+    D.append('<section><h2>3. 민감정보(건강 관련 정보)의 처리</h2><p>상담 신청서의 관심 분야와 문의 내용, 상담하면서 말씀해 주신 병력과 복용 중인 약 같은 건강 관련 정보는 「개인정보 보호법」 제23조의 민감정보에 해당할 수 있습니다. 회사는 이 정보를 상담 연결과 일정 조율에만 쓰고, 다른 개인정보 처리에 대한 동의와 별도로 동의를 받아 처리합니다.</p>'
+             '<p>진단서나 검사 결과처럼 의료기관에 전해야 하는 자료는 받는 곳과 항목, 목적, 보유 기간을 먼저 알려 드리고 따로 동의를 받은 뒤 필요한 범위에서만 전합니다.</p></section>')
+    D.append(f'<section><h2>4. 보유·이용 기간</h2><p>상담 종료 후 {todo("[기간]")} 동안 보관한 뒤 지체 없이 파기합니다. 관계 법령에 따라 보존해야 하는 경우에는 그 법령이 정한 기간 동안 보관합니다.</p></section>')
+    D.append('<section><h2>5. 제3자 제공</h2><p>회사는 정보주체의 동의 없이 개인정보를 제3자에게 제공하지 않습니다. 의료기관 상담 연결을 위해 제공이 필요한 경우, 제공받는 자, 제공 항목, 이용 목적, 보유 기간을 알리고 별도로 동의를 받은 뒤 필요한 범위에서만 제공합니다.</p></section>')
+    D.append('<section><h2>6. 처리 위탁과 국외 이전</h2><p>상담 신청서의 내용은 Google LLC가 제공하는 Google Forms와 Google Sheets에 저장됩니다. 이 과정에서 개인정보가 Google의 해외 데이터센터에 저장될 수 있습니다.</p>'
+             '<ul class="dots"><li>이전받는 자: Google LLC(연락처는 Google 개인정보처리방침 policies.google.com/privacy 에 안내되어 있습니다)</li><li>이전 국가: 미국 등 Google 데이터센터가 있는 국가</li><li>이전 항목: 상담 신청서에 입력한 항목</li><li>이전 시기와 방법: 신청서를 제출할 때 네트워크를 통해 전송</li><li>보유 기간: 4항과 같음</li>'
+             '<li>거부 방법과 그 효과: 국외 이전을 원하지 않으시면 신청서 대신 전화나 이메일로 상담을 신청하실 수 있습니다. 상담을 받으시는 데 불이익은 없습니다.</li></ul></section>')
+    D.append('<section><h2>7. 메신저로 상담하실 때</h2><p>카카오톡, WhatsApp, WeChat 같은 메신저로 상담하실 때는 진단서나 검사 결과지를 보내지 말아 주세요. 자료가 필요하면 담당 매니저가 전달 방법을 따로 안내해 드립니다. 메신저를 쓰시는 동안에는 각 메신저 운영사의 개인정보 처리방침도 함께 적용됩니다.</p></section>')
+    D.append(f'<section><h2>8. 정보주체의 권리와 행사 방법</h2><p>정보주체는 언제든지 개인정보의 열람, 정정, 삭제, 처리정지를 요구할 수 있습니다. 요청은 <a href="mailto:{EMAIL}">{EMAIL}</a>로 보내 주시면 지체 없이 처리합니다.</p></section>')
+    D.append('<section><h2>9. 파기 절차와 방법</h2><p>보유 기간이 지나거나 처리 목적이 달성된 개인정보는 지체 없이 파기합니다. 전자 파일은 복구할 수 없는 방법으로 삭제합니다.</p></section>')
+    D.append(f'<section><h2>10. 개인정보의 안전성 확보 조치</h2><p>회사는 개인정보에 접근할 수 있는 사람을 상담 업무에 필요한 최소 인원으로 정하고, {todo("[접근 권한 관리·계정 보안 등 실제 시행 중인 조치]")}를 시행합니다.</p></section>')
+    D.append(f'<section><h2>11. 개인정보 보호책임자</h2><p>개인정보 보호책임자: {todo("[이름·연락처]")}<br>문의: <a href="mailto:{EMAIL}">{EMAIL}</a></p></section>')
+    D.append('<section><h2>12. 권익침해 구제 방법</h2><p>개인정보 침해에 대한 상담이나 분쟁 해결이 필요하시면 아래 기관에 문의하실 수 있습니다.</p><ul class="dots"><li>개인정보분쟁조정위원회: 1833-6972 (www.kopico.go.kr)</li><li>개인정보침해신고센터: 국번 없이 118 (privacy.kisa.or.kr)</li></ul></section>')
+    D.append(f'<section><h2>13. 시행일</h2><p>이 개인정보처리방침은 {todo("[시행일]")}부터 적용됩니다.</p></section>')
     body = f'<section class="sec" style="padding-top: clamp(48px, 5vw, 72px)"><div class="wrap"><div class="doc">{"".join(D)}</div></div></section>'
     page('privacy.html', '개인정보처리방침 | atinc', '주식회사 애트(atinc)의 개인정보처리방침', hero + body, 'legal')
 
@@ -1312,3 +1332,5 @@ if __name__ == '__main__':
     open(f'{OUT}/sitemap.xml', 'w').write(f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">{urls}</urlset>\n')
     open(f'{OUT}/robots.txt', 'w').write(f'User-agent: *\nAllow: /\n\nSitemap: {SITE_URL}sitemap.xml\n')
     print(len(PAGES), PAGES)
+    import site_revise as RV
+    RV.report()

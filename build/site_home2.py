@@ -52,14 +52,14 @@ def shd(label, title, more=None, more_href=None, h='h2'):
 def page_home2():
     # 1. main visual: four faceless photographs, one message each
     slides_d = [
-        ('hero-lounge', '엄선된 의료 · Private Healthcare Concierge', '처음 상담부터 결과 이후까지,<br>한 매니저가 맡습니다',
-         '필요한 병원 정보를 정리해 드리고, 정하신 병원의 예약과 동행, 결과 상담까지 같은 매니저가 챙깁니다.', form_link('상담 예약하기', '', 'btn btn--light', None)),
+        ('hero-lounge', '엄선된 의료 · Private Healthcare Concierge', '병원 선택부터 결과 상담까지,<br>한 매니저가 맡습니다',
+         '어느 병원에서 무엇을 받으실지 함께 비교하고, 정하신 병원의 예약과 동행, 결과 상담까지 같은 매니저가 챙깁니다.', form_link('상담 예약하기', '', 'btn btn--light', None)),
+        ('hero-equipment', 'Health Checkup', '올해 검진,<br>나이와 가족력에 맞춰 고르세요',
+         '검사 항목과 검진기관 정보를 함께 살펴보고, 맞는 곳을 3곳 안으로 추려 드립니다.', '<a class="btn btn--line" href="medical-checkup.html">검진 살펴보기</a>'),
         ('hero-seoul', 'Private Consultation', '어느 병원으로 가야 할지,<br>먼저 물어보세요',
-         '목적과 일정을 듣고, 맞는 의료기관을 3곳 안으로 추려 드립니다.', '<a class="btn btn--line" href="#process">진행 방식 보기</a>'),
-        ('hero-equipment', 'Health Checkup', '올해 검진은<br>나에게 맞는 곳에서',
-         '나이와 가족력에 맞춰 검사 항목과 검진기관 정보를 함께 살펴봅니다.', '<a class="btn btn--line" href="medical-checkup.html">검진 살펴보기</a>'),
+         '목적과 일정을 듣고, 맞는 의료기관을 비교해 차이를 설명해 드립니다.', '<a class="btn btn--line" href="#process">진행 방식 보기</a>'),
         ('hero-arrival', 'Global Medical Journey', '한국에서의 진료 일정,<br>도착 전에 맞춰 둡니다',
-         '해외에서 오시는 분께 병원 예약과 의료통역, 공항 픽업과 이동까지 한 번에 준비해 드립니다.', '<a class="btn btn--line" href="care-global-medical-journey.html">해외에서 오시는 분께</a>'),
+         '해외에서 오시는 분께 병원 예약과 의료통역, 공항 픽업과 이동까지 한 번에 준비해 드립니다.', '<a class="btn btn--line" href="care-global-medical-journey.html">해외 고객 안내 보기</a>'),
     ]
     n = len(slides_d)
     sl = ''
@@ -78,14 +78,20 @@ def page_home2():
             f'<button class="phx__btn" type="button" data-next aria-label="다음 슬라이드">{svg("next")}</button></div></section>')
 
     # 2. quick menu
-    q = [('chat', '상담 예약', f'href="{FORM_URL}" target="_blank" rel="noopener" data-form=""'),
-         ('phone', '매니저와 통화', f'href="tel:{VIP_TEL}"'),
-         ('medical', '진료 분야', 'href="medical.html"'),
+    q = [('medical', '진료 분야', 'href="medical.html"'),
          ('calendar', '케어 프로그램', 'href="care.html"'),
          ('pin', '지역 안내', 'href="network.html"'),
          ('globe', '해외 고객', 'href="care-global-medical-journey.html"')]
     qm = ''.join(f'<li><a {attr}>{svg(ic_)}<span>{E(lab)}</span></a></li>' for ic_, lab, attr in q)
     quick = f'<nav class="qmenu" aria-label="바로가기"><div class="wrap"><ul class="qmenu__list">{qm}</ul></div></nav>'
+
+    # 2b. why go through atInc rather than straight to a hospital (service, not medical claims)
+    why_d = [('비교', '한 병원 안에서만 고르지 않습니다', '목적과 일정을 듣고 맞는 곳을 3곳 안으로 추려, 기관마다 무엇이 다른지 설명해 드립니다.'),
+             ('준비', '진료 시간을 꼭 필요한 이야기에', '병력과 복용 중인 약, 이전 검사 자료와 궁금한 점을 미리 정리해 진료에 가져가실 수 있게 합니다.'),
+             ('비용', '병원비와 저희 비용을 나눠서', '병원에 내는 진료비와 atInc 조율료, 통역·차량 같은 실비를 각각 나눠 알려 드립니다.')]
+    why = (f'<section class="sec hsec hwhy"><div class="wrap">{shd("Why Us", "병원에 바로 가실 때와 무엇이 다를까요")}'
+           f'<ol class="ways">' + ''.join(f'<li><span class="ways__no">{i:02d}</span><p class="hwhy__k">{E(k)}</p><h3>{E(t)}</h3><p>{E(d)}</p></li>' for i, (k, t, d) in enumerate(why_d, 1))
+           + '</ol><p class="hwhy__line">진료는 병원에서, 그 앞뒤는 atInc가 맡습니다.</p></div></section>')
 
     # 3. medical areas
     line = {'checkup': '나이와 가족력에 맞춘 검사 항목', 'regenerative': '세포 보관과 재생의료 상담',
@@ -108,7 +114,7 @@ def page_home2():
     pt = ''.join(f'<a class="tile tile--prog" href="{page_of[pid]}"><figure class="tile__pic">{pic("prog-" + pid, "", "(max-width: 600px) 82vw, (max-width: 1100px) 50vw, 25vw", (480, 720, 1080))}'
                  f'<span class="tile__tag">{E(tag)}</span></figure><p class="tile__en">{E(en_of[pid])}</p><h3 class="tile__t">{E(PROG_KO[pid])}</h3><p class="tile__d">{E(d)}</p></a>'
                  for pid, tag, d in prog)
-    progs = (f'<section class="sec hsec hsec--tight"><div class="wrap">{shd("Signature Care", "케어 프로그램", "전체 보기", "care.html")}'
+    progs = (f'<section class="sec hsec hsec--tight"><div class="wrap">{shd("Care Programs", "케어 프로그램", "전체 보기", "care.html")}'
              f'<div class="tiles tiles--4">{pt}</div></div></section>')
 
     # 5. process
@@ -122,7 +128,7 @@ def page_home2():
 
     # 6. network
     net_s = (f'<section class="sec hsec net2" data-net><div class="wrap net2__grid"><div class="net2__txt">{shd("Locations", "전국 협력 의료기관")}'
-             f'<p class="net2__d">지금은 <span data-net-regions>서울, 인천, 경기, 대구, 부산</span>의 협력 의료기관과 함께하고, 지역을 계속 넓혀 가고 있습니다. 기관 이름과 위치는 상담에서 안내해 드립니다.</p>'
+             f'<p class="net2__d">지금은 <span data-net-regions>서울, 인천, 경기, 대구, 부산</span>의 협력 의료기관과 함께합니다. 기관 이름과 위치는 상담에서 안내해 드립니다.</p>'
              f'<p class="net-empty" hidden>{E(EMPTY_MSG)}</p><div class="atnet-list" data-variant="compact"></div>'
              f'<p><a class="link" href="network.html">지역별로 보기</a></p></div>'
              f'<div class="map mapcard">{site_map("home")}</div></div></section>')
@@ -137,10 +143,10 @@ def page_home2():
 
     # 8. contact: the appointment card
     contact = (f'<section class="sec hsec contact2" id="contact"><div class="wrap contact2__grid"><div class="contact2__txt">{shd("Private Consultation", "프라이빗 상담")}'
-               f'<p class="contact2__d">성함과 연락처만 남겨 주시면 담당 매니저가 편하신 방법으로 연락드립니다. 진단서나 검사 결과는 처음에 받지 않습니다.</p>'
+               f'<p class="contact2__d">신청서에 연락처와 관심 분야를 남겨 주시면, 담당 매니저가 고르신 방법으로 먼저 연락드립니다.</p>'
                f'<ul class="contact2__notes"><li>첫 통화에서 목적과 일정을 듣습니다</li><li>맞는 곳을 추려 비교해 드립니다</li><li>정하신 뒤에 예약과 동행을 준비합니다</li></ul>'
                f'<p><a class="link" href="consultation.html">상담 진행 방식 자세히 보기</a></p></div>'
-               f'{appt_card("상담 예약 요청", "")}</div></section>')
+               f'{appt_card("상담 예약", "")}</div></section>')
 
-    main = hero + quick + areas + progs + process + net_s + intl + contact
+    main = hero + quick + why + areas + progs + process + net_s + intl + contact
     page('index.html', 'atinc | 프라이빗 헬스케어 컨시어지', '검진, 재생의료, 성형·피부, 여성·남성 진료, 한방까지. 필요한 병원 정보를 정리해 드리고 예약과 통역, 결과 이후 일정까지 전담 매니저가 챙깁니다.', main, 'home', light=False)
