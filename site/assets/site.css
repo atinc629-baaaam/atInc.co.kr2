@@ -1563,3 +1563,13 @@ em, i, .eyebrow, .en-it, .drop a span { font-style: normal; }
   .svcs li { padding: 18px 0 20px; }
   .ptn li { grid-template-columns: minmax(0, 1fr); }
 }
+.svcs__sub { display: grid; gap: 4px; margin-top: 6px; }
+.svcs__sub li { position: relative; padding: 0 0 0 14px; border: 0; font-size: 14.5px; line-height: 1.6; color: var(--body); }
+.svcs__sub li::before { content: ""; position: absolute; left: 0; top: .72em; width: 6px; height: 1px; background: var(--brown); }
+.guide { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 clamp(28px, 4vw, 64px); }
+.guide__col { padding: 24px 0 28px; border-top: 1px solid var(--line-strong); }
+.guide__col h3 { margin-bottom: 12px; font-size: var(--fs-h3); font-weight: 600; letter-spacing: -.02em; }
+.guide__col ul { display: grid; gap: 8px; }
+.guide__col li { position: relative; padding-left: 16px; font-size: 15px; line-height: 1.7; color: var(--body); }
+.guide__col li::before { content: ""; position: absolute; left: 0; top: .78em; width: 6px; height: 6px; border-radius: 50%; background: var(--latte); }
+@media (max-width: 760px) { .guide { grid-template-columns: minmax(0, 1fr); } }

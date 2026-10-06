@@ -229,15 +229,17 @@ CARE = [
     dict(id='executive-365', en='EXECUTIVE 365', two=('EXECUTIVE', '365'), page='care-executive-365.html', pos='100% 25%'),
     dict(id='global-medical-journey', en='GLOBAL MEDICAL JOURNEY', two=('GLOBAL MEDICAL', 'JOURNEY'), page='care-global-medical-journey.html', pos='78% 60%'),
 ]
-HUBS = [
-    dict(id='seoul-gangnam', name='서울 강남·압구정', en='Seoul · Gangnam, Apgujeong', cats=['checkup', 'women', 'aesthetic', 'korean-medicine'], line='프리미엄 정밀검진 센터와 여성 프라이빗 클리닉, 피부 클리닉, 한방 진료를 한 지역에서 연결합니다.'),
-    dict(id='incheon-songdo', name='인천 송도', en='Incheon · Songdo', cats=['aesthetic'], line='인천국제공항과 가까운 송도에서 성형외과·피부과 협진 클리닉을 연결합니다.'),
-    dict(id='incheon-geomdan', name='인천 검단', en='Incheon · Geomdan', cats=['korean-medicine'], line='한·양방 협진 진료와 입원 회복 관리를 연결합니다.'),
-    dict(id='gyeonggi-bundang', name='경기 분당', en='Gyeonggi · Bundang', cats=['regenerative'], line='첨단재생의료 실시기관으로 지정된 협력 의료기관의 재생의료 상담을 연결합니다.'),
-    dict(id='gyeonggi-gunpo', name='경기 군포', en='Gyeonggi · Gunpo', cats=['regenerative'], line='GMP 기준 세포처리시설에서 본인 세포의 배양과 초저온 보관을 진행합니다.'),
-    dict(id='gyeonggi-yongin', name='경기 용인', en='Gyeonggi · Yongin', cats=['checkup'], line='여성 전용 검진 공간과 국제진료센터를 갖춘 수도권 남부의 정밀검진 센터를 연결합니다.'),
-    dict(id='daegu', name='대구', en='Daegu', cats=[], line='대구·경북 지역의 협력 의료기관을 연결합니다.'),
-    dict(id='busan', name='부산', en='Busan', cats=['checkup'], line='VIP와 남녀 동선을 분리한 정밀검진 센터와 국제진료센터를 연결합니다.'),
+HUBS = [  # mirrors site/assets/network-data.js (what can be done in each region, never which hospital)
+    dict(id='seoul-gangnam', name='서울 강남·압구정', en='Seoul · Gangnam, Apgujeong', cats=['checkup', 'women', 'korean-medicine'], line='정밀 건강검진과 여성 진료, 한방 미용 진료를 받으실 수 있습니다.'),
+    dict(id='incheon-songdo', name='인천 송도', en='Incheon · Songdo', cats=['aesthetic'], line='공항에서 가까운 곳에서 성형·피부 상담과 시술을 받으실 수 있습니다.'),
+    dict(id='incheon-geomdan', name='인천 검단', en='Incheon · Geomdan', cats=['korean-medicine', 'aesthetic'], line='한·양방 협진 진료와 입원 회복, 성형·피부 진료를 받으실 수 있습니다.'),
+    dict(id='incheon-bupyeong', name='인천 부평', en='Incheon · Bupyeong', cats=['korean-medicine'], line='한방 진료와 재활, 입원 치료를 받으실 수 있습니다.'),
+    dict(id='incheon-namdong', name='인천 남동', en='Incheon · Namdong', cats=['korean-medicine'], line='뇌졸중 재활과 오랜 회복이 필요한 분의 입원 치료를 받으실 수 있습니다.'),
+    dict(id='gyeonggi-bundang', name='경기 분당', en='Gyeonggi · Bundang', cats=['regenerative'], line='재생의료 진료 상담과 세포 보관 상담을 받으실 수 있습니다.'),
+    dict(id='gyeonggi-gunpo', name='경기 군포', en='Gyeonggi · Gunpo', cats=['regenerative'], line='본인 세포의 배양과 보관 상담을 받으실 수 있습니다.'),
+    dict(id='gyeonggi-yongin', name='경기 용인', en='Gyeonggi · Yongin', cats=['checkup'], line='정밀 건강검진을 받으실 수 있습니다.'),
+    dict(id='daegu', name='대구', en='Daegu', cats=['women', 'men'], line='난임 검사와 시험관아기, 가임력 보존, 남성 난임 진료를 받으실 수 있습니다.'),
+    dict(id='busan', name='부산', en='Busan', cats=['checkup'], line='정밀 건강검진과 외국어 안내를 받으실 수 있습니다.'),
 ]
 HUB = {h['name']: h for h in HUBS}
 CAT_KO = {c['id']: c['ko'] for c in CATS}
@@ -1006,7 +1008,9 @@ def page_category(c):
         return f'<div class="shd"><div><p class="shd__label">{E(label)}</p><h2 class="shd__t">{E(title)}</h2></div>{m}</div>'
 
     # 1. what you can have done through atInc
-    sv = ''.join(f'<li><h3>{E(t)}</h3><p>{E(d)}</p></li>' for t, d in M['services'])
+    sv = ''.join(f'<li><h3>{E(sv_[0])}</h3><p>{E(sv_[1])}</p>'
+                 + (('<ul class="svcs__sub">' + ''.join(f'<li>{E(x)}</li>' for x in sv_[2]) + '</ul>') if len(sv_) > 2 else '') + '</li>'
+                 for sv_ in M['services'])
     cols = ' svcs--4' if len(M['services']) % 4 == 0 else ''
     s1 = (f'<section class="sec msec" id="services"><div class="wrap">{shd("Services", "받으실 수 있는 진료와 상담")}'
           f'<ul class="svcs{cols}">{sv}</ul>'
@@ -1034,7 +1038,11 @@ def page_category(c):
     cta_title = '부담 없이 먼저 물어보세요' if c['id'] == 'men' else f12['문장']
     cta = cband(cta_title, '건강 목적과 일정을 남겨 주시면, 내용을 확인한 뒤 담당자가 직접 연락드립니다.', btn, cat,
                 reasons=reasons, reasons_title='이럴 때 상담하세요')
-    main = hero + s1 + s2 + s3 + s4 + s5 + cta
+    # 4b. preparation and recovery, gathered from what partner institutions publish (nothing that names them)
+    gd = ''.join(f'<div class="guide__col"><h3>{E(t)}</h3><ul>' + ''.join(f'<li>{E(x)}</li>' for x in xs) + '</ul></div>' for t, xs in M.get('guide', []))
+    s4b = (f'<section class="sec msec" id="guide"><div class="wrap">{shd("Guide", "준비와 회복 안내")}<div class="guide">{gd}</div>'
+           f'<p class="msec__note">일반적인 안내입니다. 실제 준비와 회복 일정은 진찰한 의료진의 안내를 따릅니다.</p></div></section>') if gd else ''
+    main = hero + s1 + s2 + s3 + s4 + s4b + s5 + cta
     page(c['page'], f'{c["ko"]} | atinc', f1['본문'], main, 'medical', light=True)
 
 

@@ -89,8 +89,8 @@ def page_home2():
 
     # 3. medical areas
     line = {'checkup': '나이와 가족력에 맞춘 검사 항목', 'regenerative': '세포 보관과 재생의료 상담',
-            'aesthetic': '전문의 진찰부터 회복 일정까지', 'women': '갱년기와 여성 검진',
-            'men': '비뇨의학과 전문 진료', 'korean-medicine': '한의 진료와 한·양방 협진'}
+            'aesthetic': '전문의 진찰부터 회복 일정까지', 'women': '여성 검진부터 갱년기, 난임까지',
+            'men': '비뇨의학과 전문 진료', 'korean-medicine': '한·양방 협진 재활과 한방 미용'}
     tiles = ''.join(f'<a class="tile" href="{c["page"]}"><figure class="tile__pic">{pic("cat-" + c["id"], "", "(max-width: 600px) 82vw, (max-width: 1100px) 50vw, 33vw", (480, 720, 1080))}</figure>'
                     f'<p class="tile__en">{E(c["en"])}</p><h3 class="tile__t">{E(c["ko"])}</h3><p class="tile__d">{E(line[c["id"]])}</p></a>' for c in CATS)
     more = '암 세컨드 오피니언 · 난임·생식의학 · 뇌·기억력 · 안과'
