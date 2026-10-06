@@ -1098,67 +1098,70 @@ def page_care(p):
             f'<p class="hero__label rise">{E(p["en"].title() if p["id"] != "global-medical-journey" else "Global Medical Journey")}</p><h1 class="hero__title rise">{E(PROG_KO[p["id"]])}</h1>'
             f'<p class="hero__sub rise rise-2">{E(lead_s)}</p>'
             f'<p class="hero__body rise rise-3">{E(overview)}</p>{trust_h}<div class="rise rise-4">{SE.care_meta(p["id"])}</div></div></section>')
-    who = [x.strip() for x in T('02').split(' / ')]
-    s2 = (f'<section class="sec"><div class="wrap">{section_head("02", "FOR WHOM", "이런 분께 맞습니다")}{checks(who)}</div></section>')
+    def shd(label, title, more=None, href=None):
+        m = f'<a class="shd__more" href="{href}">{E(more)}</a>' if more else ''
+        return f'<div class="shd"><div><p class="shd__label">{E(label)}</p><h2 class="shd__t">{E(title)}</h2></div>{m}</div>'
     pj = SE.PROG[p['id']]
-    s3 = SE.insight_section(pj['insight'], pj['private_access'], pj.get('positioning'), sid='approach', head_no='03')
+    # 1. who it is for
+    who = [x.strip() for x in T('02').split(' / ')]
+    s_who = (f'<section class="sec msec"><div class="wrap">{shd("For whom", "이런 분께 맞습니다")}<ol class="ways ways--who">'
+             + ''.join(f'<li><span class="ways__no">{i:02d}</span><h3>{E(w)}</h3></li>' for i, w in enumerate(who, 1)) + '</ol></div></section>')
+    # 2. what atInc does and what you receive
+    does = [x.strip() for x in T('05').split(' / ') if x.strip()]
+    docs = [x.strip() for x in T('06').split(' / ') if x.strip()]
+    s_inc = (f'<section class="sec sec--sand msec"><div class="wrap">{shd("Included", "포함된 것")}<div class="guide">'
+             f'<div class="guide__col"><h3>atInc가 맡는 일</h3><ul>' + ''.join(f'<li>{E(x)}</li>' for x in does) + '</ul></div>'
+             f'<div class="guide__col"><h3>받으시는 자료</h3><ul>' + ''.join(f'<li>{E(x)}</li>' for x in docs) + '</ul></div></div>'
+             f'<p class="msec__note">{E(T("08"))}</p></div></section>')
+    # 3. stages
     t4 = table(B['04'])
-    stg = ''
-    phases = pj.get('phases') or []
+    st = ''
     for i, r in enumerate(t4['rows'], 1):
-        nm = r[0]
-        en_n = ''
+        nm, en_n = r[0], ''
         if ' · ' in nm:
             en_n, nm = nm.split(' · ', 1)
-        pass
-        lst = ''.join(f'<li>{E(x.strip())}</li>' for x in r[1].split(' / '))
-        stg += (f'<div class="stage"><span class="step__no">{i:02d}</span><h3 class="h3">{E(nm)}</h3><ul>{lst}</ul></div>')
-    cols = len(t4['rows'])
-    s4 = (f'<section class="sec"><div class="wrap">{section_head("04", "PROCESS", "진행 단계")}<div class="stages" style="grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr))">{stg}</div></div></section>')
-    s5 = (f'<section class="sec sec--sand"><div class="wrap">{section_head("05", "atinc SUPPORT", "atinc가 맡는 일")}'
-          f'{checks([x.strip() for x in T("05").split(" / ")])}</div></section>')
-    docs = [x.strip() for x in T('06').split(' / ')]
-    s6 = (f'<section class="sec"><div class="wrap">{section_head("06", "DELIVERABLES", "받으시는 자료")}'
-          f'<ul class="rows" style="max-width: 980px">' + ''.join(f'<li><span class="rows__no">{i:02d}</span><p class="body" style="color: var(--ink); font-size: 16px">{E(d)}</p></li>' for i, d in enumerate(docs, 1)) + '</ul></div></section>')
+        items_ = ''.join(f'<li>{E(x.strip())}</li>' for x in r[1].split(' / ') if x.strip())
+        st += (f'<li><span class="ways__no">{i:02d}</span><h3>{E(nm)}</h3>' + (f'<p class="svcs__en">{E(en_n)}</p>' if en_n else '')
+               + f'<ul class="svcs__sub">{items_}</ul></li>')
+    cols = ' svcs--4' if len(t4['rows']) == 4 else ''
+    s_proc = f'<section class="sec msec" id="process"><div class="wrap">{shd("Process", "진행 단계")}<ol class="svcs svcs--steps{cols}">{st}</ol></div></section>'
+    # 4. options
     t7 = T('07')
     if '—' in t7:
-        tiers = [x.strip().split(' — ', 1) for x in t7.split(' / ')]
-        n = len(tiers)
         fit = {t['name']: t.get('fit', '') for t in (pj.get('tiers') or [])}
-        tc = ''.join(f'<div class="card{" card--dark" if i == n - 1 else ""}"><p class="eyebrow">{E(SE.tcase(a))}</p><p class="h3" style="font-weight: 400">{E(b)}</p>'
-                     + (f'<p class="small card__foot">이런 분께 · {E(fit[a])}</p>' if fit.get(a) else '') + '</div>' for i, (a, b) in enumerate(tiers))
-        gcls = 'grid3' if n == 3 else 'grid4' if n == 4 else 'grid2'
-        body7 = f'<div class="{gcls}">{tc}</div>'
+        rows_ = ''
+        for a_, b_ in (x.strip().split(' — ', 1) for x in t7.split(' / ')):
+            rows_ += (f'<li><h3>{E(SE.tcase(a_))}</h3><p>{E(b_)}' + (f'<span class="ptn__fit">이런 분께 · {E(fit[a_])}</span>' if fit.get(a_) else '') + '</p></li>')
+        body7 = f'<ul class="ptn">{rows_}</ul>'
     else:
         body7 = f'<p class="lead">{E(t7)}</p>'
     if pj.get('specialized_journeys'):
         sj = ['정밀검진', '암 세컨드 오피니언', '여성 건강', '롱제비티·웰니스', '회복·재활', '뷰티·웰니스']
-        body7 += (f'<div style="display: grid; gap: 14px; margin-top: 36px"><h3 class="h3">이런 목적으로 많이 오십니다</h3><div class="chips">'
-                  + ''.join(f'<span class="chip">{E(x)}</span>' for x in sj) + '</div></div>')
-    s7 = (f'<section class="sec sec--sand"><div class="wrap">{section_head("07", "OPTIONS", "구성 선택", "구성별 범위는 상담에서 목적과 일정에 맞춰 정하며, 비용은 상담 후 개별 안내합니다.")}{body7}</div></section>')
+        body7 += ('<div class="ojourney"><h3>이런 목적으로 많이 오십니다</h3><ul>' + ''.join(f'<li>{E(x)}</li>' for x in sj) + '</ul></div>')
+    s_opt = (f'<section class="sec sec--sand msec"><div class="wrap">{shd("Options", "구성 선택")}{body7}'
+             f'<p class="msec__note">구성별 범위는 상담에서 목적과 일정에 맞춰 정하고, 비용은 상담 뒤 따로 알려 드립니다.</p></div></section>')
+    # executive: three questions people always ask
+    s_qa = ''
+    if p['id'] == 'executive-365':
+        pv = [('누가 알게 되는지', '건강 정보와 병원 일정은 본인이 정한 사람에게만 알립니다. 가족이나 비서실과 어디까지 나눌지는 첫 상담에서 함께 정합니다.'),
+              ('대신 연락해도 되는지', '비서실이나 가족이 대신 연락하셔도 됩니다. 예약과 일정 변경은 미리 정해 둔 담당자와만 주고받습니다.'),
+              ('비용은 어떻게 나뉘는지', '병원에 내는 진료비와 atinc 조율료, 통역·차량 같은 실비를 각각 나눠서 알려드립니다. 병원비에 다른 비용을 섞지 않습니다.')]
+        s_qa = (f'<section class="sec msec"><div class="wrap">{shd("Privacy", "많이 물어보시는 세 가지")}<ul class="ptn">'
+                + ''.join(f'<li><h3>{E(q)}</h3><p>{E(a_)}</p></li>' for q, a_ in pv) + '</ul></div></section>')
+    fx = SE.facts_section('global', cls='sec facts-dark') if p['id'] == 'global-medical-journey' else ''
+    # other programmes and the related field
     rel_h = ''
     if rel:
         cname = rel[0]['value'].split(' ', 2)[-1]
         c = CAT_BY_KO.get(cname)
         if c:
-            rel_h = f'<p><a class="link" href="{c["page"]}">MEDICAL · {E(c["ko"])} 정보 보기{ic("arrow")}</a></p>'
-    others = ''.join(f'<a class="chip" style="text-decoration: none" href="{q["page"]}">{E(q["en"])}</a>' for q in CARE if q is not p)
-    s8 = (f'<section class="sec sec--tight"><div class="wrap split"><div class="split__label"><h2 class="disp-2" style="font-size: clamp(24px, 2.2vw, 30px)">atinc의 원칙</h2></div>'
-          f'<div class="split__main"><p class="notice" style="font-size: 16px">{E(T("08"))}</p>{rel_h}'
-          f'<div style="display: grid; gap: 12px; margin-top: 12px"><h3 class="h3">다른 프로그램</h3><div class="chips">{others}</div></div></div></div></section>')
+            rel_h = f'<a href="{c["page"]}">진료 분야 · {E(c["ko"])}</a>'
+    others = ''.join(f'<a href="{q["page"]}">{E(PROG_KO[q["id"]])}</a>' for q in CARE if q is not p)
+    s_more = f'<section class="pline"><div class="wrap pline__in"><p><b>다른 케어 프로그램</b></p><p class="pline__links">{others}{rel_h}</p></div></section>'
     cta_t = [x.strip() for x in T('09').split(' / ')]
     btn_raw = cta_t[1].replace('버튼:', '').strip()
-    cta = cband(cta_t[0], '목적과 일정을 남겨주시면, 담당 매니저가 직접 연락드립니다.', btn_label(btn_raw), prefill(btn_raw, 'atinc CARE'),
-                )
-    fx = SE.facts_section('global', cls='sec facts-dark') if p['id'] == 'global-medical-journey' else ''
-    s7b = ''
-    if p['id'] == 'executive-365':
-        pv = [('누가 알게 되는지', '건강 정보와 병원 일정은 본인이 정한 사람에게만 알립니다. 가족이나 비서실과 어디까지 나눌지는 첫 상담에서 함께 정합니다.'),
-              ('대신 연락해도 되는지', '비서실이나 가족이 대신 연락하셔도 됩니다. 예약과 일정 변경은 미리 정해 둔 담당자와만 주고받습니다.'),
-              ('비용은 어떻게 나뉘는지', '병원에 내는 진료비와 atinc 조율료, 통역·차량 같은 실비를 각각 나눠서 알려드립니다. 병원비에 다른 비용을 섞지 않습니다.')]
-        s7b = (f'<section class="sec"><div class="wrap">{section_head(None, None, "많이 물어보시는 세 가지")}<ul class="qa3">'
-               + ''.join(f'<li><h3>{E(q)}</h3><p class="body">{E(a)}</p></li>' for q, a in pv) + '</ul></div></section>')
-    main = hero + s2 + fx + s3 + s4 + s5 + s6 + s7 + s7b + s8 + cta
+    cta = cband(cta_t[0], '목적과 일정을 남겨 주시면, 담당 매니저가 직접 연락드립니다.', btn_label(btn_raw), prefill(btn_raw, 'atinc CARE'))
+    main = hero + s_who + s_inc + s_proc + fx + s_opt + s_qa + s_more + cta
     page(p['page'], f'{p["en"]} | atinc CARE', overview, main, 'care', light=True)
 
 
