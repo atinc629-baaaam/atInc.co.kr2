@@ -341,12 +341,12 @@ def footer():
     med = ''.join(f'<li><a href="{c["page"]}">{E(c["ko"])}</a></li>' for c in CATS)
     car = ''.join(f'<li><a href="{p["page"]}">{E(PROG_KO[p["id"]])}</a></li>' for p in CARE)
     return (f'<footer class="ftr"><div class="wrap"><div class="ftr__top">'
-            f'<div>{logo()}<p class="ftr__tag">엄선된 의료, 조용한 동행</p><p class="ftr__sub">Private Healthcare Concierge</p>'
+            f'<div>{logo()}<p class="ftr__tag">건강을 넘어, 삶의 품격을 설계합니다</p><p class="ftr__sub">Private Healthcare Concierge</p>'
             f'<p class="ftr__contact"><a href="tel:{VIP_TEL}">{VIP}</a><a href="mailto:{EMAIL}">{EMAIL}</a></p></div>'
             f'<div><h2>진료 분야</h2><ul>{med}</ul></div><div><h2>케어 프로그램</h2><ul>{car}</ul></div>'
             f'<div><h2>atinc</h2><ul><li><a href="about.html">회사소개</a></li><li><a href="network.html">협력 네트워크</a></li><li><a href="partners.html">제휴 안내</a></li><li><a href="consultation.html">상담 안내</a></li></ul></div></div>'
             f'<div class="ftr__bot"><div class="ftr__legal"><a href="privacy.html">개인정보처리방침</a><a href="medical-notice.html">의료서비스 관련 고지</a></div>'
-            f'<p>{E(company_line())}</p>'
+            f'<p>{re.sub(r"((?:제 )?[A-Z]?-?[0-9][0-9-]{6,}[0-9](?: 호)?)", r"<span class=nw>\1</span>", E(company_line()))}</p>'
             f'<p>atinc는 의료기관이 아닌 헬스케어 컨시어지입니다. 검사·진단·치료는 협력 의료기관의 의료진이 맡고, atinc는 그 앞뒤의 상담·예약·통역·사후관리를 맡습니다. 사이트의 사진은 이해를 돕기 위한 참고 이미지이며, 협력 의료기관의 실제 시설이 아닙니다.</p>'
             f'<p>© 2026 atinc. All rights reserved.</p></div></div></footer>')
 
@@ -487,6 +487,8 @@ def page(fn, title, desc, main, cur=None, light=False):
         body = body.replace(a_, b_)
     import site_revise as RV
     body, title, desc = RV.revise(body, fn), RV.revise(title, fn), RV.revise(desc, fn)
+    # Korean line breaks on phones: keep '…ㄹ 수 있다/없다' together (text only, never inside tags)
+    body = re.sub(r'(>[^<]*)', lambda m: re.sub(r'(?<=\S) 수 (있|없)', '\u00a0수\u00a0\\1', m.group(1)), body)
     url = SITE_URL + ('' if fn == 'index.html' else fn)
     ld = [{'@context': 'https://schema.org', '@type': 'Organization', 'name': 'atInc', 'legalName': '주식회사 애트',
            'url': SITE_URL, 'logo': SITE_URL + 'assets/og.png', 'email': EMAIL, 'telephone': '+82-10-5857-0129',
@@ -505,7 +507,7 @@ def page(fn, title, desc, main, cur=None, light=False):
         ld.append({'@context': 'https://schema.org', '@type': 'FAQPage', 'mainEntity': [
             {'@type': 'Question', 'name': tx(q), 'acceptedAnswer': {'@type': 'Answer', 'text': tx(a)}} for q, a in faq]})
     ld_h = ''.join('<script type="application/ld+json">' + json.dumps(x, ensure_ascii=False).replace('</', '<\\/') + '</script>' for x in ld)
-    head = (f'<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">'
+    head = (f'<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><script>document.documentElement.classList.add(\'js\')</script>'
             f'<title>{E(title)}</title><meta name="description" content="{E(desc)}">'
             f'<link rel="canonical" href="{url}"><meta name="theme-color" content="#2B211B">'
             f'<link rel="icon" href="assets/favicon-32.png" sizes="32x32" type="image/png"><link rel="icon" href="assets/favicon-192.png" sizes="192x192" type="image/png"><link rel="apple-touch-icon" href="assets/apple-touch-icon.png">'
@@ -835,7 +837,7 @@ def page_about():
     if COMPANY_ADDRESS:
         kv = kv.replace('[회사 주소 입력]', E(COMPANY_ADDRESS))
     comp = (f'<section class="sec"><div class="wrap split"><div class="split__label">{eyebrow("COMPANY")}</div><div class="split__main"><h2 class="h2">회사 정보</h2>'
-            f'<dl class="kv" style="font-size: 15.5px; gap: 14px 40px">{kv}</dl></div></div></section>')
+            f'<dl class="kv kv--co">{kv}</dl></div></div></section>')
     f12 = fields(HB['12'])
     main = hero + why + work + prin + comp + cband(f12['제목'], f12['본문'], '상담 예약', '')  # 대표 소개(fo)는 당분간 숨김
     main = main.replace('건강을 넘어, 삶의 품격을 설계합니다.', '병원을 먼저<br>권하지 않습니다.', 1)
@@ -1036,7 +1038,7 @@ def page_category(c):
                  + (('<ul class="svcs__sub">' + ''.join(f'<li>{E(x)}</li>' for x in sv_[2]) + '</ul>') if len(sv_) > 2 else '') + '</details></li>'
                  for sv_ in M['services'])
     cols = ' svcs--4' if len(M['services']) % 4 == 0 else ''
-    s1 = (f'<section class="sec sec--sand msec" id="services"><div class="wrap">{shd("Services", "협력 기관에서 받으실 수 있는 진료와 상담")}'
+    s1 = (f'<section class="sec sec--sand msec" id="services"><div class="wrap">{shd("Services", "협력 기관에서 받으실\u00a0수\u00a0있는 진료와 상담")}'
           f'<ul class="svcs{cols}">{sv}</ul>'
           f'<p class="msec__note">어떤 검사와 진료를 받을지는 의료진이 진찰한 뒤 정합니다. atInc는 맞는 기관을 찾아 예약하고, 그 앞뒤의 상담과 일정을 맡습니다.</p></div></section>')
     # 3. the kind of places we connect to (never the names)

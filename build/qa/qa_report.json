@@ -5,7 +5,7 @@
    "/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
   ],
   "cls": 0,
-  "lcp": 396,
+  "lcp": 412,
   "a11y": {
    "contrast": [],
    "alt": [],
@@ -47,7 +47,7 @@
    "tel": 9,
    "blockingCss": 0,
    "fontsHref": 2,
-   "words": 2351
+   "words": 2306
   },
   "tab": [
    {
@@ -82,7 +82,7 @@
    "/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
   ],
   "cls": 0,
-  "lcp": 368,
+  "lcp": 380,
   "a11y": {
    "contrast": [],
    "alt": [],
@@ -124,7 +124,7 @@
    "tel": 8,
    "blockingCss": 0,
    "fontsHref": 2,
-   "words": 2926
+   "words": 2881
   },
   "tab": [
    {
@@ -159,7 +159,7 @@
    "/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
   ],
   "cls": 0,
-  "lcp": 412,
+  "lcp": 424,
   "a11y": {
    "contrast": [],
    "alt": [],
@@ -201,7 +201,7 @@
    "tel": 8,
    "blockingCss": 0,
    "fontsHref": 2,
-   "words": 3180
+   "words": 3135
   },
   "tab": [
    {
@@ -236,7 +236,7 @@
    "/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
   ],
   "cls": 0,
-  "lcp": 360,
+  "lcp": 556,
   "a11y": {
    "contrast": [],
    "alt": [],
@@ -278,7 +278,7 @@
    "tel": 8,
    "blockingCss": 0,
    "fontsHref": 2,
-   "words": 2903
+   "words": 2858
   },
   "tab": [
    {
@@ -313,7 +313,7 @@
    "/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
   ],
   "cls": 0,
-  "lcp": 464,
+  "lcp": 392,
   "a11y": {
    "contrast": [],
    "alt": [],
@@ -355,7 +355,7 @@
    "tel": 8,
    "blockingCss": 0,
    "fontsHref": 2,
-   "words": 2682
+   "words": 2637
   },
   "tab": [
    {
@@ -390,7 +390,7 @@
    "/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
   ],
   "cls": 0,
-  "lcp": 408,
+  "lcp": 372,
   "a11y": {
    "contrast": [],
    "alt": [],
@@ -432,7 +432,7 @@
    "tel": 8,
    "blockingCss": 0,
    "fontsHref": 2,
-   "words": 1549
+   "words": 1504
   },
   "tab": [
    {
@@ -467,7 +467,7 @@
    "/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
   ],
   "cls": 0,
-  "lcp": 388,
+  "lcp": 368,
   "a11y": {
    "contrast": [],
    "alt": [],
@@ -509,7 +509,7 @@
    "tel": 8,
    "blockingCss": 0,
    "fontsHref": 2,
-   "words": 1460
+   "words": 1466
   },
   "tab": [
    {
@@ -544,7 +544,7 @@
    "/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
   ],
   "cls": 0,
-  "lcp": 460,
+  "lcp": 468,
   "a11y": {
    "contrast": [],
    "alt": [],
@@ -577,17 +577,16 @@
    "ogu": "https://atinc.co.kr/",
    "tw": "summary_large_image",
    "ld": [
-    "Organization",
-    "FAQPage"
+    "Organization"
    ],
    "favicon": true,
    "robots": "",
    "viewport": "width=device-width, initial-scale=1, viewport-fit=cover",
-   "mailto": 4,
-   "tel": 8,
+   "mailto": 2,
+   "tel": 5,
    "blockingCss": 0,
    "fontsHref": 2,
-   "words": 3789
+   "words": 1659
   },
   "tab": [
    {
@@ -622,7 +621,7 @@
    "/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
   ],
   "cls": 0,
-  "lcp": 464,
+  "lcp": 384,
   "a11y": {
    "contrast": [],
    "alt": [],
@@ -665,7 +664,7 @@
    "tel": 8,
    "blockingCss": 0,
    "fontsHref": 2,
-   "words": 6202
+   "words": 6157
   },
   "tab": [
    {
@@ -700,7 +699,7 @@
    "/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
   ],
   "cls": 0,
-  "lcp": 436,
+  "lcp": 424,
   "a11y": {
    "contrast": [],
    "alt": [],
@@ -743,7 +742,7 @@
    "tel": 8,
    "blockingCss": 0,
    "fontsHref": 2,
-   "words": 6860
+   "words": 6815
   },
   "tab": [
    {
@@ -778,7 +777,7 @@
    "/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
   ],
   "cls": 0,
-  "lcp": 412,
+  "lcp": 480,
   "a11y": {
    "contrast": [],
    "alt": [],
@@ -821,7 +820,7 @@
    "tel": 8,
    "blockingCss": 0,
    "fontsHref": 2,
-   "words": 5200
+   "words": 5155
   },
   "tab": [
    {
@@ -856,7 +855,7 @@
    "/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
   ],
   "cls": 0,
-  "lcp": 400,
+  "lcp": 468,
   "a11y": {
    "contrast": [],
    "alt": [],
@@ -899,7 +898,7 @@
    "tel": 8,
    "blockingCss": 0,
    "fontsHref": 2,
-   "words": 5012
+   "words": 4967
   },
   "tab": [
    {
@@ -934,7 +933,7 @@
    "/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
   ],
   "cls": 0,
-  "lcp": 332,
+  "lcp": 412,
   "a11y": {
    "contrast": [],
    "alt": [],
@@ -976,7 +975,7 @@
    "tel": 5,
    "blockingCss": 0,
    "fontsHref": 2,
-   "words": 1151
+   "words": 1157
   },
   "tab": [
    {
@@ -1011,7 +1010,7 @@
    "/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
   ],
   "cls": 0,
-  "lcp": 432,
+  "lcp": 464,
   "a11y": {
    "contrast": [],
    "alt": [],
@@ -1054,7 +1053,7 @@
    "tel": 8,
    "blockingCss": 0,
    "fontsHref": 2,
-   "words": 5923
+   "words": 5878
   },
   "tab": [
    {
@@ -1089,7 +1088,7 @@
    "/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
   ],
   "cls": 0,
-  "lcp": 296,
+  "lcp": 428,
   "a11y": {
    "contrast": [],
    "alt": [],
@@ -1132,7 +1131,7 @@
    "tel": 8,
    "blockingCss": 0,
    "fontsHref": 2,
-   "words": 6624
+   "words": 6579
   },
   "tab": [
    {
@@ -1167,7 +1166,7 @@
    "/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
   ],
   "cls": 0,
-  "lcp": 340,
+  "lcp": 424,
   "a11y": {
    "contrast": [],
    "alt": [],
@@ -1209,7 +1208,7 @@
    "tel": 8,
    "blockingCss": 0,
    "fontsHref": 2,
-   "words": 3055
+   "words": 3010
   },
   "tab": [
    {
@@ -1243,8 +1242,8 @@
   "failed": [
    "/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
   ],
-  "cls": 0,
-  "lcp": 392,
+  "cls": 0.021,
+  "lcp": 340,
   "a11y": {
    "contrast": [],
    "alt": [],
@@ -1286,7 +1285,7 @@
    "tel": 8,
    "blockingCss": 0,
    "fontsHref": 2,
-   "words": 2095
+   "words": 2035
   },
   "tab": [
    {
@@ -1321,7 +1320,7 @@
    "/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
   ],
   "cls": 0,
-  "lcp": 352,
+  "lcp": 300,
   "a11y": {
    "contrast": [],
    "alt": [],
@@ -1363,7 +1362,7 @@
    "tel": 8,
    "blockingCss": 0,
    "fontsHref": 2,
-   "words": 2508
+   "words": 2514
   },
   "tab": [
    {
@@ -1398,7 +1397,7 @@
    "/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
   ],
   "cls": 0,
-  "lcp": 348,
+  "lcp": 364,
   "a11y": {
    "contrast": [],
    "alt": [],
@@ -1440,7 +1439,7 @@
    "tel": 5,
    "blockingCss": 0,
    "fontsHref": 2,
-   "words": 2685
+   "words": 2691
   },
   "tab": [
    {
@@ -1475,7 +1474,7 @@
    "/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
   ],
   "cls": 0,
-  "lcp": 360,
+  "lcp": 404,
   "a11y": {
    "contrast": [],
    "alt": [],
@@ -1501,7 +1500,7 @@
    "/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
   ],
   "cls": 0,
-  "lcp": 380,
+  "lcp": 436,
   "a11y": {
    "contrast": [],
    "alt": [],
@@ -1527,7 +1526,7 @@
    "/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
   ],
   "cls": 0,
-  "lcp": 436,
+  "lcp": 360,
   "a11y": {
    "contrast": [],
    "alt": [],
@@ -1553,7 +1552,7 @@
    "/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
   ],
   "cls": 0,
-  "lcp": 356,
+  "lcp": 392,
   "a11y": {
    "contrast": [],
    "alt": [],
@@ -1579,7 +1578,7 @@
    "/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
   ],
   "cls": 0,
-  "lcp": 356,
+  "lcp": 412,
   "a11y": {
    "contrast": [],
    "alt": [],
@@ -1605,7 +1604,7 @@
    "/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
   ],
   "cls": 0,
-  "lcp": 344,
+  "lcp": 380,
   "a11y": {
    "contrast": [],
    "alt": [],
@@ -1631,7 +1630,7 @@
    "/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
   ],
   "cls": 0,
-  "lcp": 352,
+  "lcp": 236,
   "a11y": {
    "contrast": [],
    "alt": [],
@@ -1657,7 +1656,7 @@
    "/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
   ],
   "cls": 0,
-  "lcp": 448,
+  "lcp": 344,
   "a11y": {
    "contrast": [],
    "alt": [],
@@ -1709,7 +1708,7 @@
    "/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
   ],
   "cls": 0,
-  "lcp": 376,
+  "lcp": 440,
   "a11y": {
    "contrast": [],
    "alt": [],
@@ -1735,7 +1734,7 @@
    "/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
   ],
   "cls": 0,
-  "lcp": 412,
+  "lcp": 388,
   "a11y": {
    "contrast": [],
    "alt": [],
@@ -1761,7 +1760,7 @@
    "/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
   ],
   "cls": 0,
-  "lcp": 376,
+  "lcp": 368,
   "a11y": {
    "contrast": [],
    "alt": [],
@@ -1787,7 +1786,7 @@
    "/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
   ],
   "cls": 0,
-  "lcp": 340,
+  "lcp": 352,
   "a11y": {
    "contrast": [],
    "alt": [],
@@ -1813,7 +1812,7 @@
    "/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
   ],
   "cls": 0,
-  "lcp": 372,
+  "lcp": 360,
   "a11y": {
    "contrast": [],
    "alt": [],
@@ -1839,7 +1838,7 @@
    "/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
   ],
   "cls": 0,
-  "lcp": 396,
+  "lcp": 352,
   "a11y": {
    "contrast": [],
    "alt": [],
@@ -1865,7 +1864,7 @@
    "/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
   ],
   "cls": 0,
-  "lcp": 412,
+  "lcp": 252,
   "a11y": {
    "contrast": [],
    "alt": [],
@@ -1891,7 +1890,7 @@
    "/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
   ],
   "cls": 0,
-  "lcp": 416,
+  "lcp": 320,
   "a11y": {
    "contrast": [],
    "alt": [],
@@ -1917,7 +1916,7 @@
    "/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
   ],
   "cls": 0,
-  "lcp": 368,
+  "lcp": 348,
   "a11y": {
    "contrast": [],
    "alt": [],
@@ -1943,7 +1942,7 @@
    "/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
   ],
   "cls": 0,
-  "lcp": 324,
+  "lcp": 376,
   "a11y": {
    "contrast": [],
    "alt": [],
@@ -1963,5 +1962,7 @@
    "lang": "ko"
   }
  },
- "_broken": []
+ "_broken": [
+  "index.html → #process (앵커 없음)"
+ ]
 }

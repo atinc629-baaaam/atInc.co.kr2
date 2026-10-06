@@ -10,6 +10,7 @@
   var CAPITAL = { '11': 1, '23': 1, '31': 1 };
   var GOLD = '#E3C394', IVORY = '#F6EFE3';
   var REDUCE = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var LITE = REDUCE || (window.matchMedia && window.matchMedia('(max-width: 700px), (hover: none) and (pointer: coarse)').matches);
 
   function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
   function norm(s) { return String(s || '').replace(/\s+/g, '').replace(/특별자치시|특별자치도|특별시|광역시/g, ''); }
@@ -65,17 +66,17 @@
       h = '<ul class="hubs">' + GROUPS.map(function (g) {
         var cats = union(g.sites);
         return '<li data-cats="' + cats.join(',') + '" data-count><div><b>' + esc(SHORT[g.prov]) + '</b><small>' +
-          '협력 기관 ' + g.sites.length + '곳</small></div><span class="hubs__cats">' + esc(catsText(cats)) + '</span></li>';
+          esc(EN[g.prov]) + '</small></div><span class="hubs__cats">' + esc(catsText(cats)) + '</span></li>';
       }).join('') + NEXT_LI + '</ul>';
     } else {
       h = GROUPS.map(function (g) {
         return '<section class="netgroup"><h2 class="netgroup__h"><span>' + esc(SHORT[g.prov]) + '</span><em>' + esc(EN[g.prov]) + '</em>' +
-          '<small>' + g.sites.length + '곳</small></h2><div class="hubgrid">' + (function () {
+          '</h2><div class="hubgrid">' + (function () {
             var cats = union(g.sites), notes = [];
             g.sites.forEach(function (s) { if (s.note && notes.indexOf(s.note) < 0) notes.push(s.note); });
             return '<div class="hcard" data-cats="' + cats.join(',') + '" data-count><div class="chips">' +
               (cats.length ? cats.map(function (c) { return '<span class="tag">' + esc(CAT[c]) + '</span>'; }).join('') : '<span class="tag">협력 의료기관</span>') +
-              '</div><ul class="hcard__notes">' + notes.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ul></div>';
+              '</div><ul class="hcard__notes">' + notes.map(function (t) { return '<li>' + esc(t).replace(/(\S) 수 (있|없)/g, '$1\u00a0수\u00a0$2') + '</li>'; }).join('') + '</ul></div>';
           })() + '</div></section>';
       }).join('') + NEXT_CARD;
     }
@@ -134,6 +135,7 @@
 
   document.querySelectorAll('.atmap').forEach(function (host, n) {
     var uid = (host.getAttribute('data-uid') || 'm') + n;
+    var K = Math.min(1.5, Math.max(1, W / (host.clientWidth || W) * 0.82));  // ~1.3 on a 390px phone
     var s = ['<svg class="atmap__svg" viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="atInc 협력 네트워크 지도: ' +
       esc(GROUPS.map(function (g) { return SHORT[g.prov]; }).join(', ')) + '" xmlns="http://www.w3.org/2000/svg">',
       '<defs><radialGradient id="gl-' + uid + '"><stop offset="0" stop-color="' + GOLD + '" stop-opacity=".55"/><stop offset="1" stop-color="' + GOLD + '" stop-opacity="0"/></radialGradient>' +
@@ -147,7 +149,7 @@
     }
     s.push('<g class="atmap__base">' + b + '</g>');
     // expansion: light keeps spreading from the capital across the whole country
-    if (!REDUCE) {
+    if (!LITE) {
       var cap0 = sites.filter(function (x) { return CAPITAL[x.prov]; });
       var hub0 = cap0.filter(function (x) { return x.prov === '11'; })[0] || cap0[0];
       var wx = hub0 ? hub0.x : M.prov['11'].c[0], wy = hub0 ? hub0.y : M.prov['11'].c[1];
@@ -193,7 +195,7 @@
       var sx = -6, sy = [70, 250, 420][k];
       s.push(route('a' + k + '-' + uid, curve(sx, sy, icn[0], icn[1], k === 2 ? -0.18 : 0.12), 1, .45, a[1], k * 1.3));
     });
-    s.push(T(12, 36, 'Global arrivals · Incheon (ICN)', 'start', 14, 500, GOLD, true));
+    s.push(T(12, 36, K > 1.1 ? 'Arrivals · ICN' : 'Global arrivals · Incheon (ICN)', 'start', 14 * K, 500, GOLD, true));
 
     // capital hub (Seoul if present, else first capital site)
     var cap = sites.filter(function (x) { return CAPITAL[x.prov]; });
@@ -215,29 +217,29 @@
     var taken = [{ x: I.x - 4, y: I.y - 4, w: I.w + 8, h: I.h + 8 }, { x: 0, y: 0, w: 360, h: 48 }, { x: 466, y: 10, w: 90, h: 84 }];
     regional.forEach(function (r) { taken.push({ x: r.x - 9, y: r.y - 9, w: 18, h: 18 }); });
     regional.forEach(function (r) {
-      r.size = 16; var en = EN[r.prov] + (r.sites.length > 1 ? ' · ' + r.sites.length : '');
-      r.ko = SHORT[r.prov]; r.enT = en; r.w = Math.max(textW(r.ko, 16), textW(en, 13)); r.h = 34;
+      r.size = 16 * K; var en = EN[r.prov];  // no counts: region + field + number could point to one institution
+      r.ko = SHORT[r.prov]; r.enT = en; r.w = Math.max(textW(r.ko, 16 * K), textW(en, 13 * K)); r.h = 34 * K;
     });
     placeLabels(regional, taken, { x: 0, y: 0, w: W, h: H });
-    attachOrphans(regional, 90, function (r) { r.enT = EN[r.prov] + ' +' + r.extra; });
+    attachOrphans(regional, 90, function (r) { r.enT = EN[r.prov]; });
     var rop = regional.length > 6 ? .42 : .7;
     regional.forEach(function (r, k) {
       var cats = union(r.sites);
       var inner = route('r' + (k + 1) + '-' + uid, curve(hx, hy, r.x, r.y, -0.22), 1.2, rop, 4.4 + (k % 5) * .5, .4 + k * .5) + mk(r.x, r.y, r.orphan ? 3.6 : 5, (k * .4).toFixed(1));
-      if (r.label) inner += T(r.label.x, r.label.y - 2, r.ko, r.label.anchor, 16, 600, IVORY) + T(r.label.x, r.label.y + 14, r.enT, r.label.anchor, 13, 500, GOLD, true);
+      if (r.label) inner += T(r.label.x, r.label.y - 2, r.ko, r.label.anchor, 16 * K, 600, IVORY) + T(r.label.x, r.label.y + 14 * K, r.enT, r.label.anchor, 13 * K, 500, GOLD, true);
       s.push(g(cats, inner));
     });
 
     // inset: capital-area clusters
     s.push('<rect x="' + I.x + '" y="' + I.y + '" width="' + I.w + '" height="' + I.h + '" rx="14" fill="none" stroke="' + GOLD + '" stroke-opacity=".5" stroke-width=".9"/>');
-    s.push(T(I.x + 4, I.y - 9, 'Seoul Capital Area', 'start', 13.5, 500, GOLD, true));
+    s.push(T(I.x + 4, I.y - 9, 'Seoul Capital Area', 'start', 13.5 * K, 500, GOLD, true));
     var ins = cluster(cap.filter(function (x) { return x.inset; }), 'ix', 'iy', 14);
     var hubIns = ins.filter(function (cl) { return cl.sites.indexOf(hub) > -1; })[0] || ins[0];
     var takenI = [{ x: icn[2] - 14, y: icn[3] - 8, w: 28, h: 34 }];
     ins.forEach(function (cl) { takenI.push({ x: cl.x - 8, y: cl.y - 8, w: 16, h: 16 }); });
     ins.forEach(function (cl) {
-      cl.size = 12.5; cl.ko = SHORT[cl.sites[0].prov];
-      cl.w = textW(cl.ko, 12.5); cl.h = 16;
+      cl.size = 12.5 * K; cl.ko = SHORT[cl.sites[0].prov];
+      cl.w = textW(cl.ko, 12.5 * K); cl.h = 16 * K;
     });
     placeLabels(ins, takenI, { x: I.x + 2, y: I.y + 2, w: I.w - 4, h: I.h - 4 });
     attachOrphans(ins, 60, function (cl) { cl.ko = SHORT[cl.sites[0].prov]; });
@@ -248,16 +250,25 @@
       var cats = punion(cl.sites), inner = '';
       if (hubIns && cl !== hubIns) inner += route('c' + k + '-' + uid, curve(hubIns.x, hubIns.y, cl.x, cl.y, -0.18), 1, .5, 2.4 + (k % 4) * .4, k * .45);
       inner += mk(cl.x, cl.y, cl.orphan ? 3.2 : 4.2, (k * .35).toFixed(2));
-      if (cl.label) inner += T(cl.label.x, cl.label.y, cl.ko, cl.label.anchor, 12.5, 600, IVORY);
+      if (cl.label) inner += T(cl.label.x, cl.label.y, cl.ko, cl.label.anchor, 12.5 * K, 600, IVORY);
       s.push(g(cats, inner));
     });
     s.push('<rect x="' + (icn[2] - 4.5) + '" y="' + (icn[3] - 4.5) + '" width="9" height="9" transform="rotate(45 ' + icn[2] + ' ' + icn[3] + ')" fill="' + IVORY + '"/>');
-    s.push(T(icn[2], icn[3] + 20, 'ICN', 'middle', 10.5, 600, IVORY));
+    s.push(T(icn[2], icn[3] + 20, 'ICN', 'middle', 10.5 * K, 600, IVORY));
     // Ulleung / Dokdo
     s.push('<rect x="470" y="14" width="80" height="76" rx="10" fill="none" stroke="' + GOLD + '" stroke-opacity=".35" stroke-width=".9"/>' +
       '<polygon points="' + M.islands + '" fill="#6E5646" fill-opacity=".7"/><circle cx="529" cy="56" r="2" fill="#9C7C62"/><circle cx="533" cy="57" r="1.6" fill="#9C7C62"/>' +
       T(496, 80, '울릉도', 'middle', 9.5, 500, '#B9A58F') + T(531, 80, '독도', 'middle', 9.5, 500, '#B9A58F'));
     s.push('</svg>');
     host.innerHTML = s.join('');
+    // stop every map animation while the map is off screen
+    var svgEl = host.querySelector('svg');
+    if ('IntersectionObserver' in window && svgEl && svgEl.pauseAnimations) {
+      new IntersectionObserver(function (es) {
+        var on = es[0].isIntersecting;
+        host.classList.toggle('is-off', !on);
+        if (on) svgEl.unpauseAnimations(); else svgEl.pauseAnimations();
+      }).observe(host);
+    }
   });
 })();

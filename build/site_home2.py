@@ -104,7 +104,7 @@ def page_home2():
     do_h = ''.join(f'<li><b>{E(k)}</b><span>{E(d)}</span></li>' for k, d in do_l)
     dont_h = ''.join(f'<li><span>{E(d)}</span></li>' for d in dont_l)
     why = (f'<section class="sec hsec hdo"><div class="wrap">'
-           f'<div class="hdo__head">{shd("Why Us", "병원이 아니어서, 한 곳만 권하지 않습니다")}'
+           f'<div class="hdo__head">{shd("Why Us", "병원이 아니어서, 한\u00a0곳만 권하지 않습니다")}'
            f'<p class="hdo__lead">진료는 병원 의료진이 합니다. atInc는 어느 병원으로 갈지 함께 고르고, 진료 앞뒤의 일을 맡습니다.</p></div>'
            f'<div class="hdo__grid"><div class="hdo__col"><h3 class="hdo__t">atInc가 하는 일</h3><ul class="hdo__do">{do_h}</ul></div>'
            f'<div class="hdo__col hdo__col--dark"><h3 class="hdo__t">atInc가 하지 않는 일</h3><ul class="hdo__dont">{dont_h}</ul>'

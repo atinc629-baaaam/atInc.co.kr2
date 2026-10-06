@@ -1904,3 +1904,73 @@ details.fold > summary h3 + p { margin-top: 4px; }
 .hfaq .faq { max-width: none; }
 .hfaq + .contact2 { padding-top: clamp(24px, 3vw, 40px); }
 @media (max-width: 900px) { .hfaq__grid { grid-template-columns: minmax(0, 1fr); } }
+
+/* ---------- v17 · mobile pass (ECC review): steady scrolling, shorter pages, cleaner phone layout ---------- */
+.nw { white-space: nowrap; }
+.kv--co { font-size: 15.5px; gap: 14px 40px; }
+.crumb { align-items: center; }
+.appt__intl a, .intl a { white-space: nowrap; }
+.pline__links { gap: 0 20px; }
+.pline__links a { padding-block: 10px; }
+/* map: hold its space before the script draws it; rest while off screen */
+.atmap { aspect-ratio: 560 / 760; }
+.atmap.is-off .pulse { animation-play-state: paused; }
+
+/* folded lists never open-then-close on phones: bodies stay hidden until site.js has set the fold state */
+@media (max-width: 700px) {
+  .js:not(.fold-ready) details.fold > :not(summary) { display: none; }
+  .js:not(.fold-ready) details.fold[open] > summary::after { transform: rotate(45deg); top: 6px; }
+}
+
+/* touch screens: short, quiet reveals; no curtains or zooms that trail behind a finger scroll */
+@media (max-width: 700px), (hover: none) and (pointer: coarse) {
+  .rv [data-rv] { transform: translateY(12px); transition: opacity .45s ease, transform .55s cubic-bezier(.2, .7, .1, 1); transition-delay: calc(var(--d, 0) * 60ms); }
+  .rv [data-rv].is-in { transform: none; }
+  .rv [data-rv] .tile__pic, .rv [data-rv].intl2__pic img, .rv [data-rv].phero__pic img, .rv [data-rv] .mcard__pic, .rv [data-rv] .clist__pic { clip-path: none; transition: none; }
+  .rv [data-rv] .tile__pic img, .rv [data-rv].intl2__pic img, .rv [data-rv].phero__pic img, .rv [data-rv] .mcard__pic img, .rv [data-rv] .clist__pic img { transform: none; transition: none; }
+  .rv .tl[data-rv] .tl__list li { opacity: 1; transform: none; transition: none; }
+  /* hero: a lighter push-in, and the slide that leaves resets once it has faded */
+  .slide__pic { transform: scale(1.05); }
+  .slide.is-on .slide__pic { transform: none; }
+  .slide:not(.is-on) .slide__pic { transition: transform 0s 1.2s; }
+  .atmap .spark { filter: none; }
+}
+
+/* phone layout */
+@media (max-width: 760px) {
+  /* the bottom bar already carries call and booking: the header keeps only the logo and menu */
+  .hdr__tel, .hdr__cta { display: none !important; }
+  /* the dark footer runs to the bottom edge, clear of the bottom bar */
+  body { padding-bottom: 0; }
+  .ftr { padding-bottom: calc(96px + env(safe-area-inset-bottom, 0px)); }
+}
+@media (max-width: 600px) {
+  .sec, .msec, .hsec { padding-block: 56px; }
+  .shd { margin-bottom: 20px; }
+  /* process steps: number on the left, text on the right */
+  .steps { gap: 0; }
+  .step { grid-template-columns: 32px minmax(0, 1fr); column-gap: 10px; row-gap: 4px; padding: 16px 0; }
+  .step__no { grid-row: span 2; padding-top: 4px; }
+  /* how atInc works: lighter cards */
+  .ways { gap: 10px; }
+  .ways li { padding: 20px; gap: 6px; }
+  .ways--who li { grid-template-columns: 40px minmax(0, 1fr); align-items: baseline; padding: 16px 18px; }
+  .pmeta > div:last-child:nth-child(odd) { grid-column: 1 / -1; }
+  /* network filters: one swipeable row */
+  .filters { flex-wrap: nowrap; overflow-x: auto; margin-inline: calc(-1 * var(--gutter, 20px)); padding-inline: var(--gutter, 20px); scrollbar-width: none; }
+  .filters::-webkit-scrollbar { display: none; }
+  .filters button { flex: none; }
+  /* company details: label and value on one line */
+  .kv, .kv--co { grid-template-columns: 7.5em minmax(0, 1fr); gap: 10px 14px; }
+  .kv dd { margin-bottom: 0; }
+  /* footer: links flow in rows instead of one per line */
+  .ftr__top { grid-template-columns: minmax(0, 1fr); gap: 24px; padding-bottom: 32px; }
+  .ftr__top > div:first-child { grid-column: auto; }
+  .ftr ul { display: flex; flex-wrap: wrap; gap: 0 18px; }
+  .ftr ul a { display: inline-block; padding-block: 6px; }
+  .rows + div .btn { width: 100%; }
+}
+@media (max-width: 700px) {
+  .pband__fig { height: 240px; }
+  .pband__word { font-size: 34px; }
+}
