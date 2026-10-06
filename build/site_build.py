@@ -783,7 +783,7 @@ def page_home():
 def page_about():
     f1 = fields(AB['01'])
     hero = phero([('홈', 'index.html'), ('회사소개', None)], 'ABOUT atinc', f1['제목'], f1['본문'],
-                 f'<figure class="phero__pic">{pic("building", "", "(max-width: 900px) 100vw, 40vw", (640, 960, 1400), eager=True)}</figure>',
+                 f'<figure class="phero__pic">{pic("office", "", "(max-width: 900px) 100vw, 40vw", (640, 960, 1400), eager=True)}</figure>',
                  f'<p class="notice" style="max-width: 62ch; padding-left: 16px; border-left: 2px solid var(--latte)">{E(f1["고지 문장"])}</p>')
     b2 = AB['02']
     f2 = fields(b2)
