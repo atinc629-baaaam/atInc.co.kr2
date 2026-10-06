@@ -90,13 +90,25 @@ def page_home2():
     qm = ''.join(f'<li><a {attr}>{svg(ic_)}<span>{E(lab)}</span></a></li>' for ic_, lab, attr in q)
     quick = f'<nav class="qmenu" aria-label="바로가기"><div class="wrap"><ul class="qmenu__list">{qm}</ul></div></nav>'
 
-    # 2b. why go through atInc rather than straight to a hospital (service, not medical claims)
-    why_d = [('비교', '한 병원 안에서만 고르지 않습니다', '목적과 일정을 듣고 맞는 곳을 3곳 안으로 추려, 기관마다 무엇이 다른지 설명해 드립니다.'),
-             ('준비', '진료 시간을 꼭 필요한 이야기에', '병력과 복용 중인 약, 이전 검사 자료와 궁금한 점을 미리 정리해 진료에 가져가실 수 있게 합니다.'),
-             ('비용', '병원비와 저희 비용을 나눠서', '병원에 내는 진료비와 atInc 조율료, 통역·차량 같은 실비를 각각 나눠 알려 드립니다.')]
-    why = (f'<section class="sec hsec hwhy"><div class="wrap">{shd("Why Us", "병원에 바로 가실 때와 무엇이 다를까요")}'
-           f'<ol class="ways">' + ''.join(f'<li><span class="ways__no">{i:02d}</span><p class="hwhy__k">{E(k)}</p><h3>{E(t)}</h3><p>{E(d)}</p></li>' for i, (k, t, d) in enumerate(why_d, 1))
-           + '</ol><p class="hwhy__line">진료는 병원에서, 그 앞뒤는 atInc가 맡습니다.</p></div></section>')
+    # 2b. what atInc does and does not do — a coordinator, not a clinic (every line is already stated elsewhere on the site)
+    do_l = [('비교', '목적과 일정을 듣고 맞는 의료기관을 3곳 안으로 추려, 기관마다 무엇이 다른지 설명해 드립니다.'),
+            ('준비', '병력과 복용 중인 약, 이전 검사 자료와 궁금한 점을 진료 전에 함께 정리합니다.'),
+            ('예약과 동행', '정하신 병원을 예약하고, 당일 동행과 의료통역을 준비합니다.'),
+            ('결과 이후', '결과 상담과 다음 검진·진료 일정을 챙깁니다.'),
+            ('비용', '병원비와 atInc 조율료, 통역·차량 같은 실비를 나눠서 미리 알려 드립니다.')]
+    dont_l = ['진단과 처방, 시술은 하지 않습니다. 모두 병원 의료진이 정합니다.',
+              '한 병원만 정해 두고 권하지 않습니다.',
+              '진료의 효과나 결과를 약속하지 않습니다.',
+              '첫 상담에서 진단서나 검사 결과를 요구하지 않습니다.',
+              '고객님 동의 없이 병원에 개인정보를 전하지 않습니다.']
+    do_h = ''.join(f'<li><b>{E(k)}</b><span>{E(d)}</span></li>' for k, d in do_l)
+    dont_h = ''.join(f'<li><span>{E(d)}</span></li>' for d in dont_l)
+    why = (f'<section class="sec hsec hdo"><div class="wrap">'
+           f'<div class="hdo__head">{shd("Why Us", "병원이 아니어서, 한 곳만 권하지 않습니다")}'
+           f'<p class="hdo__lead">진료는 병원 의료진이 합니다. atInc는 어느 병원으로 갈지 함께 고르고, 진료 앞뒤의 일을 맡습니다.</p></div>'
+           f'<div class="hdo__grid"><div class="hdo__col"><h3 class="hdo__t">atInc가 하는 일</h3><ul class="hdo__do">{do_h}</ul></div>'
+           f'<div class="hdo__col hdo__col--dark"><h3 class="hdo__t">atInc가 하지 않는 일</h3><ul class="hdo__dont">{dont_h}</ul>'
+           f'<p class="hdo__reg">외국인환자 유치업 등록 제 A-2026-08-01-07161 호</p></div></div></div></section>')
 
     # 3. medical areas
     line = {'checkup': '나이와 가족력에 맞춘 검사 항목', 'regenerative': '세포 보관과 재생의료 상담',
@@ -148,14 +160,24 @@ def page_home2():
 
     # 8. contact: the appointment card
     contact = (f'<section class="sec hsec contact2" id="contact"><div class="wrap contact2__grid"><div class="contact2__txt">{shd("Private Consultation", "프라이빗 상담")}'
-               f'<p class="contact2__d">신청서에 연락처와 관심 분야를 남겨 주시면, 담당 매니저가 고르신 방법으로 먼저 연락드립니다.</p>'
+               f'<p class="contact2__d">신청서에 연락처와 관심 분야를 남겨 주시면, 전화·카카오톡·이메일 가운데 고르신 방법으로 담당 매니저가 먼저 연락드립니다.</p>'
                f'<ul class="contact2__notes"><li>첫 통화에서 목적과 일정을 듣습니다</li><li>맞는 곳을 추려 비교해 드립니다</li><li>정하신 뒤에 예약과 동행을 준비합니다</li></ul>'
                f'<p><a class="link" href="consultation.html">상담 진행 방식 자세히 보기</a></p></div>'
                f'{appt_card("상담 예약", "")}</div></section>')
+
+    # 7b. short questions before the consultation card (answers repeat what the site already states)
+    qa = [('atInc는 병원인가요?', '아닙니다. 진찰과 진단, 치료는 협력 의료기관의 의료진이 맡습니다. atInc는 맞는 병원을 함께 고르고, 예약과 동행, 결과 이후 일정을 챙기는 헬스케어 컨시어지입니다.'),
+          ('병원 이름은 언제 알 수 있나요?', '첫 상담에서 목적과 일정을 들은 뒤, 맞는 기관을 추려 고객님께 따로 말씀드립니다. 홈페이지에는 기관 이름을 싣지 않습니다.'),
+          ('비용은 어떻게 안내받나요?', '병원에 내는 진료비, atInc 조율료, 통역·차량 같은 실비를 나눠서 미리 알려 드립니다. 금액은 받으실 진료와 일정에 따라 달라 상담에서 안내해 드립니다.'),
+          ('진단서나 검사 결과를 먼저 보내야 하나요?', '아니요. 첫 상담에는 필요 없습니다. 자료가 필요해지면 통화한 뒤 받는 곳과 방법을 알려 드리고, 따로 동의를 받습니다.'),
+          ('해외에서도 상담할 수 있나요?', '네. 이메일이나 전화로 상담하실 수 있고, 영어나 중국어로 이메일을 보내 주셔도 됩니다. 병원 예약과 의료통역, 공항 픽업과 이동까지 함께 준비합니다.')]
+    faq_h = ''.join(f'<details><summary>{E(q)}{ic("chev")}</summary><p class="body">{E(a)}</p></details>' for q, a in qa)
+    faq = (f'<section class="sec hsec hfaq"><div class="wrap hfaq__grid"><div>{shd("FAQ", "상담 전에 많이 물으시는 것")}</div>'
+           f'<div class="faq">{faq_h}</div></div></section>')
 
     words = ['정밀검진', '세포 보관·재생의료', '성형·피부', '여성건강', '난임', '남성건강', '한방 재활', '해외 진료']
     run = ''.join(f'<span>{E(w)}</span><i aria-hidden="true"></i>' for w in words)
     band = (f'<div class="mq" aria-label="진료 분야: {E(", ".join(words))}"><div class="mq__track" aria-hidden="true">'
             f'<div class="mq__run">{run}</div><div class="mq__run">{run}</div></div></div>')
-    main = hero + quick + band + why + areas + progs + process + net_s + intl + contact
+    main = hero + quick + band + why + areas + progs + process + net_s + intl + faq + contact
     page('index.html', 'atinc | 프라이빗 헬스케어 컨시어지', '검진, 재생의료, 성형·피부, 여성·남성 진료, 한방까지. 필요한 병원 정보를 정리해 드리고 예약과 통역, 결과 이후 일정까지 함께 챙깁니다.', main, 'home', light=False)

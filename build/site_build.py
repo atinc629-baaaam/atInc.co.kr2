@@ -1070,9 +1070,9 @@ def page_category(c):
                   f'<ol class="tl__list" style="--n: {len(fl["steps"])}">{st_h}</ol><p class="tl__note">{E(fl["note"])}</p></figure>')
     s4b = (f'<section class="sec msec" id="guide"><div class="wrap">{shd("Guide", "협력 기관이 안내하는 준비와 회복")}{flow_h}<div class="guide">{gd}</div>'
            f'<p class="msec__note">협력 기관들이 고객에게 안내하는 일반적인 내용입니다. 실제 준비와 회복 일정은 예약하신 기관의 담당 의료진이 정하고, atInc는 그 안내를 일정에 넣어 전날 다시 알려 드립니다.</p></div></section>') if gd else ''
-    band = (f'<section class="pband" aria-label="{E(c["ko"])}"><figure class="pband__fig">{pic("cat2-" + c["id"], "", "100vw", (960, 1600, 2400))}'
-            f'<span class="pband__veil" aria-hidden="true"></span><figcaption class="wrap pband__cap"><p class="pband__en">{E(c["en"])}</p>'
-            f'<p class="pband__t">{E(M["band"])}</p></figcaption></figure></section>') if M.get('band') else ''
+    # a quiet picture break: the field name only, no instructions on top of the photo
+    band = (f'<section class="pband" aria-hidden="true"><figure class="pband__fig">{pic("cat2-" + c["id"], "", "100vw", (960, 1600, 2400))}'
+            f'<span class="pband__veil"></span><figcaption class="wrap pband__cap"><p class="pband__word">{E(c["en"])}</p></figcaption></figure></section>') if ('cat2-' + c['id']) in PHOTOS else ''
     main = hero + s2 + s1 + band + s3 + s4 + s4b + s5 + cta
     page(c['page'], f'{c["ko"]} | atinc', f1['본문'], main, 'medical', light=True)
 

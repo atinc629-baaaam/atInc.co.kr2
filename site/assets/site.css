@@ -1871,3 +1871,36 @@ details.fold > summary h3 + p { margin-top: 4px; }
 .pband__en { margin-bottom: 12px; font-size: 13px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--brass); }
 .pband__t { max-width: 22em; font-size: clamp(22px, 2.4vw, 34px); font-weight: 500; line-height: 1.4; letter-spacing: -.035em; color: #fff; text-wrap: balance; }
 @media (max-width: 700px) { .pband__veil { background: linear-gradient(180deg, rgba(36, 25, 18, .2) 0%, rgba(36, 25, 18, .78) 100%); } }
+
+/* ---------- v16 · reference pass: what we do / don't do, home FAQ, quiet photo band ---------- */
+/* field pages: the photo band carries only the field name */
+.pband__veil { background: linear-gradient(90deg, rgba(36, 25, 18, .5) 0%, rgba(36, 25, 18, .16) 50%, rgba(36, 25, 18, 0) 100%); }
+.pband__word { font-size: clamp(36px, 5.6vw, 88px); font-weight: 300; line-height: 1; letter-spacing: -.045em; color: rgba(255, 255, 255, .94); }
+@media (max-width: 700px) { .pband__veil { background: linear-gradient(180deg, rgba(36, 25, 18, 0) 40%, rgba(36, 25, 18, .55) 100%); } }
+
+/* home: what atInc does and does not do */
+.hdo__head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, .9fr); align-items: end; gap: 16px clamp(32px, 5vw, 80px); margin-bottom: clamp(32px, 3.6vw, 52px); }
+.hdo__head .shd { margin-bottom: 0; }
+.hdo__lead { max-width: 40ch; font-size: clamp(16px, 1.25vw, 18px); line-height: 1.75; color: var(--body); }
+.hdo__grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: clamp(14px, 1.6vw, 24px); }
+.hdo__col { padding: clamp(26px, 3vw, 44px); border: 1px solid var(--line); border-radius: var(--r-panel); background: var(--paper); }
+.hdo__col--dark { display: flex; flex-direction: column; border-color: var(--espresso); background: var(--espresso); color: var(--ivory); }
+.hdo__t { margin-bottom: clamp(16px, 1.8vw, 24px); font-size: clamp(19px, 1.6vw, 22px); font-weight: 600; letter-spacing: -.03em; }
+.hdo__col--dark .hdo__t { color: #fff; }
+.hdo__do li { display: grid; grid-template-columns: 7.5em minmax(0, 1fr); gap: 6px 18px; padding: 16px 0; border-top: 1px solid var(--line); font-size: 15.5px; line-height: 1.65; color: var(--body); }
+.hdo__do li:last-child { padding-bottom: 0; }
+.hdo__do b { font-weight: 600; color: var(--brown-deep); }
+.hdo__dont li { position: relative; padding: 16px 0 16px 28px; border-top: 1px solid rgba(194, 164, 126, .28); font-size: 15.5px; line-height: 1.65; color: rgba(247, 243, 236, .9); }
+.hdo__dont li::before { content: ""; position: absolute; left: 2px; top: 1.6em; width: 12px; height: 1px; background: var(--brass); }
+.hdo__reg { margin-top: auto; padding-top: 22px; font-size: 13px; letter-spacing: .01em; color: var(--brass); }
+@media (max-width: 900px) {
+  .hdo__head, .hdo__grid { grid-template-columns: minmax(0, 1fr); }
+  .hdo__do li { grid-template-columns: minmax(0, 1fr); gap: 2px; }
+}
+
+/* home: short FAQ before the consultation card */
+.hfaq { border-top: 1px solid var(--line); }
+.hfaq__grid { display: grid; grid-template-columns: minmax(0, .75fr) minmax(0, 1.5fr); gap: 20px clamp(32px, 5vw, 80px); align-items: start; }
+.hfaq .faq { max-width: none; }
+.hfaq + .contact2 { padding-top: clamp(24px, 3vw, 40px); }
+@media (max-width: 900px) { .hfaq__grid { grid-template-columns: minmax(0, 1fr); } }
