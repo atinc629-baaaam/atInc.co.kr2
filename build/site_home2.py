@@ -53,7 +53,7 @@ def page_home2():
     # 1. main visual: four faceless photographs, one message each
     slides_d = [
         ('hero-lounge', 'Private Healthcare Concierge', '건강을 넘어,<br>삶의 품격을 설계합니다',
-         '어느 병원에서 무엇을 받으실지 함께 고르고, 예약과 동행, 결과 상담까지 한 매니저가 곁에 있습니다.', form_link('상담 예약하기', '', 'btn btn--light', None)),
+         '어느 병원에서 무엇을 받으실지 함께 고르고, 예약과 동행, 결과 상담까지 함께합니다.', form_link('상담 예약하기', '', 'btn btn--light', None)),
         ('hero-equipment', 'Health Checkup', '올해 검진,<br>나이와 가족력에 맞춰 고르세요',
          '검사 항목과 검진기관 정보를 함께 살펴보고, 맞는 곳을 3곳 안으로 추려 드립니다.', '<a class="btn btn--line" href="medical-checkup.html">검진 살펴보기</a>'),
         ('hero-seoul', 'Private Consultation', '어느 병원으로 가야 할지,<br>먼저 물어보세요',
@@ -107,7 +107,7 @@ def page_home2():
     # 4. programmes
     prog = [('private-checkup', '1일 + 30일', '검진 당일 동행과 결과 이후 30일'),
             ('longevity-90', '90일', '검진 결과를 90일 건강 일정으로'),
-            ('executive-365', '12개월', '1년의 검진과 진료 일정을 한 매니저가'),
+            ('executive-365', '12개월', '1년의 검진과 진료 일정을 한곳에서'),
             ('global-medical-journey', '입국부터 귀국까지', '입국 전 준비부터 귀국 후 상담까지')]
     page_of = {p_['id']: p_['page'] for p_ in CARE}
     en_of = {p_['id']: (p_['en'].title() if p_['id'] != 'global-medical-journey' else 'Global Medical Journey') for p_ in CARE}
@@ -149,4 +149,4 @@ def page_home2():
                f'{appt_card("상담 예약", "")}</div></section>')
 
     main = hero + quick + why + areas + progs + process + net_s + intl + contact
-    page('index.html', 'atinc | 프라이빗 헬스케어 컨시어지', '검진, 재생의료, 성형·피부, 여성·남성 진료, 한방까지. 필요한 병원 정보를 정리해 드리고 예약과 통역, 결과 이후 일정까지 전담 매니저가 챙깁니다.', main, 'home', light=False)
+    page('index.html', 'atinc | 프라이빗 헬스케어 컨시어지', '검진, 재생의료, 성형·피부, 여성·남성 진료, 한방까지. 필요한 병원 정보를 정리해 드리고 예약과 통역, 결과 이후 일정까지 함께 챙깁니다.', main, 'home', light=False)

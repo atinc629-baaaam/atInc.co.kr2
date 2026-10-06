@@ -491,7 +491,7 @@ def page(fn, title, desc, main, cur=None, light=False):
     ld = [{'@context': 'https://schema.org', '@type': 'Organization', 'name': 'atInc', 'legalName': '주식회사 애트',
            'url': SITE_URL, 'logo': SITE_URL + 'assets/og.png', 'email': EMAIL, 'telephone': '+82-10-5857-0129',
            'areaServed': 'KR',
-           'description': '목적에 맞는 한국의 병원을 고르고 예약·통역·결과 이후 일정까지 전담 매니저가 맡는 헬스케어 컨시어지'}] if fn == 'index.html' else []
+           'description': '목적에 맞는 한국의 병원을 함께 고르고 예약·통역·결과 이후 일정까지 함께하는 헬스케어 컨시어지'}] if fn == 'index.html' else []
     cm = re.search(r'<nav class="crumb"[^>]*>(.*?)</nav>', body)
     if cm:
         its = re.findall(r'<a href="([^"]+)">([^<]+)</a>|<span>([^<]+)</span>', cm.group(1))
@@ -563,7 +563,7 @@ def eyebrow(t, light=False):
 def appt_card(btn='상담 예약', cat=''):
     """The concierge 'appointment card' used wherever we ask for a consultation."""
     return (f'<aside class="appt"><p class="appt__t">프라이빗 상담 예약</p>'
-            f'<dl class="appt__dl"><dt>담당 매니저</dt><dd>첫 통화부터 결과 이후까지 같은 매니저가 맡습니다</dd>'
+            f'<dl class="appt__dl"><dt>함께하는 일</dt><dd>병원 선택과 예약, 동행, 결과 이후까지</dd>'
             f'<dt>첫 상담</dt><dd>진단서나 검사 결과는 아직 보내지 않으셔도 됩니다</dd>'
             f'<dt>비용 안내</dt><dd>병원비와 atInc 조율료, 통역·차량 같은 실비를 나눠서 알려 드립니다</dd></dl>'
             f'{form_link(btn, cat, "btn btn--dark btn--wide")}<p class="appt__form">신청서는 새 창에서 열립니다</p>'
