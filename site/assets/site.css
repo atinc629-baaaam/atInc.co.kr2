@@ -1832,3 +1832,42 @@ details.fold > summary h3 + p { margin-top: 4px; }
   [data-px] { transform: none !important; }
 }
 [data-px] { transition: clip-path 1.3s cubic-bezier(.2, .7, .1, 1) .12s !important; }
+
+/* ---------- v15 · timeline graphic on field pages (partner guidance as a picture) ---------- */
+.tl { margin: 0 0 clamp(36px, 4vw, 56px); padding: clamp(24px, 3vw, 40px); border-radius: var(--r-panel); background: var(--espresso); color: var(--ivory); }
+.tl__cap { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 20px; margin-bottom: clamp(24px, 3vw, 36px); }
+.tl__cap b { font-size: clamp(19px, 1.7vw, 23px); font-weight: 600; letter-spacing: -.03em; }
+.tl__cap span { font-size: 13px; letter-spacing: .02em; color: var(--brass); }
+.tl__list { position: relative; display: grid; grid-template-columns: repeat(var(--n), minmax(0, 1fr)); gap: 0 16px; }
+.tl__list::before { content: ""; position: absolute; left: 0; right: 0; top: 34px; height: 1px; background: rgba(194, 164, 126, .45); }
+.tl__list li { position: relative; display: grid; grid-template-rows: auto auto auto 1fr; gap: 6px; padding-right: 4px; }
+.tl__when { min-height: 20px; font-size: 13px; font-weight: 600; letter-spacing: .01em; color: var(--brass); white-space: nowrap; }
+.tl__dot { position: relative; z-index: 1; width: 11px; height: 11px; margin: 4px 0 10px; border-radius: 50%; background: var(--espresso); box-shadow: 0 0 0 2px var(--brass); }
+.tl__list li:first-child .tl__dot { background: var(--brass); }
+.tl__list b { font-size: 16px; font-weight: 600; letter-spacing: -.02em; color: #fff; }
+.tl__list p { font-size: 14px; line-height: 1.6; color: rgba(247, 243, 236, .78); }
+.tl__note { margin-top: clamp(22px, 2.6vw, 32px); padding-top: 16px; border-top: 1px solid rgba(194, 164, 126, .3); font-size: 14.5px; line-height: 1.7; color: rgba(247, 243, 236, .86); }
+.rv .tl[data-rv] .tl__list li { opacity: 0; transform: translateY(14px); transition: opacity .7s ease, transform .9s cubic-bezier(.2, .7, .1, 1); }
+.rv .tl[data-rv].is-in .tl__list li { opacity: 1; transform: none; }
+.rv .tl[data-rv].is-in .tl__list li:nth-child(2) { transition-delay: .12s; } .rv .tl[data-rv].is-in .tl__list li:nth-child(3) { transition-delay: .24s; }
+.rv .tl[data-rv].is-in .tl__list li:nth-child(4) { transition-delay: .36s; } .rv .tl[data-rv].is-in .tl__list li:nth-child(5) { transition-delay: .48s; }
+.rv .tl[data-rv].is-in .tl__list li:nth-child(6) { transition-delay: .6s; } .rv .tl[data-rv].is-in .tl__list li:nth-child(7) { transition-delay: .72s; }
+@media (max-width: 980px) {
+  .tl__list { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .tl__list::before { left: 5px; right: auto; top: 6px; bottom: 6px; width: 1px; height: auto; }
+  .tl__list li { grid-template-columns: 11px minmax(0, 1fr); grid-template-rows: auto; column-gap: 16px; row-gap: 2px; padding: 0 0 20px; }
+  .tl__dot { grid-column: 1; grid-row: 1; margin: 5px 0 0; }
+  .tl__when, .tl__list b, .tl__list p { grid-column: 2; }
+  .tl__when { grid-row: 1; min-height: 0; }
+}
+@media (prefers-reduced-motion: reduce) { .rv .tl[data-rv] .tl__list li { opacity: 1; transform: none; transition: none; } }
+
+/* ---------- v15 · wide photo band inside each field page ---------- */
+.pband { position: relative; }
+.pband__fig { position: relative; height: clamp(300px, 52vh, 560px); overflow: hidden; background: var(--espresso); }
+.pband__fig .pic { position: absolute; inset: -40px 0; width: 100%; height: calc(100% + 80px); object-fit: cover; }
+.pband__veil { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(36, 25, 18, .72) 0%, rgba(36, 25, 18, .38) 55%, rgba(36, 25, 18, .12) 100%); }
+.pband__cap { position: absolute; left: 0; right: 0; bottom: clamp(32px, 5vw, 64px); }
+.pband__en { margin-bottom: 12px; font-size: 13px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--brass); }
+.pband__t { max-width: 22em; font-size: clamp(22px, 2.4vw, 34px); font-weight: 500; line-height: 1.4; letter-spacing: -.035em; color: #fff; text-wrap: balance; }
+@media (max-width: 700px) { .pband__veil { background: linear-gradient(180deg, rgba(36, 25, 18, .2) 0%, rgba(36, 25, 18, .78) 100%); } }

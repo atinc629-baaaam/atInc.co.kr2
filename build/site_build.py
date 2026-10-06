@@ -1062,9 +1062,18 @@ def page_category(c):
                 reasons=reasons, reasons_title='이럴 때 상담하세요')
     # 4b. preparation and recovery as the partner institutions explain it (nothing that names them)
     gd = ''.join(f'<div class="guide__col"><details class="fold" open data-fold><summary><h3>{E(t)}</h3></summary><ul>' + ''.join(f'<li>{E(x)}</li>' for x in xs) + '</ul></details></div>' for t, xs in M.get('guide', []))
-    s4b = (f'<section class="sec msec" id="guide"><div class="wrap">{shd("Guide", "협력 기관이 안내하는 준비와 회복")}<div class="guide">{gd}</div>'
+    fl = M.get('flow')
+    flow_h = ''
+    if fl:
+        st_h = ''.join(f'<li><span class="tl__when">{E(w)}</span><span class="tl__dot" aria-hidden="true"></span><b>{E(t)}</b><p>{E(x)}</p></li>' for w, t, x in fl['steps'])
+        flow_h = (f'<figure class="tl" aria-label="{E(fl["title"])}"><figcaption class="tl__cap"><b>{E(fl["title"])}</b><span>{E(fl["src"])}</span></figcaption>'
+                  f'<ol class="tl__list" style="--n: {len(fl["steps"])}">{st_h}</ol><p class="tl__note">{E(fl["note"])}</p></figure>')
+    s4b = (f'<section class="sec msec" id="guide"><div class="wrap">{shd("Guide", "협력 기관이 안내하는 준비와 회복")}{flow_h}<div class="guide">{gd}</div>'
            f'<p class="msec__note">협력 기관들이 고객에게 안내하는 일반적인 내용입니다. 실제 준비와 회복 일정은 예약하신 기관의 담당 의료진이 정하고, atInc는 그 안내를 일정에 넣어 전날 다시 알려 드립니다.</p></div></section>') if gd else ''
-    main = hero + s2 + s1 + s3 + s4 + s4b + s5 + cta
+    band = (f'<section class="pband" aria-label="{E(c["ko"])}"><figure class="pband__fig">{pic("cat2-" + c["id"], "", "100vw", (960, 1600, 2400))}'
+            f'<span class="pband__veil" aria-hidden="true"></span><figcaption class="wrap pband__cap"><p class="pband__en">{E(c["en"])}</p>'
+            f'<p class="pband__t">{E(M["band"])}</p></figcaption></figure></section>') if M.get('band') else ''
+    main = hero + s2 + s1 + band + s3 + s4 + s4b + s5 + cta
     page(c['page'], f'{c["ko"]} | atinc', f1['본문'], main, 'medical', light=True)
 
 

@@ -232,7 +232,7 @@
   if (!calm && 'IntersectionObserver' in window) {
     var RV = ['.shd', '.tile', '.flow li', '.ways > li', '.hwhy__line', '.intl2__pic', '.intl2__txt', '.contact2__txt', '.appt',
               '.svcs > li', '.ptn > li', '.steps > li', '.guide__col', '.mfaq > div', '.phero__pic', '.clist__row', '.mcard', '.mac',
-              '.netgroup', '.mapcard', '.cband__main', '.grid2 > .card', '.grid3 > .card', '.grid4 > .card', '.ojourney', '.msec__note', '.hnote'];
+              '.netgroup', '.mapcard', '.cband__main', '.tl', '.pband__cap', '.grid2 > .card', '.grid3 > .card', '.grid4 > .card', '.ojourney', '.msec__note', '.hnote'];
     var els = document.querySelectorAll('main ' + RV.join(', main '));
     var io = new IntersectionObserver(function (es) {
       es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } });
@@ -245,7 +245,7 @@
       io.observe(el);
     });
     document.documentElement.classList.add('rv');
-    var px = document.querySelectorAll('.hero--photo .hero__pic img, .intl2__pic img, .phero__pic img');
+    var px = document.querySelectorAll('.hero--photo .hero__pic img, .intl2__pic img, .phero__pic img, .pband__fig img');
     px.forEach(function (im) { im.setAttribute('data-px', ''); });
     var ticking = false;
     var movePx = function () {

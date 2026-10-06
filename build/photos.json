@@ -12,6 +12,13 @@
   "cat-men":         { "src": "unsplash:1615486511484-92e172cc4fe0", "alt": "팔에 감은 혈압계 커프", "pos": "50% 50%" },
   "cat-korean-medicine": { "src": "unsplash:1545840716-c82e9eec6930", "alt": "말린 약재가 담긴 유리병과 놋그릇", "pos": "50% 50%" },
 
+  "cat2-checkup":    { "src": "unsplash:1691935071222-c008a4ccc2ca", "alt": "모니터가 달린 진단 장비", "pos": "50% 50%" },
+  "cat2-regenerative": { "src": "unsplash:1581091007718-0c50d599bfd0", "alt": "현미경 아래 배양 접시를 놓는 장갑 낀 손", "pos": "50% 50%" },
+  "cat2-aesthetic":  { "src": "unsplash:1598300195951-8667fec6f769", "alt": "흰 테이블 위의 흰색과 금색 받침", "pos": "50% 50%" },
+  "cat2-women":      { "src": "unsplash:1639772823907-a716be4bdecc", "alt": "현미경을 다루는 장갑 낀 손", "pos": "50% 50%" },
+  "cat2-men":        { "src": "unsplash:1655655314398-c40c8dc6fb75", "alt": "화면이 달린 의료 장비", "pos": "50% 50%" },
+  "cat2-korean-medicine": { "src": "unsplash:1598555763574-dca77e10427e", "alt": "피부에 놓인 침", "pos": "50% 50%" },
+
   "prog-private-checkup": { "src": "unsplash:1777805865927-a6ee4c4eacb1", "alt": "갈색 바탕 위의 청진기와 클립보드", "pos": "50% 50%" },
   "prog-longevity-90":    { "src": "unsplash:1477332552946-cfb384aeaf1c", "alt": "가을 햇살 속 시골길을 걷는 사람의 뒷모습", "pos": "50% 55%" },
   "prog-executive-365":   { "src": "unsplash:1764410481612-7544525b2991", "alt": "큰 창이 있는 집무실의 책상과 의자", "pos": "50% 50%" },
