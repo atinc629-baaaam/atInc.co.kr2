@@ -63,20 +63,68 @@
     window.addEventListener('pageshow', toTop);
   }
 
-  // hero photographs: slow crossfade, paused when the tab is hidden or the hero is off screen
-  document.querySelectorAll('[data-slides]').forEach(function (box) {
-    var slides = box.querySelectorAll('.slide');
-    if (slides.length < 2 || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    var i = 0, inView = true;
-    if ('IntersectionObserver' in window) {
-      new IntersectionObserver(function (en) { inView = en[0].isIntersecting; }).observe(box);
+  // main visual: crossfade with counter, progress bar, previous / pause / next
+  document.querySelectorAll('.phx').forEach(function (hero) {
+    var slides = hero.querySelectorAll('.slide');
+    var cur = hero.querySelector('[data-cur]'), bar = hero.querySelector('[data-bar]');
+    var pauseBtn = hero.querySelector('[data-pause]');
+    var n = slides.length, i = 0, timer = null, inView = true;
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var paused = reduce, DELAY = 6500;
+    var ICON_PAUSE = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6v12M15 6v12"/></svg>';
+    var ICON_PLAY = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5l11 6.5-11 6.5z"/></svg>';
+    function pad(x) { return (x < 9 ? '0' : '') + (x + 1); }
+    function restartBar() {
+      if (!bar) return;
+      bar.classList.remove('run'); void bar.offsetWidth;
+      if (!paused) bar.classList.add('run');
     }
-    setInterval(function () {
-      if (document.hidden || !inView) return;
+    function show(k) {
       slides[i].classList.remove('is-on');
-      i = (i + 1) % slides.length;
+      i = (k + n) % n;
       slides[i].classList.add('is-on');
-    }, 6500);
+      if (cur) cur.textContent = pad(i);
+      restartBar(); schedule();
+    }
+    function schedule() {
+      clearTimeout(timer);
+      if (paused || n < 2) return;
+      timer = setTimeout(function () {
+        if (document.hidden || !inView) { schedule(); return; }
+        show(i + 1);
+      }, DELAY);
+    }
+    function setPaused(p) {
+      paused = p;
+      hero.classList.toggle('is-paused', p);
+      if (pauseBtn) {
+        pauseBtn.innerHTML = p ? ICON_PLAY : ICON_PAUSE;
+        pauseBtn.setAttribute('aria-label', p ? '자동 넘김 다시 시작' : '자동 넘김 멈추기');
+      }
+      if (p) clearTimeout(timer); else { restartBar(); schedule(); }
+    }
+    var prev = hero.querySelector('[data-prev]'), next = hero.querySelector('[data-next]');
+    if (prev) prev.addEventListener('click', function () { show(i - 1); });
+    if (next) next.addEventListener('click', function () { show(i + 1); });
+    if (pauseBtn) pauseBtn.addEventListener('click', function () { setPaused(!paused); });
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (en) { inView = en[0].isIntersecting; }).observe(hero);
+    }
+    setPaused(paused);
+  });
+
+  // floating consult buttons: "back to top" appears once the page has moved
+  var fab = document.querySelector('.fab');
+  if (fab) {
+    var fabScroll = function () { fab.classList.toggle('is-scrolled', window.scrollY > 600); };
+    fabScroll();
+    window.addEventListener('scroll', fabScroll, { passive: true });
+  }
+  document.querySelectorAll('[data-top]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+      var m = document.getElementById('main'); if (m) { m.setAttribute('tabindex', '-1'); m.focus({ preventScroll: true }); }
+    });
   });
 
   // mobile menu

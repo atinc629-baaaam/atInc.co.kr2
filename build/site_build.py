@@ -5,7 +5,9 @@ import mapsvg
 
 SRC = f'{SP}/content'
 OUT = os.path.normpath(f'{SP}/../site')  # 배포용 폴더
-FONTS = 'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,400;9..40,500&family=Noto+Sans+KR:wght@300;400;500;600&family=Noto+Serif+KR:wght@300;400;500&display=swap'
+FONTS = 'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&display=swap'
+PRET = 'https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css'
+PROG_KO = {'private-checkup': '프라이빗 정밀검진', 'longevity-90': '90일 롱제비티', 'executive-365': '연간 헬스 오피스', 'global-medical-journey': '글로벌 메디컬 저니'}
 FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLScWj8HadYKhN0u5T3_wSdlQ-C8OEm1KLfwsCdRxDvk8ebdHuA/viewform'
 EMAIL = 'atinc@atinc.co.kr'
 VIP = '010-5857-0129'
@@ -270,7 +272,8 @@ def pic(key, cls='', sizes='100vw', widths=(640, 960, 1400, 2000), eager=False):
     else:
         srcset = ''
     load = ' fetchpriority="high"' if eager else ' loading="lazy"'
-    return f'<img class="pic {cls}" src="{photo_url(key, widths[min(1, len(widths) - 1)])}"{srcset} alt="{E(p["alt"])}" decoding="async"{load}>'
+    pos = f' style="object-position: {p["pos"]}"' if p.get('pos') else ''
+    return f'<img class="pic {cls}" src="{photo_url(key, widths[min(1, len(widths) - 1)])}"{srcset} alt="{E(p["alt"])}" decoding="async"{load}{pos}>'
 
 
 def form_link(label, cat='', cls='btn btn--dark', icon='out'):
@@ -299,29 +302,29 @@ def header(cur):
         a = ' aria-current="page"' if cur == key else ''
         return f'<a class="nav__link" href="{href}"{a}>{label}</a>'
     med = ''.join(f'<a href="{c["page"]}">{E(c["ko"])}<span>{E(c["en"])}</span></a>' for c in CATS)
-    car = ''.join(f'<a href="{p["page"]}">{E(p["en"].title() if p["id"] != "global-medical-journey" else "Global Medical Journey")}</a>' for p in CARE)
+    car = ''.join(f'<a href="{p["page"]}">{E(PROG_KO[p["id"]])}<span>{E(p["en"].title() if p["id"] != "global-medical-journey" else "Global Medical Journey")}</span></a>' for p in CARE)
     mcur = ' is-current' if cur == 'medical' else ''
     ccur = ' is-current' if cur == 'care' else ''
     return (f'<a class="sr-only" href="#main">본문 바로가기</a>'
             f'<header class="hdr"><div class="wrap hdr__wrap"><div class="hdr__in" data-glass-hdr>{logo()}'
-            f'<nav class="nav" aria-label="주 메뉴">{nl("about.html", "ABOUT", "about")}'
-            f'<div class="nav__item"><a class="nav__link{mcur}" href="medical.html">MEDICAL{ic("chev")}</a><div class="drop">{med}</div></div>'
-            f'<div class="nav__item"><a class="nav__link{ccur}" href="care.html">atinc CARE{ic("chev")}</a><div class="drop">{car}</div></div>'
-            f'{nl("network.html", "NETWORK", "network")}{nl("partners.html", "FOR PARTNERS", "partners")}</nav>'
-            f'<div class="hdr__right">{form_link("상담하기", "", "hdr__cta", None)}'
+            f'<nav class="nav" aria-label="주 메뉴">{nl("about.html", "회사소개", "about")}'
+            f'<div class="nav__item"><a class="nav__link{mcur}" href="medical.html">진료 분야{ic("chev")}</a><div class="drop">{med}</div></div>'
+            f'<div class="nav__item"><a class="nav__link{ccur}" href="care.html">케어 프로그램{ic("chev")}</a><div class="drop">{car}</div></div>'
+            f'{nl("network.html", "협력 네트워크", "network")}{nl("partners.html", "제휴 안내", "partners")}</nav>'
+            f'<div class="hdr__right"><a class="hdr__tel" href="tel:{VIP_TEL}">{ic("phone")}<span>{VIP}</span></a>{form_link("상담 신청", "", "hdr__cta", None)}'
             f'<button class="menu-btn" id="menu-open" type="button" aria-controls="mnav" aria-expanded="false" aria-label="메뉴 열기">{ic("menu")}</button></div>'
             f'</div></div></header>')
 
 
 def mnav():
     med = ''.join(f'<a href="{c["page"]}">{E(c["ko"])}</a>' for c in CATS)
-    car = ''.join(f'<a href="{p["page"]}">{E(p["en"])}</a>' for p in CARE)
+    car = ''.join(f'<a href="{p["page"]}">{E(PROG_KO[p["id"]])}</a>' for p in CARE)
     return (f'<div class="mnav" id="mnav" hidden role="dialog" aria-modal="true" aria-label="전체 메뉴">'
             f'<div class="mnav__top">{logo()}<button class="menu-btn" id="menu-close" type="button" aria-label="메뉴 닫기" style="display: inline-flex">{ic("close")}</button></div>'
-            f'<div class="mnav__group"><h2 class="eyebrow"><a href="medical.html" style="text-decoration: none">MEDICAL</a></h2><div class="mnav__grid">{med}</div></div>'
-            f'<div class="mnav__group"><h2 class="eyebrow"><a href="care.html" style="text-decoration: none">atinc CARE</a></h2><div class="mnav__grid">{car}</div></div>'
-            f'<div class="mnav__group mnav__links"><a href="about.html">About</a><a href="network.html">Network</a><a href="partners.html">For Partners</a><a href="consultation.html">Consultation</a></div>'
-            f'{form_link("프라이빗 상담 신청", "", "btn btn--dark btn--wide")}'
+            f'<div class="mnav__group"><h2 class="eyebrow"><a href="medical.html" style="text-decoration: none">진료 분야</a></h2><div class="mnav__grid">{med}</div></div>'
+            f'<div class="mnav__group"><h2 class="eyebrow"><a href="care.html" style="text-decoration: none">케어 프로그램</a></h2><div class="mnav__grid">{car}</div></div>'
+            f'<div class="mnav__group mnav__links"><a href="about.html">회사소개</a><a href="network.html">협력 네트워크</a><a href="partners.html">제휴 안내</a><a href="consultation.html">상담 안내</a></div>'
+            f'{form_link("상담 신청", "", "btn btn--dark btn--wide")}'
             f'{contact_links("contacts contacts--dark", style="margin-top: 18px")}</div>')
 
 
@@ -334,15 +337,28 @@ def company_line():
 
 def footer():
     med = ''.join(f'<li><a href="{c["page"]}">{E(c["ko"])}</a></li>' for c in CATS)
-    car = ''.join(f'<li><a href="{p["page"]}">{E(p["en"].title() if p["id"] != "global-medical-journey" else "Global Medical Journey")}</a></li>' for p in CARE)
+    car = ''.join(f'<li><a href="{p["page"]}">{E(PROG_KO[p["id"]])}</a></li>' for p in CARE)
     return (f'<footer class="ftr"><div class="wrap"><div class="ftr__top">'
-            f'<div>{logo()}<p class="ftr__tag">엄선된 안전한 의료 플랫폼</p><p class="small" style="color: var(--on-dark-sub); margin-top: 4px">Private Health Journey</p></div>'
-            f'<div><h2>MEDICAL</h2><ul>{med}</ul></div><div><h2>atinc CARE</h2><ul>{car}</ul></div>'
-            f'<div><h2>atinc</h2><ul><li><a href="about.html">ABOUT</a></li><li><a href="network.html">NETWORK</a></li><li><a href="partners.html">FOR PARTNERS</a></li><li><a href="consultation.html">상담 안내</a></li></ul></div></div>'
-            f'<div class="ftr__bot"><div class="ftr__legal"><a href="privacy.html">개인정보처리방침</a><a href="medical-notice.html">Medical Notice</a></div>'
-            f'<p>{E(company_line())} · <a href="mailto:{EMAIL}">{EMAIL}</a> · <a href="tel:{VIP_TEL}">VIP {VIP}</a></p>'
-            f'<p>atinc는 의료기관이 아닌 헬스케어 컨시어지입니다. 검사·진단·치료는 협력 의료기관의 의료진이 직접 맡고, atinc는 그 앞뒤의 상담·예약·통역·사후관리를 책임집니다.</p>'
+            f'<div>{logo()}<p class="ftr__tag">프라이빗 헬스케어 컨시어지</p>'
+            f'<p class="ftr__contact"><a href="tel:{VIP_TEL}">{VIP}</a><a href="mailto:{EMAIL}">{EMAIL}</a></p></div>'
+            f'<div><h2>진료 분야</h2><ul>{med}</ul></div><div><h2>케어 프로그램</h2><ul>{car}</ul></div>'
+            f'<div><h2>atinc</h2><ul><li><a href="about.html">회사소개</a></li><li><a href="network.html">협력 네트워크</a></li><li><a href="partners.html">제휴 안내</a></li><li><a href="consultation.html">상담 안내</a></li></ul></div></div>'
+            f'<div class="ftr__bot"><div class="ftr__legal"><a href="privacy.html">개인정보처리방침</a><a href="medical-notice.html">의료서비스 관련 고지</a></div>'
+            f'<p>{E(company_line())}</p>'
+            f'<p>atinc는 의료기관이 아닌 헬스케어 컨시어지입니다. 검사·진단·치료는 협력 의료기관의 의료진이 맡고, atinc는 그 앞뒤의 상담·예약·통역·사후관리를 맡습니다. 사이트의 사진은 이해를 돕기 위한 참고 이미지입니다.</p>'
             f'<p>© 2026 atinc. All rights reserved.</p></div></div></footer>')
+
+
+def quick_contact():
+    """Floating consult buttons (desktop) and a bottom bar (phones)."""
+    chat = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5h16v10H9l-5 4v-14z"/></svg>'
+    tel = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 3.5h3l1.5 4-2 1.3a10 10 0 0 0 6.2 6.2l1.3-2 4 1.5v3a2 2 0 0 1-2 2A16 16 0 0 1 4.5 5.5a2 2 0 0 1 2-2z"/></svg>'
+    up = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg>'
+    return (f'<div class="fab"><a class="fab__btn fab__btn--main" href="{FORM_URL}" target="_blank" rel="noopener" data-form="">{chat}<span>상담 신청</span></a>'
+            f'<a class="fab__btn" href="tel:{VIP_TEL}">{tel}<span>전화 상담</span></a>'
+            f'<button class="fab__btn fab__top" type="button" data-top>{up}<span>맨 위로</span></button></div>'
+            f'<nav class="mbar" aria-label="빠른 상담"><a href="tel:{VIP_TEL}">{tel}전화 상담</a>'
+            f'<a class="mbar__main" href="{FORM_URL}" target="_blank" rel="noopener" data-form="">{chat}상담 신청</a></nav>')
 
 
 # ------------------------------------------------------------------ notices: same facts, written as atinc's principle (not a disclaimer)
@@ -460,7 +476,8 @@ def page(fn, title, desc, main, cur=None, light=False):
     title, desc, main = brand(title), brand(desc), brand(principle(main))
     glass = 'data-fx=' in main or 'data-hdr-over' in main
     hdr = header(cur).replace(' data-glass-hdr', ' data-glass' if glass else '')
-    body = apply_copy(brand(f'<div class="page{" hdr-light" if light or glass else ""}{" hdr-glass" if glass else ""}">{hdr}{mnav()}<main id="main">{main}</main>{footer()}</div>'))
+    body = apply_copy(brand(f'<div class="page{" hdr-light" if light or glass else ""}{" hdr-glass" if glass else ""}">{hdr}{mnav()}<main id="main">{main}</main>{footer()}{quick_contact()}</div>'))
+    body = body.replace('>먼저 이야기를 듣겠습니다</h2>', '>프라이빗 상담 신청</h2>')
     url = SITE_URL + ('' if fn == 'index.html' else fn)
     ld = [{'@context': 'https://schema.org', '@type': 'Organization', 'name': 'atInc', 'legalName': '주식회사 애트',
            'url': SITE_URL, 'logo': SITE_URL + 'assets/og.png', 'email': EMAIL, 'telephone': '+82-10-5857-0129',
@@ -487,6 +504,7 @@ def page(fn, title, desc, main, cur=None, light=False):
             f'<meta property="og:title" content="{E(title)}"><meta property="og:description" content="{E(desc)}"><meta property="og:type" content="website">'
             f'<meta property="og:url" content="{url}"><meta property="og:image" content="{SITE_URL}assets/og.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">'
             f'<meta name="twitter:card" content="summary_large_image">'
+            f'<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><link rel="stylesheet" href="{PRET}">'
             f'<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>'
             f'<link rel="preload" as="style" href="{FONTS}"><link rel="stylesheet" href="{FONTS}" media="print" onload="this.media=\'all\'">'
             f'<noscript><link rel="stylesheet" href="{FONTS}"></noscript>'
@@ -534,6 +552,8 @@ def eyebrow(t, light=False):
 
 
 def cband(title, body, btn, cat, eyebrow_t=None, note=None, sid='contact', reasons=None, reasons_title=None, fx=None):
+    if title == '먼저 이야기를 듣겠습니다':
+        title = '프라이빗 상담 신청'
     lst = reasons if reasons else PROMISES
     pro = ''.join(f'<li>{ic("check")}<span>{E(p)}</span></li>' for p in lst)
     rt = f'<p class="cband__rt">{E(reasons_title)}</p>' if reasons_title else ''
@@ -762,7 +782,7 @@ def page_home():
 # ------------------------------------------------------------------ ABOUT
 def page_about():
     f1 = fields(AB['01'])
-    hero = phero([('HOME', 'index.html'), ('ABOUT', None)], 'ABOUT atinc', f1['제목'], f1['본문'],
+    hero = phero([('홈', 'index.html'), ('회사소개', None)], 'ABOUT atinc', f1['제목'], f1['본문'],
                  f'<figure class="phero__pic">{pic("building", "", "(max-width: 900px) 100vw, 40vw", (640, 960, 1400), eager=True)}</figure>',
                  f'<p class="notice" style="max-width: 62ch; padding-left: 16px; border-left: 2px solid var(--latte)">{E(f1["고지 문장"])}</p>')
     b2 = AB['02']
@@ -809,9 +829,9 @@ def page_medical():
     cards = ''
     for i, (c, r) in enumerate(zip(CATS, rows), 1):
         cards += (f'<a class="mcard mcard--pic" href="{c["page"]}"><figure class="mcard__pic">{pic("cat-" + c["id"], "", "(max-width: 600px) 100vw, (max-width: 1100px) 50vw, 33vw", (480, 720, 1080))}</figure>'
-                  f'<div class="mcard__txt"><span class="mcard__no">0{i}</span><h2 class="en-title">{E(c["en"])}</h2><p class="mcard__ko">{E(c["ko"])}</p>'
+                  f'<div class="mcard__txt"><span class="mcard__no">0{i}</span><p class="mcard__en">{E(c["en"])}</p><h2 class="mcard__t">{E(c["ko"])}</h2>'
                   f'<p class="body" style="font-size: 14.5px">{E(r[1])}</p><span class="link">자세히 보기{ic("arrow")}</span></div></a>')
-    hero = phero([('HOME', 'index.html'), ('MEDICAL', None)], 'MEDICAL', f['제목'], f['본문'])
+    hero = phero([('홈', 'index.html'), ('진료 분야', None)], 'MEDICAL', f['제목'], f['본문'])
     grid = f'<section class="sec" style="padding-top: clamp(48px, 5vw, 72px)"><div class="wrap"><div class="grid3">{cards}</div></div></section>'
     pointer = f['아래 안내'].split(' → ')[0]
     band = (f'<section class="sec sec--sand sec--tight"><div class="wrap shead" style="margin-bottom: 0; align-items: center"><div>{eyebrow("atinc CARE")}'
@@ -954,10 +974,10 @@ def page_category(c):
     cat = prefill(f12['버튼'], c['ko'])
     en = c['en'].split(' ', 1)
     hero = (f'<section class="hero hero--photo" data-hdr-over><div class="hero__pic" aria-hidden="true">{pic("cat-" + c["id"], "", "100vw", (960, 1600, 2400), eager=True)}</div>'
-            f'<div class="wrap hero__in hero__in--short"><nav class="crumb" aria-label="현재 위치"><a href="index.html">HOME</a> / <a href="medical.html">MEDICAL</a> / <span>{E(c["ko"])}</span></nav>'
-            f'<h1><span class="display rise" style="display: block; font-size: clamp(44px, 6.2vw, 96px)">{E(en[0])}<br><span>{E(en[1])}</span></span>'
-            f'<span class="hero__ko rise rise-2" style="display: block; margin-top: 22px">{E(f1["제목"])}</span></h1>'
-            f'<div style="display: flex; flex-wrap: wrap; gap: 24px 48px; align-items: end; justify-content: space-between"><p class="hero__body rise rise-3">{E(f1["본문"])}</p>'
+            f'<div class="wrap hero__in hero__in--short"><nav class="crumb" aria-label="현재 위치"><a href="index.html">홈</a> / <a href="medical.html">진료 분야</a> / <span>{E(c["ko"])}</span></nav>'
+            f'<p class="hero__label rise">{E(c["en"])}</p><h1 class="hero__title rise">{E(c["ko"])}</h1>'
+            f'<p class="hero__sub rise rise-2">{E(f1["제목"])}</p>'
+            f'<div class="hero__row"><p class="hero__body rise rise-3">{E(f1["본문"])}</p>'
             f'<div class="rise rise-4">{form_link(btn, cat, "btn btn--light")}</div></div></div></section>')
     sub = [('approach', '접근 방식'), ('what', '이 분야란'), ('options', '선택지')]
     if c['id'] == 'women':
@@ -1014,11 +1034,11 @@ def page_care_index():
     rows = ''
     for i, (p, r) in enumerate(zip(CARE, t['rows']), 1):
         ko = r[0].split(' · ', 1)[1]
-        rows += (f'<a class="clist__row" href="{p["page"]}"><figure class="clist__pic">{pic("prog-" + p["id"], "", "(max-width: 600px) 100vw, 320px", (480, 720))}</figure><span class="clist__no">0{i}</span><div><h2 class="en-title" style="font-size: clamp(26px, 2.6vw, 38px)">{E(p["en"])}</h2>'
-                 f'<p class="clist__ko">{E(ko)}</p><p class="clist__line">{E(r[1])}</p></div><span class="clist__meta">{E(r[2])}</span></a>')
-    hero = phero([('HOME', 'index.html'), ('atinc CARE', None)], 'atinc CARE', f['제목'], f['본문'],
-                 f'<figure class="phero__pic">{pic("room", "", "(max-width: 900px) 100vw, 40vw", (640, 960, 1400), eager=True)}</figure>',
-                 f'<p class="notice" style="max-width: 62ch; padding-left: 16px; border-left: 2px solid var(--latte)">{E(f["구분 안내"])}</p>')
+        rows += (f'<a class="clist__row" href="{p["page"]}"><figure class="clist__pic">{pic("prog-" + p["id"], "", "(max-width: 600px) 100vw, 320px", (480, 720))}</figure><span class="clist__no">0{i}</span><div><p class="clist__en">{E(p["en"].title() if p["id"] != "global-medical-journey" else "Global Medical Journey")}</p><h2 class="clist__t">{E(PROG_KO[p["id"]])}</h2>'
+                 f'<p class="clist__line">{E(r[1])}</p></div><span class="clist__meta">{E(r[2])}</span></a>')
+    hero = phero([('홈', 'index.html'), ('케어 프로그램', None)], 'atinc CARE', f['제목'], f['본문'],
+                 f'<figure class="phero__pic">{pic("desk", "", "(max-width: 900px) 100vw, 40vw", (640, 960, 1400), eager=True)}</figure>',
+                 '')
     lst = f'<section class="sec"><div class="wrap"><div class="clist">{rows}</div></div></section>'
     f12 = fields(HB['12'])
     page('care.html', 'atinc CARE | atinc', f['본문'], hero + lst + cband(f12['제목'], f12['본문'], 'atinc CARE 상담하기', 'atinc CARE'), 'care')
@@ -1040,9 +1060,9 @@ def page_care(p):
     idx = CARE.index(p) + 1
     num = {'private-checkup': '30', 'longevity-90': '90', 'executive-365': '365'}.get(p['id'])
     hero = (f'<section class="hero hero--photo" data-hdr-over><div class="hero__pic" aria-hidden="true">{pic("prog-" + p["id"], "", "100vw", (960, 1600, 2400), eager=True)}</div>'
-            f'<div class="wrap hero__in hero__in--short"><nav class="crumb" aria-label="현재 위치"><a href="index.html">HOME</a> / <a href="care.html">atinc CARE</a> / <span>{E(ko)}</span></nav>'
-            f'<h1><span class="display rise" style="display: block; font-size: clamp(40px, 5.6vw, 86px); letter-spacing: -.04em">{E(p["two"][0])}<br><span>{E(p["two"][1])}</span></span>'
-            f'<span class="hero__ko rise rise-2" style="display: block; margin-top: 22px">{E(lead_s)}</span></h1>'
+            f'<div class="wrap hero__in hero__in--short"><nav class="crumb" aria-label="현재 위치"><a href="index.html">홈</a> / <a href="care.html">케어 프로그램</a> / <span>{E(PROG_KO[p["id"]])}</span></nav>'
+            f'<p class="hero__label rise">{E(p["en"].title() if p["id"] != "global-medical-journey" else "Global Medical Journey")}</p><h1 class="hero__title rise">{E(PROG_KO[p["id"]])}</h1>'
+            f'<p class="hero__sub rise rise-2">{E(lead_s)}</p>'
             f'<p class="hero__body rise rise-3">{E(overview)}</p>{trust_h}<div class="rise rise-4">{SE.care_meta(p["id"])}</div></div></section>')
     who = [x.strip() for x in T('02').split(' / ')]
     s2 = (f'<section class="sec"><div class="wrap">{section_head("02", "FOR WHOM", "이런 분께 맞습니다")}{checks(who)}</div></section>')
@@ -1113,7 +1133,7 @@ def page_network():
     B = blocks(net, 'NETWORK')
     f1 = fields(B['01'])
     body1 = '서울 강남·압구정, 인천 송도·검단, 경기 분당·군포·용인, 대구, 부산의 협력 의료기관과 함께합니다. 의료기관의 이름과 정확한 위치는 상담에서 목적에 맞춰 개별로 안내해 드립니다.'
-    hero = phero([('HOME', 'index.html'), ('NETWORK', None)], 'NETWORK', f1['제목'], None, '',
+    hero = phero([('홈', 'index.html'), ('협력 네트워크', None)], 'NETWORK', f1['제목'], None, '',
                  '<p class="lead">지금은 <span data-net-regions>서울, 인천, 경기, 대구, 부산</span>의 병원과 함께하고, 협력 병원을 지역마다 계속 늘려 가고 있습니다. 병원 이름과 정확한 위치는 상담할 때 알려 드립니다.</p>')
     cards = ''.join(
         f'<div class="hcard" data-cats="{",".join(h["cats"])}" data-count><div class="hcard__top"><h2 class="h3">{E(h["name"])}</h2><span class="small" style="font-family: var(--f-en)">{E(h["en"])}</span></div>'
@@ -1132,7 +1152,7 @@ def page_network():
 def page_partners():
     B = blocks(net, 'FOR PARTNERS')
     f1 = fields(B['01'])
-    hero = phero([('HOME', 'index.html'), ('FOR PARTNERS', None)], 'FOR PARTNERS', f1['제목'], f1['본문'], f'<figure class="phero__pic">{pic("hero-consult", "", "(max-width: 900px) 100vw, 40vw", (640, 960, 1400), eager=True)}</figure>',
+    hero = phero([('홈', 'index.html'), ('제휴 안내', None)], 'FOR PARTNERS', f1['제목'], f1['본문'], f'<figure class="phero__pic">{pic("hospital-space", "", "(max-width: 900px) 100vw, 40vw", (640, 960, 1400), eager=True)}</figure>',
                  f'<div class="hero__actions"><a class="btn btn--dark" href="{PARTNER_MAIL}">제휴 문의 메일 보내기</a>'
                  f'<a class="link" href="#process">제휴 절차 보기</a></div>')
     f4 = {it['key']: [x.strip() for x in it['value'].split(' / ')] for it in B['04']['items'] if it['type'] == 'field'}
@@ -1182,7 +1202,7 @@ def page_partners():
 def page_consult():
     B = blocks(net, 'CONSULTATION')
     f1 = fields(B['01'])
-    hero = phero([('HOME', 'index.html'), ('CONSULTATION', None)], 'PRIVATE CONSULTATION', f1['제목'], f1['본문'], f'<figure class="phero__pic">{pic("step-listen", "", "(max-width: 900px) 100vw, 40vw", (640, 960, 1400), eager=True)}</figure>',
+    hero = phero([('홈', 'index.html'), ('상담 안내', None)], 'PRIVATE CONSULTATION', f1['제목'], f1['본문'], f'<figure class="phero__pic">{pic("notes", "", "(max-width: 900px) 100vw, 40vw", (640, 960, 1400), eager=True)}</figure>',
                  f'<div class="hero__actions">{form_link("상담 신청서 열기", "", "btn btn--dark")}</div>'
                  f'{contact_links("contacts contacts--dark", intl=True)}')
     st = items(B['02'], 'step')
@@ -1205,7 +1225,7 @@ def todo(t):
 
 
 def page_privacy():
-    hero = phero([('HOME', 'index.html'), ('개인정보처리방침', None)], 'PRIVACY', '개인정보처리방침')
+    hero = phero([('홈', 'index.html'), ('개인정보처리방침', None)], 'PRIVACY', '개인정보처리방침')
     D = []
     D.append(f'<p>주식회사 애트(atinc, 이하 "회사")는 「개인정보 보호법」에 따라 상담 신청자의 개인정보를 보호하고, 관련 문의를 신속하게 처리하기 위해 다음과 같이 개인정보처리방침을 둡니다.</p>')
     D.append('<section><h2>1. 수집하는 개인정보 항목과 방법</h2><ul class="dots"><li>필수: 성명, 국가·거주지역, 연락처, 선호 연락수단, 관심 분야, 문의내용</li><li>선택: 이메일, 방문 예정일</li>'
@@ -1229,7 +1249,7 @@ def page_notice():
     paras = ''.join(f'<p>{E(it["text"])}</p>' for it in b['items'] if it['type'] == 'text')
     kv = (f'<dl class="kv"><dt>법인명</dt><dd>주식회사 애트 · 브랜드 atinc</dd><dt>대표</dt><dd>한수연</dd><dt>사업자등록번호</dt><dd>369-87-03095</dd>'
           f'<dt>외국인환자 유치업 등록번호</dt><dd>제 A-2026-08-01-07161 호</dd>' + (f'<dt>주소</dt><dd>{E(COMPANY_ADDRESS)}</dd>' if COMPANY_ADDRESS else '') + f'<dt>문의</dt><dd><a href="mailto:{EMAIL}">{EMAIL}</a></dd></dl>')
-    hero = phero([('HOME', 'index.html'), ('Medical Notice', None)], 'MEDICAL NOTICE', '의료서비스 관련 고지')
+    hero = phero([('홈', 'index.html'), ('의료서비스 관련 고지', None)], 'MEDICAL NOTICE', '의료서비스 관련 고지')
     body = (f'<section class="sec" style="padding-top: clamp(48px, 5vw, 72px)"><div class="wrap"><div class="doc">{paras}'
             f'<section><h2>회사 정보</h2><div style="margin-top: 14px">{kv}</div></section></div></div></section>')
     page('medical-notice.html', 'Medical Notice | atinc', 'atinc 의료서비스 관련 고지', hero + body, 'legal')
