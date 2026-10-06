@@ -134,8 +134,8 @@
 
   document.querySelectorAll('.atmap').forEach(function (host, n) {
     var uid = (host.getAttribute('data-uid') || 'm') + n;
-    var s = ['<svg class="atmap__svg" viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-labelledby="t-' + uid + '" xmlns="http://www.w3.org/2000/svg"><title id="t-' + uid + '">atInc 협력 네트워크 지도: ' +
-      esc(GROUPS.map(function (g) { return SHORT[g.prov]; }).join(', ')) + '</title>',
+    var s = ['<svg class="atmap__svg" viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="atInc 협력 네트워크 지도: ' +
+      esc(GROUPS.map(function (g) { return SHORT[g.prov]; }).join(', ')) + '" xmlns="http://www.w3.org/2000/svg">',
       '<defs><radialGradient id="gl-' + uid + '"><stop offset="0" stop-color="' + GOLD + '" stop-opacity=".55"/><stop offset="1" stop-color="' + GOLD + '" stop-opacity="0"/></radialGradient>' +
       '<linearGradient id="rt-' + uid + '" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="' + GOLD + '"/><stop offset="1" stop-color="' + GOLD + '" stop-opacity=".35"/></linearGradient></defs>'];
     // base dots

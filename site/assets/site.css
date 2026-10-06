@@ -1786,3 +1786,4 @@ details.fold > summary h3 + p { margin-top: 4px; }
 .hcard__notes li { position: relative; padding-left: 14px; font-size: 15px; line-height: 1.65; color: var(--body); }
 .hcard__notes li::before { content: ""; position: absolute; left: 0; top: .78em; width: 6px; height: 1px; background: var(--brown); }
 @media (max-width: 900px) { .net__grid .map { order: 0; } }
+.msec--rule { border-top: 1px solid var(--line); }

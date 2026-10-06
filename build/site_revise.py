@@ -81,7 +81,7 @@ REVISE = [
     # ---------- global medical journey
     ('care-global-medical-journey.html', '입국 전부터 귀국 후까지, 담당 매니저 한 사람이 맡습니다.', '한국에서의 진료 일정, 도착 전에 맞춰 둡니다.'),
     ('care-global-medical-journey.html', '귀국 후 상담까지 담당자가 챙겨 드립니다', '귀국 후 상담까지 담당 매니저가 챙겨 드립니다'),
-    ('care-global-medical-journey.html', '영문 결과자료 받아 드리기', '결과지를 영문으로 받아 전해 드립니다'),
+    ('care-global-medical-journey.html', '영문 결과자료 받아 드리기', '영문 결과지 발급을 도와 드립니다(본인 확인이 필요한 곳이 있습니다)'),
     ('care-global-medical-journey.html', '>보호자 일정 챙기기<', '>보호자분 일정도 함께 챙깁니다<'),
     ('care-global-medical-journey.html', '<li>공항 픽업</li>', '<li>공항으로 마중 나갑니다</li>'),
     ('care-global-medical-journey.html', '<li>의료통역</li>', '<li>진료 때 의료통역사가 함께합니다</li>'),
@@ -126,6 +126,10 @@ REVISE = [
     (None, 'EXECUTIVE 365 상담하기', '연간 헬스 오피스 상담 예약'),
     (None, '셀 케어 상담하기', '재생의료 상담 예약'),
     (None, '한국 진료 상담하기', '해외 고객 상담 예약'),
+    # ---------- 2026-10-07 partner check: results are issued to the patient
+    ('about.html', '결과지를 받아 전해 드리고, 결과 상담과 재검, 다음 진료 날짜까지 잡아 둡니다.', '결과지 발급을 도와 드리고, 결과 상담과 재검, 다음 진료 날짜까지 잡아 둡니다.'),
+    ('medical-checkup.html', '결과지는 검진하고 약 2주 뒤에 나옵니다.', '간단한 결과는 당일 확인할 수 있고, 결과지는 기관에 따라 당일부터 약 2주 사이에 나옵니다.'),
+    ('medical-checkup.html', '결과지는 약 2주 뒤에 나오고, 자세한 설명은', '결과지는 기관에 따라 당일부터 약 2주 사이에 나오고, 자세한 설명은'),
 ]
 
 BUTTON_RE = re.compile(r'>([^<>]{1,30}?) 상담하기(<svg|</a>)')

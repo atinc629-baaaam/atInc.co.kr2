@@ -232,10 +232,10 @@ CARE = [
 HUBS = [  # mirrors site/assets/network-data.js (what can be done in each region, never which hospital)
     dict(id='seoul-gangnam', name='서울', en='Seoul', cats=['checkup', 'women', 'korean-medicine'], line='정밀 건강검진과 여성 진료, 한방 미용 진료를 받으실 수 있습니다.'),
     dict(id='incheon-songdo', name='인천', en='Incheon', cats=['aesthetic'], line='공항에서 가까운 곳에서 성형·피부 상담과 시술을 받으실 수 있습니다.'),
-    dict(id='incheon-geomdan', name='인천', en='Incheon', cats=['korean-medicine', 'aesthetic'], line='한·양방 협진 진료와 입원 회복, 성형·피부 진료를 받으실 수 있습니다.'),
+    dict(id='incheon-geomdan', name='인천', en='Incheon', cats=['korean-medicine'], line='한·양방 협진 진료와 입원 회복을 받으실 수 있습니다.'),
     dict(id='incheon-bupyeong', name='인천', en='Incheon', cats=['korean-medicine'], line='한방 진료와 재활, 입원 치료를 받으실 수 있습니다.'),
     dict(id='incheon-namdong', name='인천', en='Incheon', cats=['korean-medicine'], line='뇌졸중 재활처럼 회복이 오래 걸릴 때 입원해서 치료받으실 수 있습니다.'),
-    dict(id='gyeonggi-bundang', name='경기', en='Gyeonggi', cats=['regenerative'], line='재생의료 진료 상담과 세포 보관 상담을 받으실 수 있습니다.'),
+    dict(id='gyeonggi-bundang', name='경기', en='Gyeonggi', cats=['regenerative'], line='재생의료 진료 상담과 세포 보관 상담을 받으실 수 있고, 외국어 상담도 가능합니다.'),
     dict(id='gyeonggi-gunpo', name='경기', en='Gyeonggi', cats=['regenerative'], line='본인 세포의 배양과 보관 상담을 받으실 수 있습니다.'),
     dict(id='gyeonggi-yongin', name='경기', en='Gyeonggi', cats=['checkup'], line='정밀 건강검진을 받으실 수 있습니다.'),
     dict(id='daegu', name='대구', en='Daegu', cats=['women', 'men'], line='난임 검사와 시험관아기, 가임력 보존, 남성 난임 진료를 받으실 수 있습니다.'),
@@ -1054,7 +1054,7 @@ def page_category(c):
     more = (f'<div class="mmore"><details class="more"><summary>{E(josa(c["ko"], "이란", "란"))}</summary>{render_rows(b2["items"])}{types_h}</details>'
             f'<details class="more"><summary>원리와 방식</summary>{render_how(b5["items"])}</details>'
             f'<details class="more"><summary>가기 전에 확인하세요</summary>{render_checklist(B["09"])}</details></div>')
-    s5 = (f'<section class="sec sec--sand msec" id="faq"><div class="wrap mfaq"><div>{shd("FAQ", "자주 묻는 질문")}{render_faq(B["10"])}</div>'
+    s5 = (f'<section class="sec msec msec--rule" id="faq"><div class="wrap mfaq"><div>{shd("FAQ", "자주 묻는 질문")}{render_faq(B["10"])}</div>'
           f'<div>{shd("More", "더 알아보기")}{more}</div></div></section>')
     reasons = [it['text'] for it in B['04']['items'] if it['type'] == 'bullet']
     cta_title = '부담 없이 먼저 물어보세요' if c['id'] == 'men' else f12['문장']

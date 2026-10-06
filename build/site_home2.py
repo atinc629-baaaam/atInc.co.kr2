@@ -52,8 +52,8 @@ def shd(label, title, more=None, more_href=None, h='h2'):
 def page_home2():
     # 1. main visual: four faceless photographs, one message each
     slides_d = [
-        ('hero-lounge', '엄선된 의료 · Private Healthcare Concierge', '병원 선택부터 결과 상담까지,<br>한 매니저가 맡습니다',
-         '어느 병원에서 무엇을 받으실지 함께 비교하고, 정하신 병원의 예약과 동행, 결과 상담까지 같은 매니저가 챙깁니다.', form_link('상담 예약하기', '', 'btn btn--light', None)),
+        ('hero-lounge', 'Private Healthcare Concierge', '엄선된 의료,<br>조용한 동행',
+         '어느 병원에서 무엇을 받으실지 함께 고르고, 예약과 동행, 결과 상담까지 한 매니저가 곁에 있습니다.', form_link('상담 예약하기', '', 'btn btn--light', None)),
         ('hero-equipment', 'Health Checkup', '올해 검진,<br>나이와 가족력에 맞춰 고르세요',
          '검사 항목과 검진기관 정보를 함께 살펴보고, 맞는 곳을 3곳 안으로 추려 드립니다.', '<a class="btn btn--line" href="medical-checkup.html">검진 살펴보기</a>'),
         ('hero-seoul', 'Private Consultation', '어느 병원으로 가야 할지,<br>먼저 물어보세요',
