@@ -3,3 +3,4 @@ __pycache__/
 build/site_artifact_index.html
 build/map_test.svg
 .DS_Store
+build/qa/site_qa/
