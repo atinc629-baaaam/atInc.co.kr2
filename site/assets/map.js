@@ -42,12 +42,16 @@
     return ORDER.filter(function (p) { return g[p]; }).map(function (p) { return { prov: p, sites: g[p] }; });
   }
   var GROUPS = byProv();
+  // public view is by province: a dot or card never pairs one district with one specialty
+  GROUPS.forEach(function (gp) { var u = union(gp.sites); gp.sites.forEach(function (s) { s.pcats = u; }); });
+  function punion(list) { var u = {}; list.forEach(function (s) { (s.pcats || s.cats).forEach(function (c) { u[c] = 1; }); }); return CAT_ORDER.filter(function (c) { return u[c]; }); }
 
   // ---- text placeholders that depend on the data
   document.querySelectorAll('[data-net-regions]').forEach(function (el) { el.textContent = GROUPS.map(function (g) { return SHORT[g.prov]; }).join(', '); });
   document.querySelectorAll('[data-net-for]').forEach(function (el) {
     var cat = el.getAttribute('data-net-for');
-    var hit = sites.filter(function (s) { return s.cats.indexOf(cat) > -1; }).map(function (s) { return s.name; });
+    var hit = [];
+    sites.forEach(function (s) { if (s.cats.indexOf(cat) > -1 && hit.indexOf(SHORT[s.prov]) < 0) hit.push(SHORT[s.prov]); });
     el.textContent = hit.length ? hit.join(' · ') : '지역과 관계없이 상담 후 병원을 찾아 드립니다';
   });
 
@@ -61,18 +65,18 @@
       h = '<ul class="hubs">' + GROUPS.map(function (g) {
         var cats = union(g.sites);
         return '<li data-cats="' + cats.join(',') + '" data-count><div><b>' + esc(SHORT[g.prov]) + '</b><small>' +
-          esc(g.sites.map(function (s) { return s.short; }).join(' · ')) + '</small></div><span class="hubs__cats">' + esc(catsText(cats)) + '</span></li>';
+          '협력 기관 ' + g.sites.length + '곳</small></div><span class="hubs__cats">' + esc(catsText(cats)) + '</span></li>';
       }).join('') + NEXT_LI + '</ul>';
     } else {
       h = GROUPS.map(function (g) {
         return '<section class="netgroup"><h2 class="netgroup__h"><span>' + esc(SHORT[g.prov]) + '</span><em>' + esc(EN[g.prov]) + '</em>' +
-          (g.sites.length > 1 ? '<small>' + g.sites.length + '곳</small>' : '') + '</h2><div class="hubgrid">' +
-          g.sites.map(function (s) {
-            return '<div class="hcard" data-cats="' + s.cats.join(',') + '" data-count><div class="hcard__top"><h3 class="h3">' + esc(s.name) + '</h3>' +
-              '<span class="small" style="font-family: var(--f-en)">' + esc(s.en) + '</span></div><div class="chips">' +
-              (s.cats.length ? s.cats.map(function (c) { return '<span class="tag">' + esc(CAT[c]) + '</span>'; }).join('') : '<span class="tag">협력 의료기관</span>') +
-              '</div><p class="body">' + esc(s.note) + '</p></div>';
-          }).join('') + '</div></section>';
+          '<small>' + g.sites.length + '곳</small></h2><div class="hubgrid">' + (function () {
+            var cats = union(g.sites), notes = [];
+            g.sites.forEach(function (s) { if (s.note && notes.indexOf(s.note) < 0) notes.push(s.note); });
+            return '<div class="hcard" data-cats="' + cats.join(',') + '" data-count><div class="chips">' +
+              (cats.length ? cats.map(function (c) { return '<span class="tag">' + esc(CAT[c]) + '</span>'; }).join('') : '<span class="tag">협력 의료기관</span>') +
+              '</div><ul class="hcard__notes">' + notes.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ul></div>';
+          })() + '</div></section>';
       }).join('') + NEXT_CARD;
     }
     box.innerHTML = h;
@@ -200,7 +204,7 @@
     var bx0 = I.sx, by0 = I.sy, bw = I.sw, bh = I.sh;
     s.push('<rect x="' + bx0 + '" y="' + by0 + '" width="' + bw + '" height="' + bh + '" rx="8" fill="none" stroke="' + GOLD + '" stroke-opacity=".55" stroke-width=".9" stroke-dasharray="3 4"/>');
     s.push('<path d="M' + (bx0 + bw / 2) + ' ' + (by0 + bh) + ' C ' + (bx0 + bw / 2 + 11) + ' 360, 330 470, ' + (I.x + 82) + ' ' + I.y + '" fill="none" stroke="' + GOLD + '" stroke-opacity=".3" stroke-width=".9" stroke-dasharray="2 4"/>');
-    cap.forEach(function (x) { s.push(g(x.cats, '<circle cx="' + x.x.toFixed(1) + '" cy="' + x.y.toFixed(1) + '" r="2.6" fill="' + GOLD + '"/>')); });
+    cap.forEach(function (x) { s.push(g(x.pcats || x.cats, '<circle cx="' + x.x.toFixed(1) + '" cy="' + x.y.toFixed(1) + '" r="2.6" fill="' + GOLD + '"/>')); });
     s.push('<rect x="' + (icn[0] - 3.5) + '" y="' + (icn[1] - 3.5) + '" width="7" height="7" transform="rotate(45 ' + icn[0] + ' ' + icn[1] + ')" fill="' + IVORY + '"/>');
 
     // regional clusters outside the capital area: one per province, routes from the capital hub
@@ -232,14 +236,16 @@
     var takenI = [{ x: icn[2] - 14, y: icn[3] - 8, w: 28, h: 34 }];
     ins.forEach(function (cl) { takenI.push({ x: cl.x - 8, y: cl.y - 8, w: 16, h: 16 }); });
     ins.forEach(function (cl) {
-      cl.size = 12.5; cl.ko = cl.sites[0].short + (cl.sites.length > 1 ? ' 외 ' + (cl.sites.length - 1) : '');
+      cl.size = 12.5; cl.ko = SHORT[cl.sites[0].prov];
       cl.w = textW(cl.ko, 12.5); cl.h = 16;
     });
     placeLabels(ins, takenI, { x: I.x + 2, y: I.y + 2, w: I.w - 4, h: I.h - 4 });
-    attachOrphans(ins, 60, function (cl) { cl.ko = cl.sites[0].short + ' 외 ' + (cl.sites.length - 1 + cl.extra); });
+    attachOrphans(ins, 60, function (cl) { cl.ko = SHORT[cl.sites[0].prov]; });
+    var seenP = {};
+    ins.forEach(function (cl) { var p = cl.sites[0].prov; if (cl.label) { if (seenP[p]) cl.label = null; else seenP[p] = 1; } });
     if (hubIns) s.push(route('ci-' + uid, curve(icn[2], icn[3], hubIns.x, hubIns.y, -0.25), 1, .45, 3.4, .3));
     ins.forEach(function (cl, k) {
-      var cats = union(cl.sites), inner = '';
+      var cats = punion(cl.sites), inner = '';
       if (hubIns && cl !== hubIns) inner += route('c' + k + '-' + uid, curve(hubIns.x, hubIns.y, cl.x, cl.y, -0.18), 1, .5, 2.4 + (k % 4) * .4, k * .45);
       inner += mk(cl.x, cl.y, cl.orphan ? 3.2 : 4.2, (k * .35).toFixed(2));
       if (cl.label) inner += T(cl.label.x, cl.label.y, cl.ko, cl.label.anchor, 12.5, 600, IVORY);

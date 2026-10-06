@@ -230,14 +230,14 @@ CARE = [
     dict(id='global-medical-journey', en='GLOBAL MEDICAL JOURNEY', two=('GLOBAL MEDICAL', 'JOURNEY'), page='care-global-medical-journey.html', pos='78% 60%'),
 ]
 HUBS = [  # mirrors site/assets/network-data.js (what can be done in each region, never which hospital)
-    dict(id='seoul-gangnam', name='서울 강남·압구정', en='Seoul · Gangnam, Apgujeong', cats=['checkup', 'women', 'korean-medicine'], line='정밀 건강검진과 여성 진료, 한방 미용 진료를 받으실 수 있습니다.'),
-    dict(id='incheon-songdo', name='인천 송도', en='Incheon · Songdo', cats=['aesthetic'], line='공항에서 가까운 곳에서 성형·피부 상담과 시술을 받으실 수 있습니다.'),
-    dict(id='incheon-geomdan', name='인천 검단', en='Incheon · Geomdan', cats=['korean-medicine', 'aesthetic'], line='한·양방 협진 진료와 입원 회복, 성형·피부 진료를 받으실 수 있습니다.'),
-    dict(id='incheon-bupyeong', name='인천 부평', en='Incheon · Bupyeong', cats=['korean-medicine'], line='한방 진료와 재활, 입원 치료를 받으실 수 있습니다.'),
-    dict(id='incheon-namdong', name='인천 남동', en='Incheon · Namdong', cats=['korean-medicine'], line='뇌졸중 재활과 오랜 회복이 필요한 분의 입원 치료를 받으실 수 있습니다.'),
-    dict(id='gyeonggi-bundang', name='경기 분당', en='Gyeonggi · Bundang', cats=['regenerative'], line='재생의료 진료 상담과 세포 보관 상담을 받으실 수 있습니다.'),
-    dict(id='gyeonggi-gunpo', name='경기 군포', en='Gyeonggi · Gunpo', cats=['regenerative'], line='본인 세포의 배양과 보관 상담을 받으실 수 있습니다.'),
-    dict(id='gyeonggi-yongin', name='경기 용인', en='Gyeonggi · Yongin', cats=['checkup'], line='정밀 건강검진을 받으실 수 있습니다.'),
+    dict(id='seoul-gangnam', name='서울', en='Seoul', cats=['checkup', 'women', 'korean-medicine'], line='정밀 건강검진과 여성 진료, 한방 미용 진료를 받으실 수 있습니다.'),
+    dict(id='incheon-songdo', name='인천', en='Incheon', cats=['aesthetic'], line='공항에서 가까운 곳에서 성형·피부 상담과 시술을 받으실 수 있습니다.'),
+    dict(id='incheon-geomdan', name='인천', en='Incheon', cats=['korean-medicine', 'aesthetic'], line='한·양방 협진 진료와 입원 회복, 성형·피부 진료를 받으실 수 있습니다.'),
+    dict(id='incheon-bupyeong', name='인천', en='Incheon', cats=['korean-medicine'], line='한방 진료와 재활, 입원 치료를 받으실 수 있습니다.'),
+    dict(id='incheon-namdong', name='인천', en='Incheon', cats=['korean-medicine'], line='뇌졸중 재활처럼 회복이 오래 걸릴 때 입원해서 치료받으실 수 있습니다.'),
+    dict(id='gyeonggi-bundang', name='경기', en='Gyeonggi', cats=['regenerative'], line='재생의료 진료 상담과 세포 보관 상담을 받으실 수 있습니다.'),
+    dict(id='gyeonggi-gunpo', name='경기', en='Gyeonggi', cats=['regenerative'], line='본인 세포의 배양과 보관 상담을 받으실 수 있습니다.'),
+    dict(id='gyeonggi-yongin', name='경기', en='Gyeonggi', cats=['checkup'], line='정밀 건강검진을 받으실 수 있습니다.'),
     dict(id='daegu', name='대구', en='Daegu', cats=['women', 'men'], line='난임 검사와 시험관아기, 가임력 보존, 남성 난임 진료를 받으실 수 있습니다.'),
     dict(id='busan', name='부산', en='Busan', cats=['checkup'], line='정밀 건강검진과 외국어 안내를 받으실 수 있습니다.'),
 ]
@@ -465,7 +465,7 @@ TITLES = {
     'consultation.html': '상담 신청 안내 | atInc',
 }
 DESCS = {
-    'network.html': '서울 강남, 인천 송도·검단, 경기 분당·군포·용인, 대구, 부산의 협력 병원과 함께합니다. 지역마다 받으실 수 있는 진료를 안내하고, 병원 이름은 상담에서 알려 드립니다.',
+    'network.html': '서울, 인천, 경기, 대구, 부산의 협력 병원과 함께합니다. 지역마다 받으실 수 있는 진료를 안내하고, 병원 이름은 상담에서 알려 드립니다.',
     'medical-regenerative.html': '본인 세포 보관과 지정 재생의료기관 상담을 안내합니다. 협력 기관의 의료진 상담과 채취·배양·보관 일정을 atInc가 하나로 잡아 드립니다.',
     'care-executive-365.html': '경영진과 그 가족처럼 일정이 빠듯한 분들을 위해 1년 동안의 검진, 재검, 전문의 상담 일정을 담당 매니저가 잡고 건강 기록을 한데 정리해 드리는 연간 헬스 오피스입니다.',
     'care.html': '케어 프로그램은 병원 예약에 더해 사전 준비, 일정 조율, 결과 이후 관리까지 atInc가 맡는 서비스입니다. 목적과 기간에 따라 네 가지로 나뉩니다.',
@@ -1183,7 +1183,7 @@ def page_care(p):
 def page_network():
     B = blocks(net, 'NETWORK')
     f1 = fields(B['01'])
-    body1 = '서울 강남·압구정, 인천 송도·검단, 경기 분당·군포·용인, 대구, 부산의 협력 의료기관과 함께합니다. 의료기관의 이름과 정확한 위치는 상담에서 목적에 맞춰 개별로 안내해 드립니다.'
+    body1 = '서울, 인천, 경기, 대구, 부산의 협력 의료기관과 함께합니다. 의료기관의 이름과 정확한 위치는 상담에서 목적에 맞춰 개별로 안내해 드립니다.'
     hero = phero([('홈', 'index.html'), ('협력 네트워크', None)], 'NETWORK', f1['제목'], None, '',
                  '<p class="lead">지금은 <span data-net-regions>서울, 인천, 경기, 대구, 부산</span>의 병원과 함께하고, 협력 병원을 지역마다 계속 늘려 가고 있습니다. 병원 이름과 정확한 위치는 상담할 때 알려 드립니다.</p>')
     cards = ''.join(
@@ -1284,7 +1284,7 @@ def page_privacy():
     D.append('<section><h2>2. 수집·이용 목적</h2><ul class="dots"><li>상담 신청 확인과 연락</li><li>의료기관 상담 연결과 일정 조율</li><li>상담 이후 후속 안내</li></ul></section>')
     D.append('<section><h2>3. 민감정보(건강 관련 정보)의 처리</h2><p>상담 신청서의 관심 분야와 문의 내용, 상담하면서 말씀해 주신 병력과 복용 중인 약 같은 건강 관련 정보는 「개인정보 보호법」 제23조의 민감정보에 해당할 수 있습니다. 회사는 이 정보를 상담 연결과 일정 조율에만 쓰고, 다른 개인정보 처리에 대한 동의와 별도로 동의를 받아 처리합니다.</p>'
              '<p>진단서나 검사 결과처럼 의료기관에 전해야 하는 자료는 받는 곳과 항목, 목적, 보유 기간을 먼저 알려 드리고 따로 동의를 받은 뒤 필요한 범위에서만 전합니다.</p></section>')
-    D.append(f'<section><h2>4. 보유·이용 기간</h2><p>상담 종료 후 {todo("[기간]")} 동안 보관한 뒤 지체 없이 파기합니다. 관계 법령에 따라 보존해야 하는 경우에는 그 법령이 정한 기간 동안 보관합니다.</p></section>')
+    D.append(f'<section><h2>4. 보유·이용 기간</h2><p>상담 종료 후 1년 동안 보관한 뒤 지체 없이 파기합니다. 관계 법령에 따라 보존해야 하는 경우에는 그 법령이 정한 기간 동안 보관합니다.</p></section>')
     D.append('<section><h2>5. 제3자 제공</h2><p>회사는 정보주체의 동의 없이 개인정보를 제3자에게 제공하지 않습니다. 의료기관 상담 연결을 위해 제공이 필요한 경우, 제공받는 자, 제공 항목, 이용 목적, 보유 기간을 알리고 별도로 동의를 받은 뒤 필요한 범위에서만 제공합니다.</p></section>')
     D.append('<section><h2>6. 처리 위탁과 국외 이전</h2><p>상담 신청서의 내용은 Google LLC가 제공하는 Google Forms와 Google Sheets에 저장됩니다. 이 과정에서 개인정보가 Google의 해외 데이터센터에 저장될 수 있습니다.</p>'
              '<ul class="dots"><li>이전받는 자: Google LLC(연락처는 Google 개인정보처리방침 policies.google.com/privacy 에 안내되어 있습니다)</li><li>이전 국가: 미국 등 Google 데이터센터가 있는 국가</li><li>이전 항목: 상담 신청서에 입력한 항목</li><li>이전 시기와 방법: 신청서를 제출할 때 네트워크를 통해 전송</li><li>보유 기간: 4항과 같음</li>'
@@ -1292,10 +1292,10 @@ def page_privacy():
     D.append('<section><h2>7. 메신저로 상담하실 때</h2><p>카카오톡, WhatsApp, WeChat 같은 메신저로 상담하실 때는 진단서나 검사 결과지를 보내지 말아 주세요. 자료가 필요하면 담당 매니저가 전달 방법을 따로 안내해 드립니다. 메신저를 쓰시는 동안에는 각 메신저 운영사의 개인정보 처리방침도 함께 적용됩니다.</p></section>')
     D.append(f'<section><h2>8. 정보주체의 권리와 행사 방법</h2><p>정보주체는 언제든지 개인정보의 열람, 정정, 삭제, 처리정지를 요구할 수 있습니다. 요청은 <a href="mailto:{EMAIL}">{EMAIL}</a>로 보내 주시면 지체 없이 처리합니다.</p></section>')
     D.append('<section><h2>9. 파기 절차와 방법</h2><p>보유 기간이 지나거나 처리 목적이 달성된 개인정보는 지체 없이 파기합니다. 전자 파일은 복구할 수 없는 방법으로 삭제합니다.</p></section>')
-    D.append(f'<section><h2>10. 개인정보의 안전성 확보 조치</h2><p>회사는 개인정보에 접근할 수 있는 사람을 상담 업무에 필요한 최소 인원으로 정하고, {todo("[접근 권한 관리·계정 보안 등 실제 시행 중인 조치]")}를 시행합니다.</p></section>')
-    D.append(f'<section><h2>11. 개인정보 보호책임자</h2><p>개인정보 보호책임자: {todo("[이름·연락처]")}<br>문의: <a href="mailto:{EMAIL}">{EMAIL}</a></p></section>')
+    D.append(f'<section><h2>10. 개인정보의 안전성 확보 조치</h2><p>회사는 개인정보에 접근할 수 있는 사람을 상담 업무에 필요한 최소 인원으로 정합니다. 상담 신청서 응답은 회사 업무용 계정에서만 관리합니다. 계정에는 2단계 인증을 쓰고, 응답 자료는 상담을 맡은 담당 매니저에게만 공유합니다.</p></section>')
+    D.append(f'<section><h2>11. 개인정보 보호책임자</h2><p>개인정보 보호책임자: 한수연(대표이사)<br>문의: <a href="mailto:{EMAIL}">{EMAIL}</a></p></section>')
     D.append('<section><h2>12. 권익침해 구제 방법</h2><p>개인정보 침해에 대한 상담이나 분쟁 해결이 필요하시면 아래 기관에 문의하실 수 있습니다.</p><ul class="dots"><li>개인정보분쟁조정위원회: 1833-6972 (www.kopico.go.kr)</li><li>개인정보침해신고센터: 국번 없이 118 (privacy.kisa.or.kr)</li></ul></section>')
-    D.append(f'<section><h2>13. 시행일</h2><p>이 개인정보처리방침은 {todo("[시행일]")}부터 적용됩니다.</p></section>')
+    D.append(f'<section><h2>13. 시행일</h2><p>이 개인정보처리방침은 2026년 10월 7일부터 적용됩니다.</p></section>')
     body = f'<section class="sec" style="padding-top: clamp(48px, 5vw, 72px)"><div class="wrap"><div class="doc">{"".join(D)}</div></div></section>'
     page('privacy.html', '개인정보처리방침 | atinc', '주식회사 애트(atinc)의 개인정보처리방침', hero + body, 'legal')
 
