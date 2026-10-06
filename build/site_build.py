@@ -284,7 +284,7 @@ def form_link(label, cat='', cls='btn btn--dark', icon='out'):
 
 def contact_links(cls='contacts', tel=True, intl=False, style=''):
     st = f' style="{style}"' if style else ''
-    t = f'<a href="tel:{VIP_TEL}">{ic("phone")}VIP {VIP}</a>' if tel else ''
+    t = f'<a href="tel:{VIP_TEL}">{ic("phone")}매니저 직통 {VIP}</a>' if tel else ''
     out = f'<div class="{cls}"{st}><a href="mailto:{EMAIL}">{ic("mail")}{EMAIL}</a>{t}</div>'
     if intl:
         out += (f'<div class="intl"><p lang="en">From overseas, email us or call <a href="tel:{VIP_TEL}">+82 10 5857 0129</a>.</p>'
@@ -313,7 +313,7 @@ def header(cur):
             f'<div class="nav__item"><a class="nav__link{mcur}" href="medical.html">진료 분야{ic("chev")}</a><div class="drop">{med}</div></div>'
             f'<div class="nav__item"><a class="nav__link{ccur}" href="care.html">케어 프로그램{ic("chev")}</a><div class="drop">{car}</div></div>'
             f'{nl("network.html", "협력 네트워크", "network")}{nl("partners.html", "제휴 안내", "partners")}</nav>'
-            f'<div class="hdr__right"><a class="hdr__tel" href="tel:{VIP_TEL}">{ic("phone")}<span>{VIP}</span></a>{form_link("상담 신청", "", "hdr__cta", None)}'
+            f'<div class="hdr__right"><a class="hdr__tel" href="tel:{VIP_TEL}" aria-label="매니저 직통 {VIP}">{ic("phone")}<span>{VIP}</span></a>{form_link("상담 예약", "", "hdr__cta", None)}'
             f'<button class="menu-btn" id="menu-open" type="button" aria-controls="mnav" aria-expanded="false" aria-label="메뉴 열기">{ic("menu")}</button></div>'
             f'</div></div></header>')
 
@@ -326,7 +326,7 @@ def mnav():
             f'<div class="mnav__group"><h2 class="eyebrow"><a href="medical.html" style="text-decoration: none">진료 분야</a></h2><div class="mnav__grid">{med}</div></div>'
             f'<div class="mnav__group"><h2 class="eyebrow"><a href="care.html" style="text-decoration: none">케어 프로그램</a></h2><div class="mnav__grid">{car}</div></div>'
             f'<div class="mnav__group mnav__links"><a href="about.html">회사소개</a><a href="network.html">협력 네트워크</a><a href="partners.html">제휴 안내</a><a href="consultation.html">상담 안내</a></div>'
-            f'{form_link("상담 신청", "", "btn btn--dark btn--wide")}'
+            f'{form_link("상담 예약", "", "btn btn--dark btn--wide")}'
             f'{contact_links("contacts contacts--dark", style="margin-top: 18px")}</div>')
 
 
@@ -341,7 +341,7 @@ def footer():
     med = ''.join(f'<li><a href="{c["page"]}">{E(c["ko"])}</a></li>' for c in CATS)
     car = ''.join(f'<li><a href="{p["page"]}">{E(PROG_KO[p["id"]])}</a></li>' for p in CARE)
     return (f'<footer class="ftr"><div class="wrap"><div class="ftr__top">'
-            f'<div>{logo()}<p class="ftr__tag">프라이빗 헬스케어 컨시어지</p>'
+            f'<div>{logo()}<p class="ftr__tag">엄선된 의료, 조용한 동행</p><p class="ftr__sub">Private Healthcare Concierge</p>'
             f'<p class="ftr__contact"><a href="tel:{VIP_TEL}">{VIP}</a><a href="mailto:{EMAIL}">{EMAIL}</a></p></div>'
             f'<div><h2>진료 분야</h2><ul>{med}</ul></div><div><h2>케어 프로그램</h2><ul>{car}</ul></div>'
             f'<div><h2>atinc</h2><ul><li><a href="about.html">회사소개</a></li><li><a href="network.html">협력 네트워크</a></li><li><a href="partners.html">제휴 안내</a></li><li><a href="consultation.html">상담 안내</a></li></ul></div></div>'
@@ -356,11 +356,11 @@ def quick_contact():
     chat = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5h16v10H9l-5 4v-14z"/></svg>'
     tel = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 3.5h3l1.5 4-2 1.3a10 10 0 0 0 6.2 6.2l1.3-2 4 1.5v3a2 2 0 0 1-2 2A16 16 0 0 1 4.5 5.5a2 2 0 0 1 2-2z"/></svg>'
     up = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg>'
-    return (f'<div class="fab"><a class="fab__btn fab__btn--main" href="{FORM_URL}" target="_blank" rel="noopener" data-form="">{chat}<span>상담 신청</span></a>'
-            f'<a class="fab__btn" href="tel:{VIP_TEL}">{tel}<span>전화 상담</span></a>'
+    return (f'<div class="fab"><a class="fab__btn fab__btn--main" href="{FORM_URL}" target="_blank" rel="noopener" data-form="">{chat}<span>상담 예약</span></a>'
+            f'<a class="fab__btn" href="tel:{VIP_TEL}">{tel}<span>매니저 통화</span></a>'
             f'<button class="fab__btn fab__top" type="button" data-top>{up}<span>맨 위로</span></button></div>'
-            f'<nav class="mbar" aria-label="빠른 상담"><a href="tel:{VIP_TEL}">{tel}전화 상담</a>'
-            f'<a class="mbar__main" href="{FORM_URL}" target="_blank" rel="noopener" data-form="">{chat}상담 신청</a></nav>')
+            f'<nav class="mbar" aria-label="빠른 상담"><a href="tel:{VIP_TEL}">{tel}매니저와 통화</a>'
+            f'<a class="mbar__main" href="{FORM_URL}" target="_blank" rel="noopener" data-form="">{chat}상담 예약</a></nav>')
 
 
 # ------------------------------------------------------------------ notices: same facts, written as atinc's principle (not a disclaimer)
@@ -479,7 +479,7 @@ def page(fn, title, desc, main, cur=None, light=False):
     glass = 'data-fx=' in main or 'data-hdr-over' in main
     hdr = header(cur).replace(' data-glass-hdr', ' data-glass' if glass else '')
     body = apply_copy(brand(f'<div class="page{" hdr-light" if light or glass else ""}{" hdr-glass" if glass else ""}">{hdr}{mnav()}<main id="main">{main}</main>{footer()}{quick_contact()}</div>'))
-    body = body.replace('>먼저 이야기를 듣겠습니다</h2>', '>프라이빗 상담 신청</h2>')
+    body = body.replace('>먼저 이야기를 듣겠습니다</h2>', '>프라이빗 상담</h2>')
     for a_, b_ in MED_FIX:
         body = body.replace(a_, b_)
     url = SITE_URL + ('' if fn == 'index.html' else fn)
@@ -555,19 +555,29 @@ def eyebrow(t, light=False):
     return ''  # section labels removed: headings carry the meaning
 
 
+def appt_card(btn='상담 예약 요청', cat=''):
+    """The concierge 'appointment card' used wherever we ask for a consultation."""
+    return (f'<aside class="appt"><p class="appt__label">Private Consultation</p><p class="appt__t">프라이빗 상담 예약</p>'
+            f'<dl class="appt__dl"><dt>담당 매니저</dt><dd>첫 통화부터 결과 이후까지 같은 매니저가 맡습니다</dd>'
+            f'<dt>첫 상담</dt><dd>성함과 연락처만 주세요. 의료자료는 처음에 받지 않습니다</dd>'
+            f'<dt>기관 안내</dt><dd>기관 이름은 상담에서 고객님께만 말씀드립니다</dd></dl>'
+            f'{form_link(btn, cat, "btn btn--dark btn--wide")}<p class="appt__form">Google 양식으로 열립니다</p>'
+            f'<p class="appt__lines"><a href="tel:{VIP_TEL}">매니저 직통 {VIP}</a><a href="mailto:{EMAIL}">{EMAIL}</a></p>'
+            f'<p class="appt__intl" lang="en">From overseas, email us or call <a href="tel:{VIP_TEL}">+82 10 5857 0129</a>.</p>'
+            f'<p class="appt__intl" lang="zh-Hans">海外客户请发送电子邮件，或致电 <a href="tel:{VIP_TEL}">+82 10 5857 0129</a>。</p></aside>')
+
+
 def cband(title, body, btn, cat, eyebrow_t=None, note=None, sid='contact', reasons=None, reasons_title=None, fx=None):
     if title == '먼저 이야기를 듣겠습니다':
-        title = '프라이빗 상담 신청'
+        title = '프라이빗 상담'
     lst = reasons if reasons else PROMISES
     pro = ''.join(f'<li>{ic("check")}<span>{E(p)}</span></li>' for p in lst)
     rt = f'<p class="cband__rt">{E(reasons_title)}</p>' if reasons_title else ''
-    note_h = f'<p class="small" style="color: var(--on-dark-sub)">{E(note)}</p>' if note else ''
-    fx_a = f' data-fx="{fx}" data-fx-seed="140"' if fx else ''
-    return (f'<section class="sec cband" id="{sid}"{fx_a}><div class="wrap cband__grid">'
-            f'<div style="display: grid; gap: 22px"><h2 class="h1" style="font-size: clamp(30px, 3.4vw, 50px)">{E(title)}</h2><p class="lead">{E(body)}</p>'
-            f'<div style="display: grid; gap: 10px; max-width: 560px; margin-top: 8px">{rt}<ul class="plist plist--light">{pro}</ul></div></div>'
-            f'<div class="cband__side">{form_link(btn, cat, "btn btn--light btn--wide")}{note_h}'
-            f'{contact_links(intl=True)}</div>'
+    btn = {'프라이빗 상담 신청': '상담 예약 요청'}.get(btn, btn)
+    return (f'<section class="sec cband" id="{sid}"><div class="wrap cband__grid">'
+            f'<div class="cband__main"><p class="cband__label">Private Consultation</p><h2 class="h1">{E(title)}</h2><p class="lead">{E(body)}</p>'
+            f'<div class="cband__why">{rt}<ul class="plist">{pro}</ul></div></div>'
+            f'{appt_card(btn, cat)}'
             f'</div></section>')
 
 
@@ -820,8 +830,8 @@ def page_about():
     comp = (f'<section class="sec"><div class="wrap split"><div class="split__label">{eyebrow("COMPANY")}</div><div class="split__main"><h2 class="h2">회사 정보</h2>'
             f'<dl class="kv" style="font-size: 15.5px; gap: 14px 40px">{kv}</dl></div></div></section>')
     f12 = fields(HB['12'])
-    main = hero + why + work + prin + comp + cband(f12['제목'], f12['본문'], '프라이빗 상담 신청', '')  # 대표 소개(fo)는 당분간 숨김
-    main = main.replace('건강을 넘어, 삶의 품격을 설계합니다.', '건강을 넘어,<br>삶의 품격을 설계합니다.', 1)
+    main = hero + why + work + prin + comp + cband(f12['제목'], f12['본문'], '상담 예약 요청', '')  # 대표 소개(fo)는 당분간 숨김
+    main = main.replace('건강을 넘어, 삶의 품격을 설계합니다.', '병원을 고르는 일부터<br>결과 이후까지, 한 매니저가 맡습니다.', 1)
     page('about.html', 'ABOUT | atinc', f1['본문'], main, 'about')
 
 
@@ -1020,8 +1030,8 @@ def page_category(c):
     s2 = f'<section class="sec sec--sand msec"><div class="wrap">{shd("Our way", "atInc가 함께하는 방식")}<ol class="ways">{wy}</ol></div></section>'
     # 3. the kind of places we connect to (never the names)
     pt = ''.join(f'<li><h3>{E(t)}</h3><p>{E(d)}</p></li>' for t, d in M['partners'])
-    s3 = (f'<section class="sec msec" id="partners"><div class="wrap">{shd("Partners", "연결해 드리는 곳", "지역별 협력 네트워크", "network.html")}'
-          f'<ul class="ptn">{pt}</ul><p class="msec__note">기관 이름과 위치는 상담에서 목적을 들은 뒤 알려 드립니다.</p></div></section>')
+    s3 = (f'<section class="sec msec" id="partners"><div class="wrap">{shd("Partners", "함께하는 의료기관", "지역별로 보기", "network.html")}'
+          f'<ul class="ptn">{pt}</ul><p class="msec__note">기관 이름은 상담에서 고객님께만 따로 말씀드립니다.</p></div></section>')
     # 4. process
     steps = ''.join(f'<li class="step"><span class="step__no">{i:02d}</span><h3 class="h3">{E(st["title"])}</h3><p class="body">{E(st["text"])}</p></li>'
                     for i, st in enumerate(items(B['07'], 'step'), 1))
@@ -1036,7 +1046,7 @@ def page_category(c):
           f'<div>{shd("More", "더 알아보기")}{more}</div></div></section>')
     reasons = [it['text'] for it in B['04']['items'] if it['type'] == 'bullet']
     cta_title = '부담 없이 먼저 물어보세요' if c['id'] == 'men' else f12['문장']
-    cta = cband(cta_title, '건강 목적과 일정을 남겨 주시면, 내용을 확인한 뒤 담당자가 직접 연락드립니다.', btn, cat,
+    cta = cband(cta_title, '건강 목적과 일정을 남겨 주시면, 담당 매니저가 직접 연락드립니다.', btn, cat,
                 reasons=reasons, reasons_title='이럴 때 상담하세요')
     # 4b. preparation and recovery, gathered from what partner institutions publish (nothing that names them)
     gd = ''.join(f'<div class="guide__col"><h3>{E(t)}</h3><ul>' + ''.join(f'<li>{E(x)}</li>' for x in xs) + '</ul></div>' for t, xs in M.get('guide', []))
@@ -1138,7 +1148,7 @@ def page_care(p):
           f'<div style="display: grid; gap: 12px; margin-top: 12px"><h3 class="h3">다른 프로그램</h3><div class="chips">{others}</div></div></div></div></section>')
     cta_t = [x.strip() for x in T('09').split(' / ')]
     btn_raw = cta_t[1].replace('버튼:', '').strip()
-    cta = cband(cta_t[0], '목적과 일정을 남겨주시면, 내용을 확인한 뒤 전담 담당자가 개별적으로 연락드립니다.', btn_label(btn_raw), prefill(btn_raw, 'atinc CARE'),
+    cta = cband(cta_t[0], '목적과 일정을 남겨주시면, 담당 매니저가 직접 연락드립니다.', btn_label(btn_raw), prefill(btn_raw, 'atinc CARE'),
                 )
     fx = SE.facts_section('global', cls='sec facts-dark') if p['id'] == 'global-medical-journey' else ''
     s7b = ''

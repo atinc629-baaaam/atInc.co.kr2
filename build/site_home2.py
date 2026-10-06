@@ -52,14 +52,14 @@ def shd(label, title, more=None, more_href=None, h='h2'):
 def page_home2():
     # 1. main visual: four faceless photographs, one message each
     slides_d = [
-        ('hero-seoul', 'Private Healthcare Concierge', '어느 병원으로 가야 할지,<br>먼저 물어보세요',
-         '필요한 병원 정보를 정리해 드리고, 정하신 병원의 예약부터 결과 상담까지 한 매니저가 챙깁니다.', form_link('상담 신청', '', 'btn btn--light', None)),
-        ('hero-lounge', 'Private Consultation', '처음 상담부터 결과 이후까지,<br>한 사람이 맡습니다',
-         '전담 매니저가 일정과 자료, 의료통역을 한 번에 정리합니다.', '<a class="btn btn--line" href="#process">이용 절차 보기</a>'),
+        ('hero-lounge', '엄선된 의료 · Private Healthcare Concierge', '처음 상담부터 결과 이후까지,<br>한 매니저가 맡습니다',
+         '필요한 병원 정보를 정리해 드리고, 정하신 병원의 예약과 동행, 결과 상담까지 같은 매니저가 챙깁니다.', form_link('상담 예약하기', '', 'btn btn--light', None)),
+        ('hero-seoul', 'Private Consultation', '어느 병원으로 가야 할지,<br>먼저 물어보세요',
+         '목적과 일정을 듣고, 맞는 의료기관을 3곳 안으로 추려 드립니다.', '<a class="btn btn--line" href="#process">진행 방식 보기</a>'),
         ('hero-equipment', 'Health Checkup', '올해 검진은<br>나에게 맞는 곳에서',
-         '나이와 가족력에 맞춰 검사 항목과 검진기관 정보를 함께 살펴봅니다.', '<a class="btn btn--line" href="medical-checkup.html">건강검진 안내</a>'),
+         '나이와 가족력에 맞춰 검사 항목과 검진기관 정보를 함께 살펴봅니다.', '<a class="btn btn--line" href="medical-checkup.html">검진 살펴보기</a>'),
         ('hero-arrival', 'Global Medical Journey', '한국에서의 진료 일정,<br>도착 전에 맞춰 둡니다',
-         '해외에서 오시는 분께 병원 예약과 의료통역, 공항 픽업과 이동까지 한 번에 준비해 드립니다.', '<a class="btn btn--line" href="care-global-medical-journey.html">해외 고객 안내</a>'),
+         '해외에서 오시는 분께 병원 예약과 의료통역, 공항 픽업과 이동까지 한 번에 준비해 드립니다.', '<a class="btn btn--line" href="care-global-medical-journey.html">해외에서 오시는 분께</a>'),
     ]
     n = len(slides_d)
     sl = ''
@@ -78,11 +78,11 @@ def page_home2():
             f'<button class="phx__btn" type="button" data-next aria-label="다음 슬라이드">{svg("next")}</button></div></section>')
 
     # 2. quick menu
-    q = [('chat', '상담 신청', f'href="{FORM_URL}" target="_blank" rel="noopener" data-form=""'),
-         ('phone', '전화 상담', f'href="tel:{VIP_TEL}"'),
+    q = [('chat', '상담 예약', f'href="{FORM_URL}" target="_blank" rel="noopener" data-form=""'),
+         ('phone', '매니저와 통화', f'href="tel:{VIP_TEL}"'),
          ('medical', '진료 분야', 'href="medical.html"'),
          ('calendar', '케어 프로그램', 'href="care.html"'),
-         ('pin', '협력 네트워크', 'href="network.html"'),
+         ('pin', '지역 안내', 'href="network.html"'),
          ('globe', '해외 고객', 'href="care-global-medical-journey.html"')]
     qm = ''.join(f'<li><a {attr}>{svg(ic_)}<span>{E(lab)}</span></a></li>' for ic_, lab, attr in q)
     quick = f'<nav class="qmenu" aria-label="바로가기"><div class="wrap"><ul class="qmenu__list">{qm}</ul></div></nav>'
@@ -108,20 +108,20 @@ def page_home2():
     pt = ''.join(f'<a class="tile tile--prog" href="{page_of[pid]}"><figure class="tile__pic">{pic("prog-" + pid, "", "(max-width: 600px) 82vw, (max-width: 1100px) 50vw, 25vw", (480, 720, 1080))}'
                  f'<span class="tile__tag">{E(tag)}</span></figure><p class="tile__en">{E(en_of[pid])}</p><h3 class="tile__t">{E(PROG_KO[pid])}</h3><p class="tile__d">{E(d)}</p></a>'
                  for pid, tag, d in prog)
-    progs = (f'<section class="sec hsec hsec--tight"><div class="wrap">{shd("Care Programs", "케어 프로그램", "전체 보기", "care.html")}'
+    progs = (f'<section class="sec hsec hsec--tight"><div class="wrap">{shd("Signature Care", "케어 프로그램", "전체 보기", "care.html")}'
              f'<div class="tiles tiles--4">{pt}</div></div></section>')
 
     # 5. process
-    steps = [('상담', '지금 상황과 원하시는 일정을 듣습니다.'),
-             ('기관 안내와 예약', '맞는 기관 정보를 비교해 드리고, 정하신 곳을 예약합니다.'),
-             ('방문 동행', '병원 동행과 의료통역을 맡습니다.'),
+    steps = [('첫 상담', '지금 상황과 원하시는 일정을 듣습니다.'),
+             ('병원 선택과 예약', '맞는 곳을 추려 드리고, 정하신 곳을 예약합니다.'),
+             ('당일 동행', '병원 동행과 의료통역을 맡습니다.'),
              ('결과 이후', '결과 상담과 다음 일정을 챙깁니다.')]
     fl = ''.join(f'<li><span class="flow__no">{i:02d}</span><h3>{E(t)}</h3><p>{E(d)}</p></li>' for i, (t, d) in enumerate(steps, 1))
-    process = (f'<section class="sec sec--sand hsec" id="process"><div class="wrap">{shd("Process", "이용 절차", "상담 안내", "consultation.html")}'
+    process = (f'<section class="sec sec--sand hsec" id="process"><div class="wrap">{shd("How We Care", "진행 방식", "상담 안내", "consultation.html")}'
                f'<ol class="flow">{fl}</ol></div></section>')
 
     # 6. network
-    net_s = (f'<section class="sec hsec net2" data-net><div class="wrap net2__grid"><div class="net2__txt">{shd("Network", "협력 네트워크")}'
+    net_s = (f'<section class="sec hsec net2" data-net><div class="wrap net2__grid"><div class="net2__txt">{shd("Locations", "전국 협력 의료기관")}'
              f'<p class="net2__d">지금은 <span data-net-regions>서울, 인천, 경기, 대구, 부산</span>의 협력 의료기관과 함께하고, 지역을 계속 넓혀 가고 있습니다. 기관 이름과 위치는 상담에서 안내해 드립니다.</p>'
              f'<p class="net-empty" hidden>{E(EMPTY_MSG)}</p><div class="atnet-list" data-variant="compact"></div>'
              f'<p><a class="link" href="network.html">지역별로 보기</a></p></div>'
@@ -135,17 +135,12 @@ def page_home2():
             f'<p class="intl2__en" lang="en">Coming from abroad? Write to us in English at <a href="mailto:{EMAIL}">{EMAIL}</a>.</p>'
             f'<p><a class="btn btn--dark" href="care-global-medical-journey.html">글로벌 메디컬 저니 보기</a></p></div></div></section>')
 
-    # 8. partners line
-    pline = (f'<section class="pline"><div class="wrap pline__in"><p><b>제휴 안내</b><span>병원, 기업, 해외 에이전시와 함께 일합니다.</span></p>'
-             f'<a class="link" href="partners.html">제휴 안내 보기</a></div></section>')
+    # 8. contact: the appointment card
+    contact = (f'<section class="sec hsec contact2" id="contact"><div class="wrap contact2__grid"><div class="contact2__txt">{shd("Private Consultation", "프라이빗 상담")}'
+               f'<p class="contact2__d">성함과 연락처만 남겨 주시면 담당 매니저가 편하신 방법으로 연락드립니다. 진단서나 검사 결과는 처음에 받지 않습니다.</p>'
+               f'<ul class="contact2__notes"><li>첫 통화에서 목적과 일정을 듣습니다</li><li>맞는 곳을 추려 비교해 드립니다</li><li>정하신 뒤에 예약과 동행을 준비합니다</li></ul>'
+               f'<p><a class="link" href="consultation.html">상담 진행 방식 자세히 보기</a></p></div>'
+               f'{appt_card("상담 예약 요청", "")}</div></section>')
 
-    # 9. contact
-    contact = (f'<section class="sec hsec contact2" id="contact"><div class="wrap contact2__grid"><div class="contact2__txt">{shd("Contact", "상담 안내")}'
-               f'<p class="contact2__d">성함과 연락처, 궁금하신 점만 남겨 주시면 담당 매니저가 연락드립니다. 진단서나 검사 결과는 처음에 받지 않습니다.</p>'
-               f'<p class="contact2__lines"><a class="contact2__tel" href="tel:{VIP_TEL}">{VIP}</a><a href="mailto:{EMAIL}">{EMAIL}</a></p>'
-               f'<div class="contact2__act">{form_link("상담 신청서 작성", "", "btn btn--dark", None)}<a class="btn btn--ghost" href="consultation.html">상담 진행 방법</a></div>'
-               f'<p class="contact2__en" lang="en">From overseas, email us or call <a href="tel:{VIP_TEL}">+82 10 5857 0129</a>.</p></div>'
-               f'<figure class="contact2__pic">{pic("contact", "", "(max-width: 900px) 100vw, 45vw", (720, 1080, 1600))}</figure></div></section>')
-
-    main = hero + quick + areas + progs + process + net_s + intl + pline + contact
+    main = hero + quick + areas + progs + process + net_s + intl + contact
     page('index.html', 'atinc | 프라이빗 헬스케어 컨시어지', '검진, 재생의료, 성형·피부, 여성·남성 진료, 한방까지. 필요한 병원 정보를 정리해 드리고 예약과 통역, 결과 이후 일정까지 전담 매니저가 챙깁니다.', main, 'home', light=False)
