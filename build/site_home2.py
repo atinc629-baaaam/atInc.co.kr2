@@ -179,5 +179,5 @@ def page_home2():
     run = ''.join(f'<span>{E(w)}</span><i aria-hidden="true"></i>' for w in words)
     band = (f'<div class="mq" aria-label="진료 분야: {E(", ".join(words))}"><div class="mq__track" aria-hidden="true">'
             f'<div class="mq__run">{run}</div><div class="mq__run">{run}</div></div></div>')
-    main = hero + quick + band + why + areas + progs + process + net_s + intl + faq + contact
+    main = hero + quick + why + areas  # 흐르는 띠(band)는 숨김: 2026-10-07 대표 요청 + progs + process + net_s + intl + faq + contact
     page('index.html', 'atinc | 프라이빗 헬스케어 컨시어지', '검진, 재생의료, 성형·피부, 여성·남성 진료, 한방까지. 필요한 병원 정보를 정리해 드리고 예약과 통역, 결과 이후 일정까지 함께 챙깁니다.', main, 'home', light=False)
