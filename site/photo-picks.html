@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>atInc 사진 후보</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+  /* 사진 후보 고르기 (임시 페이지, 고른 뒤 지웁니다). 색은 사이트와 같은 캐시미어 & 코코아 */
+  :root { --bg: #F4EEE6; --paper: #FBF8F4; --line: #E2D5C4; --ink: #2F231C; --body: #56473C; --sub: #64544A; --cocoa: #6E4C37; --camel: #E4D3BD; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 400 15px/1.7 'Pretendard Variable', Pretendard, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; letter-spacing: -.01em; }
+  .page { max-width: 1240px; margin: 0 auto; padding: clamp(28px, 5vw, 64px) clamp(16px, 4vw, 48px) 96px; }
+  h1 { margin: 0 0 12px; font-size: clamp(26px, 3vw, 36px); line-height: 1.3; letter-spacing: -.03em; }
+  .intro { max-width: 64ch; margin: 0 0 8px; color: var(--body); }
+  .how { display: grid; gap: 4px; margin: 18px 0 40px; padding: 16px 18px; background: var(--paper); border: 1px solid var(--line); border-radius: 8px; color: var(--body); font-size: 14.5px; }
+  .how b { color: var(--ink); }
+  .slot { padding-block: 32px; border-top: 1px solid var(--line); }
+  .slot h2 { margin: 0; font-size: 20px; letter-spacing: -.02em; }
+  .slot p { margin: 4px 0 18px; color: var(--sub); font-size: 14px; }
+  .grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 14px; }
+  figure { margin: 0; display: grid; gap: 8px; align-content: start; min-width: 0; }
+  .ph { position: relative; display: block; aspect-ratio: 4 / 3; overflow: hidden; border-radius: 6px; background: var(--camel); }
+  .ph img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .ph .no { position: absolute; left: 8px; top: 8px; min-width: 30px; padding: 3px 9px; border-radius: 999px; background: rgba(251, 248, 244, .94); color: var(--ink); font-size: 13px; font-weight: 700; text-align: center; }
+  .ph .err { position: absolute; inset: 0; display: grid; place-items: center; padding: 12px; color: var(--sub); font-size: 13px; text-align: center; }
+  .cur .ph { outline: 2px solid var(--cocoa); outline-offset: 2px; }
+  .cur .no { background: var(--cocoa); color: #fff; }
+  figcaption { font-size: 13.5px; line-height: 1.5; color: var(--body); }
+  @media (max-width: 1000px) { .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  @media (max-width: 600px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+</style>
+</head>
+<body>
+<main class="page">
+  <h1>사진 후보</h1>
+  <p class="intro">차갑거나 의료 장면이 강한 사진 10곳의 후보입니다. 기준은 세 가지입니다. 사람 얼굴, 간판·글자, 시술 장면은 없습니다. 병원 시설을 자랑하는 화려한 사진은 뺐습니다. 캐시미어 & 코코아에 맞는 따뜻하고 차분한 톤으로 골랐습니다.</p>
+  <div class="how">
+    <span><b>고르는 법</b>: 자리마다 번호 하나씩 알려 주세요. 예) "건강검진 첫 화면 2, 한방 사진 띠 1"</span>
+    <span><b>지금</b> 표시가 현재 사진입니다. 지금 사진을 그대로 두려면 "0"이라고 하시면 됩니다.</span>
+    <span>사진을 누르면 크게 보입니다. 같은 사진은 한 곳에만 씁니다. 모두 무료 사진(Unsplash)입니다.</span>
+  </div>
+  <div id="slots"></div>
+</main>
+<script>
+  // [자리 이름, 설명, 현재 사진, [후보 사진, 설명] ...]
+  var SLOTS = [
+    ['홈 · 첫 화면 2번째 (검진 안내)', '"올해 검진, 나이와 가족력에 맞춰 고르세요" 슬라이드', ['1666214282459-c7dff167ecc0', '비어 있는 영상 검사실의 장비'], [
+      ['1704455306925-1401c3012117', '의료 장비가 놓인 밝은 진료실'], ['1777269749032-d8d458ae594d', '벤치와 문이 늘어선 빈 복도'],
+      ['1787496994323-59ac5cff09f9', '원목 슬랫 벽 앞 크림색 안락의자 두 개'], ['1693264882139-6a308957c9ae', '방 안을 비추는 따뜻한 조명']]],
+    ['건강검진 · 첫 화면', '건강검진 페이지 맨 위 큰 사진', ['1666214280352-db292c05fd80', '검사 테이블이 놓인 영상 검사실'], [
+      ['1693417920099-d985b3e0fa44', '방 안에 놓인 검사 장비'], ['1787496994867-939269b4d323', '흰 패널 벽과 식물 그림이 걸린 대기 복도'],
+      ['1665231795856-769fb08a90bc', '책상과 의자가 놓인 상담실'], ['1731514721772-329626f84c8b', '테이블과 의자, 시계가 있는 방']]],
+    ['건강검진 · 넓은 사진 띠', '페이지 중간 "Precision Checkup" 글자가 올라가는 사진', ['1691935071222-c008a4ccc2ca', '모니터가 달린 진단 장비'], [
+      ['1666214282459-c7dff167ecc0', '빈 영상 검사실 (지금 홈 첫 화면 2번째 사진)'], ['1579684288402-e3e337bcc7af', '밝은 톤의 의료 기기'],
+      ['1731514709874-30eead90613b', '나란히 놓인 원목 의자'], ['1783628301708-c71042ce5622', '벽난로와 아늑한 의자가 있는 거실']]],
+    ['남성건강 · 첫 화면', '남성건강 페이지 맨 위 큰 사진', ['1615486511484-92e172cc4fe0', '팔에 감은 혈압계 커프'], [
+      ['1784033508945-c09166437d2b', '안개 낀 숲길을 걷는 사람 (뒷모습)'], ['1775999070699-00e787b8f204', '따뜻한 빛의 숲길을 걷는 사람'],
+      ['1717157197005-b851de4abc63', '가죽 케이스 위의 손목시계'], ['1572460150538-637eb6098256', '갈색 가죽 줄의 은색 시계']]],
+    ['남성건강 · 넓은 사진 띠', '페이지 중간 영문 글자가 올라가는 사진', ['1655655314398-c40c8dc6fb75', '화면이 달린 의료 장비'], [
+      ['1605797063353-4cbcb6027f2c', '갈색 가죽 안락의자와 원목 테이블'], ['1759329885455-f2c660d09d4e', '창가의 가죽 의자와 라탄 테이블'],
+      ['1778587613533-6d2ee86f58bc', '숲이 내다보이는 큰 창가의 의자'], ['1784126689088-00bfd5cde9f1', '햇살이 비치는 벽 앞의 의자']]],
+    ['재생의료·줄기세포 · 첫 화면', '재생의료 페이지 맨 위 큰 사진', ['1748263582756-082fe4adaa5b', '랙에 나란히 꽂힌 검체 튜브'], [
+      ['1785147102271-f8a84c4d2c35', '탁상 조명이 켜진 실험실 장비'], ['1595500381966-eee2034aae48', '갈색 액체가 담긴 투명한 유리병'],
+      ['1562411052-a9fe410b5a9c', '투명한 유리 용기들'], ['1738778151585-36b19054059a', '흰 테이블 위의 현미경']]],
+    ['재생의료·줄기세포 · 넓은 사진 띠', '페이지 중간 영문 글자가 올라가는 사진', ['1581091007718-0c50d599bfd0', '현미경 아래 배양 접시를 놓는 장갑 낀 손'], [
+      ['1738778151587-032287ae9f90', '병 옆에 놓인 현미경'], ['1742137587486-fdef8cdd25bd', '작업대 위의 실험 유리 기구'],
+      ['1631106321638-d94d9a8f3e1f', '흰 테이블 위의 투명한 유리병'], ['1628864005140-7770b9b8e7dd', '흰 종이 위의 유리 주전자']]],
+    ['여성건강 · 넓은 사진 띠', '페이지 중간 영문 글자가 올라가는 사진', ['1639772823907-a716be4bdecc', '현미경을 다루는 장갑 낀 손'], [
+      ['1597385326531-bfbf6c51c800', '흰 도자기 화병의 갈색 꽃'], ['1644336806256-f62a2f66c58a', '말린 꽃이 꽂힌 화병'],
+      ['1613424777445-f93a2a48e285', '식탁보 위의 갈색 도자기 화병'], ['1633000116322-d7f5cb7d3ebb', '흰 테이블 위의 흰 화병']]],
+    ['한방·웰니스 · 넓은 사진 띠', '페이지 중간 영문 글자가 올라가는 사진', ['1598555763574-dca77e10427e', '피부에 놓인 침'], [
+      ['1546852199-2d8e8c4aaada', '뚜껑 연 흰 도자기 그릇 속 찻잎'], ['1508014861016-f37cdf89e94d', '약절구 옆 찻주전자 두 개'],
+      ['1564890369478-c89ca6d9cde9', '원목 쟁반 위의 도자기 찻주전자'], ['1631682477691-9021a9218860', '원목 테이블 위의 찻사발 두 개']]],
+    ['케어 프로그램 · 프라이빗 정밀검진', '케어 프로그램 카드와 페이지 첫 화면에 쓰는 사진', ['1777805865927-a6ee4c4eacb1', '갈색 바탕 위의 청진기와 클립보드'], [
+      ['1787496994323-59ac5cff09f9', '원목 슬랫 벽 앞 크림색 안락의자 두 개'], ['1731514693674-a32211b63996', '흰 의자 두 개와 커피 테이블'],
+      ['1783628301708-c71042ce5622', '벽난로와 아늑한 의자가 있는 거실'], ['1605797063353-4cbcb6027f2c', '갈색 가죽 안락의자와 원목 테이블']]]
+  ];
+  function url(id, w) { return 'https://images.unsplash.com/photo-' + id + '?auto=format&fit=crop&w=' + w + '&q=70'; }
+  function fig(id, text, no, cur) {
+    return '<figure class="' + (cur ? 'cur' : '') + '"><a class="ph" href="' + url(id, 1800) + '" target="_blank" rel="noopener">' +
+      '<img src="' + url(id, 640) + '" alt="' + text + '" loading="lazy" onerror="this.remove();this.parentNode.insertAdjacentHTML(\'beforeend\',\'<span class=err>이 사진은 불러오지 못했습니다</span>\')">' +
+      '<span class="no">' + (cur ? '지금' : no) + '</span></a><figcaption>' + text + '</figcaption></figure>';
+  }
+  document.getElementById('slots').innerHTML = SLOTS.map(function (s) {
+    return '<section class="slot"><h2>' + s[0] + '</h2><p>' + s[1] + '</p><div class="grid">' + fig(s[2][0], s[2][1], 0, true) +
+      s[3].map(function (c, i) { return fig(c[0], c[1], i + 1, false); }).join('') + '</div></section>';
+  }).join('');
+</script>
+</body>
+</html>
