@@ -1,5 +1,5 @@
 {# 설명 한 줄 + 목적 칩 목록 (글로벌 메디컬 저니 '구성 선택') #}
 {% from 'macros.html' import dhd %}
-<section class="sec{% if s.tone == 'sand' %} sec--sand{% endif %} msec"><div class="wrap">{{ dhd(s.title) }}{% if s.lead %}<p class="lead">{{ s.lead }}</p>{% endif %}
-<div class="ojourney"><h3>{{ s.list_title }}</h3><ul>{% for x in s['items'] %}<li>{{ x }}</li>{% endfor %}</ul></div>
-{% for n in s.notes or [] %}<p class="msec__note">{{ n }}</p>{% endfor %}</div></section>
+<section class="sec{% if s.tone == 'sand' %} sec--sand{% endif %} msec"><div class="wrap">{{ dhd(s.title, None, None, P) }}{% if s.lead %}<p class="lead"{{ A(P ~ '.lead') }}>{{ s.lead }}</p>{% endif %}
+<div class="ojourney"><h3{{ A(P ~ '.list_title') }}>{{ s.list_title }}</h3><ul>{% for x in s['items'] %}{% set Q = P ~ '.items.' ~ loop.index0 %}<li{{ IT(Q) }}{{ A(Q) }}>{{ x }}</li>{% endfor %}</ul></div>
+{% for n in s.notes or [] %}<p class="msec__note"{{ A(P ~ '.notes.' ~ loop.index0) }}>{{ n }}</p>{% endfor %}</div></section>

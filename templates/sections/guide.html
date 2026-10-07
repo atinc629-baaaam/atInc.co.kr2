@@ -1,8 +1,8 @@
 {# 준비와 회복 안내: 일정 그래픽 + 항목별 목록 #}
 {% from 'macros.html' import dhd %}
-<section class="sec{% if s.tone == 'sand' %} sec--sand{% endif %} msec"{% if s.anchor %} id="{{ s.anchor }}"{% endif %}><div class="wrap">{{ dhd(s.title, s.lead, s.more) }}
-{% if s.timeline and s.timeline.steps %}{% set tl = s.timeline %}<figure class="tl" aria-label="{{ tl.title }}"><figcaption class="tl__cap"><b>{{ tl.title }}</b><span>{{ tl.source }}</span></figcaption>
-<ol class="tl__list" style="--n: {{ tl.steps|length }}">{% for x in tl.steps %}<li><span class="tl__when">{{ x.when }}</span><span class="tl__dot" aria-hidden="true"></span><b>{{ x.title }}</b><p>{{ x.text }}</p></li>{% endfor %}</ol>
-<p class="tl__note">{{ tl.note }}</p></figure>{% endif %}
-<div class="guide">{% for g in s.groups %}<div class="guide__col">{% if s.fold is not defined or s.fold %}<details class="fold" open data-fold><summary><h3>{{ g.title }}</h3></summary><ul>{% for x in g['items'] %}<li>{{ x }}</li>{% endfor %}</ul></details>{% else %}<h3>{{ g.title }}</h3><ul>{% for x in g['items'] %}<li>{{ x }}</li>{% endfor %}</ul>{% endif %}</div>{% endfor %}</div>
-{% for n in s.notes or [] %}<p class="msec__note">{{ n }}</p>{% endfor %}</div></section>
+<section class="sec{% if s.tone == 'sand' %} sec--sand{% endif %} msec"{% if s.anchor %} id="{{ s.anchor }}"{% endif %}><div class="wrap">{{ dhd(s.title, s.lead, s.more, P) }}
+{% if s.timeline and s.timeline.steps %}{% set tl = s.timeline %}{% set T = P ~ '.timeline' %}<figure class="tl" aria-label="{{ tl.title }}"><figcaption class="tl__cap"><b{{ A(T ~ '.title') }}>{{ tl.title }}</b><span{{ A(T ~ '.source') }}>{{ tl.source }}</span></figcaption>
+<ol class="tl__list" style="--n: {{ tl.steps|length }}">{% for x in tl.steps %}{% set Q = T ~ '.steps.' ~ loop.index0 %}<li{{ IT(Q) }}><span class="tl__when"{{ A(Q ~ '.when') }}>{{ x.when }}</span><span class="tl__dot" aria-hidden="true"></span><b{{ A(Q ~ '.title') }}>{{ x.title }}</b><p{{ A(Q ~ '.text') }}>{{ x.text }}</p></li>{% endfor %}</ol>
+<p class="tl__note"{{ A(T ~ '.note') }}>{{ tl.note }}</p></figure>{% endif %}
+<div class="guide">{% for g in s.groups %}{% set Q = P ~ '.groups.' ~ loop.index0 %}<div class="guide__col"{{ IT(Q) }}>{% if s.fold is not defined or s.fold %}<details class="fold" open data-fold><summary><h3{{ A(Q ~ '.title') }}>{{ g.title }}</h3></summary><ul>{% for x in g['items'] %}{% set R = Q ~ '.items.' ~ loop.index0 %}<li{{ IT(R) }}{{ A(R) }}>{{ x }}</li>{% endfor %}</ul></details>{% else %}<h3{{ A(Q ~ '.title') }}>{{ g.title }}</h3><ul>{% for x in g['items'] %}{% set R = Q ~ '.items.' ~ loop.index0 %}<li{{ IT(R) }}{{ A(R) }}>{{ x }}</li>{% endfor %}</ul>{% endif %}</div>{% endfor %}</div>
+{% for n in s.notes or [] %}<p class="msec__note"{{ A(P ~ '.notes.' ~ loop.index0) }}>{{ n }}</p>{% endfor %}</div></section>

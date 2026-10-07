@@ -1,8 +1,8 @@
-{# 해외에서 오시는 분께 (사진 + 목록) #}
+{# 해외에서 오시는 분께 (사진 + 목록) — 어디서나 쓰는 '사진과 글' #}
 {% from 'macros.html' import shd, button %}
-<section class="sec hsec intl2"><div class="wrap intl2__grid"><figure class="intl2__pic">{{ pic(s.photo, '', '(max-width: 900px) 100vw, 50vw', (720, 1080, 1600)) }}</figure>
-<div class="intl2__txt">{{ shd(s.label, s.title) }}
-<p class="intl2__d">{{ s.text }}</p>
-<ul class="intl2__list">{% for x in s.list %}<li>{{ x }}</li>{% endfor %}</ul>
-<p class="intl2__en" lang="en">{{ s.en_text }} <a href="mailto:{{ S.contact.email }}">{{ S.contact.email }}</a>.</p>
-<p>{{ button(s.button, 'btn btn--dark') }}</p></div></div></section>
+<section class="sec hsec intl2"><div class="wrap intl2__grid"><figure class="intl2__pic">{{ pic(s.photo, '', '(max-width: 900px) 100vw, 50vw', (720, 1080, 1600), path=P ~ '.photo') }}</figure>
+<div class="intl2__txt">{{ shd(s.label, s.title, None, 'h2', P) }}
+<p class="intl2__d"{{ A(P ~ '.text') }}>{{ s.text }}</p>
+<ul class="intl2__list">{% for x in s.list %}{% set Q = P ~ '.list.' ~ loop.index0 %}<li{{ IT(Q) }}{{ A(Q) }}>{{ x }}</li>{% endfor %}</ul>
+<p class="intl2__en" lang="en">{{ W(P ~ '.en_text', s.en_text) }} <a href="mailto:{{ S.contact.email }}">{{ S.contact.email }}</a>.</p>
+<p>{{ button(s.button, 'btn btn--dark', P ~ '.button') }}</p></div></div></section>

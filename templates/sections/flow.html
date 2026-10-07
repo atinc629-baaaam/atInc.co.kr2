@@ -1,4 +1,4 @@
 {# 번호가 붙은 진행 단계 (홈) #}
 {% from 'macros.html' import shd %}
-<section class="sec sec--sand hsec"{% if s.anchor %} id="{{ s.anchor }}"{% endif %}><div class="wrap">{{ shd(s.label, s.title, s.more) }}
-<ol class="flow">{% for st in s.steps %}<li><span class="flow__no">{{ '%02d' % loop.index }}</span><h3>{{ st.title }}</h3><p>{{ st.text }}</p></li>{% endfor %}</ol></div></section>
+<section class="sec sec--sand hsec"{% if s.anchor %} id="{{ s.anchor }}"{% endif %}><div class="wrap">{{ shd(s.label, s.title, s.more, 'h2', P) }}
+<ol class="flow">{% for st in s.steps %}{% set Q = P ~ '.steps.' ~ loop.index0 %}<li{{ IT(Q) }}><span class="flow__no">{{ '%02d' % loop.index }}</span><h3{{ A(Q ~ '.title') }}>{{ st.title }}</h3><p{{ A(Q ~ '.text') }}>{{ st.text }}</p></li>{% endfor %}</ol></div></section>

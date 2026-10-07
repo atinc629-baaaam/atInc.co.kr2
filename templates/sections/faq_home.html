@@ -1,4 +1,4 @@
-{# 자주 묻는 질문 (홈) #}
+{# 자주 묻는 질문 (홈 형태, 어디서나) #}
 {% from 'macros.html' import shd %}
-<section class="sec hsec hfaq"><div class="wrap hfaq__grid"><div>{{ shd(s.label, s.title) }}</div>
-<div class="faq">{% for q in s['items'] %}<details><summary>{{ q.q }}{{ ic('chev') }}</summary><p class="body">{{ q.a }}</p></details>{% endfor %}</div></div></section>
+<section class="sec hsec hfaq"><div class="wrap hfaq__grid"><div>{{ shd(s.label, s.title, None, 'h2', P) }}</div>
+<div class="faq">{% for q in s['items'] %}{% set Q = P ~ '.items.' ~ loop.index0 %}<details{{ IT(Q) }}><summary>{{ W(Q ~ '.q', q.q) }}{{ ic('chev') }}</summary><p class="body"{{ A(Q ~ '.a') }}>{{ q.a }}</p></details>{% endfor %}</div></div></section>

@@ -1,7 +1,7 @@
 {# atInc가 하는 일 / 하지 않는 일 #}
 {% from 'macros.html' import shd %}
 <section class="sec hsec hdo"><div class="wrap">
-<div class="hdo__head">{{ shd(s.label, s.title) }}<p class="hdo__lead">{{ s.lead }}</p></div>
-<div class="hdo__grid"><div class="hdo__col"><h3 class="hdo__t">{{ s.do_title }}</h3><ul class="hdo__do">{% for x in s.do %}<li><b>{{ x.k }}</b><span>{{ x.d }}</span></li>{% endfor %}</ul></div>
-<div class="hdo__col hdo__col--dark"><h3 class="hdo__t">{{ s.dont_title }}</h3><ul class="hdo__dont">{% for x in s.dont %}<li><span>{{ x }}</span></li>{% endfor %}</ul>
-{% if s.note %}<p class="hdo__reg">{{ s.note }}</p>{% endif %}</div></div></div></section>
+<div class="hdo__head">{{ shd(s.label, s.title, None, 'h2', P) }}<p class="hdo__lead"{{ A(P ~ '.lead') }}>{{ s.lead }}</p></div>
+<div class="hdo__grid"><div class="hdo__col"><h3 class="hdo__t"{{ A(P ~ '.do_title') }}>{{ s.do_title }}</h3><ul class="hdo__do">{% for x in s.do %}{% set Q = P ~ '.do.' ~ loop.index0 %}<li{{ IT(Q) }}><b{{ A(Q ~ '.k') }}>{{ x.k }}</b><span{{ A(Q ~ '.d') }}>{{ x.d }}</span></li>{% endfor %}</ul></div>
+<div class="hdo__col hdo__col--dark"><h3 class="hdo__t"{{ A(P ~ '.dont_title') }}>{{ s.dont_title }}</h3><ul class="hdo__dont">{% for x in s.dont %}{% set Q = P ~ '.dont.' ~ loop.index0 %}<li{{ IT(Q) }}><span{{ A(Q) }}>{{ x }}</span></li>{% endfor %}</ul>
+{% if s.note %}<p class="hdo__reg"{{ A(P ~ '.note') }}>{{ s.note }}</p>{% endif %}</div></div></div></section>

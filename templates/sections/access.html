@@ -1,6 +1,6 @@
 {# 그 밖의 전문 진료 (암·난임·뇌·안과 등) #}
 {% from 'macros.html' import form_link %}
-<section class="sec sec--sand"{% if s.anchor %} id="{{ s.anchor }}"{% endif %}><div class="wrap"><div class="idx__head"><div style="display: grid; gap: 18px"><h2 class="disp-2">{{ s.title|rich }}</h2></div><p class="lead">{{ s.lead }}</p></div>
-<div class="macs">{% for m in s['items'] %}<article class="mac"><div class="mac__top"><p class="mac__en">{{ m.en }}</p><h3>{{ m.title }}</h3></div><p class="mac__st">{{ m.summary }}</p><p class="body">{{ m.text }}</p>
-<ul class="mac__nodes">{% for x in m.points %}<li><span>{{ x }}</span></li>{% endfor %}</ul>
-<div class="mac__foot"><span class="small">{{ m.meta }}</span>{{ form_link(m.button, m.title, 'link') }}</div></article>{% endfor %}</div></div></section>
+<section class="sec sec--sand"{% if s.anchor %} id="{{ s.anchor }}"{% endif %}><div class="wrap"><div class="idx__head"><div style="display: grid; gap: 18px"><h2 class="disp-2"{{ A(P ~ '.title', 'rich') }}>{{ s.title|rich }}</h2></div><p class="lead"{{ A(P ~ '.lead') }}>{{ s.lead }}</p></div>
+<div class="macs">{% for m in s['items'] %}{% set Q = P ~ '.items.' ~ loop.index0 %}<article class="mac"{{ IT(Q) }}><div class="mac__top"><p class="mac__en"{{ A(Q ~ '.en') }}>{{ m.en }}</p><h3{{ A(Q ~ '.title') }}>{{ m.title }}</h3></div><p class="mac__st"{{ A(Q ~ '.summary') }}>{{ m.summary }}</p><p class="body"{{ A(Q ~ '.text') }}>{{ m.text }}</p>
+<ul class="mac__nodes">{% for x in m.points %}{% set R = Q ~ '.points.' ~ loop.index0 %}<li{{ IT(R) }}><span{{ A(R) }}>{{ x }}</span></li>{% endfor %}</ul>
+<div class="mac__foot"><span class="small"{{ A(Q ~ '.meta') }}>{{ m.meta }}</span>{{ form_link(m.button, m.title, 'link', 'out', Q ~ '.button') }}</div></article>{% endfor %}</div></div></section>

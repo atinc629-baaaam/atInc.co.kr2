@@ -1,2 +1,2 @@
 {# '다른 케어 프로그램' 링크 줄: 지금 페이지를 뺀 케어 프로그램이 자동으로 들어갑니다 #}
-<section class="pline"><div class="wrap pline__in"><p><b>{{ s.title }}</b></p><p class="pline__links">{% for p in programs if p.id != program.id %}<a href="{{ p.page }}">{{ p.ko }}</a>{% endfor %}{% for l in s.extra or [] %}<a href="{{ l.href }}">{{ l.label }}</a>{% endfor %}</p></div></section>
+<section class="pline"><div class="wrap pline__in"><p><b{{ A(P ~ '.title') }}>{{ s.title }}</b></p><p class="pline__links">{% for p in programs if p.id != program.id %}<a href="{{ p.page }}"{{ A(p._key ~ '#ko') }}>{{ p.ko }}</a>{% endfor %}{% for l in s.extra or [] %}{% set Q = P ~ '.extra.' ~ loop.index0 %}<a href="{{ l.href }}"{{ IT(Q) }}{{ A(Q ~ '.label') }}>{{ l.label }}</a>{% endfor %}</p></div></section>

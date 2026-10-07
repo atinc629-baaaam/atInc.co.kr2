@@ -1,0 +1,102 @@
+{
+  "seo": {
+    "title": "상담 신청 안내 | atInc",
+    "description": "관심 분야와 일정, 궁금한 점을 남겨주시면 담당 매니저가 연락드립니다. 첫 접수에서는 진단서나 검사결과 같은 의료자료를 받지 않습니다. 필요한 자료는 접수 후 따로 안내합니다."
+  },
+  "sections": [
+    {
+      "type": "page_hero",
+      "crumb": "상담 안내",
+      "title": "지금 상황부터 편하게 말씀해 주세요",
+      "lead": "관심 있는 분야와 원하시는 일정, 궁금한 점을 남겨 주시면 담당 매니저가 연락드립니다. 처음 접수하실 때는 진단서나 검사 결과 같은 의료자료를 받지 않습니다. 필요한 자료는 접수 후에 따로 알려 드립니다.",
+      "buttons": [
+        {
+          "label": "상담 신청서 열기",
+          "form": true,
+          "icon": "out",
+          "style": "btn btn--dark"
+        }
+      ],
+      "contacts": true,
+      "photo": {
+        "src": "https://images.unsplash.com/photo-1642543492421-5a1f854e126c",
+        "alt": "찻잔 옆 노트에 메모하는 손",
+        "pos": "50% 50%"
+      }
+    },
+    {
+      "type": "steps",
+      "layout": "plain",
+      "tone": "light",
+      "title": "상담은 이렇게 진행됩니다",
+      "items": [
+        {
+          "title": "접수",
+          "text": "아래 항목을 Google Forms 신청서에 적어 보내 주세요."
+        },
+        {
+          "title": "연락",
+          "text": "전화, 카카오톡 등 고르신 방법으로 담당 매니저가 연락드립니다."
+        },
+        {
+          "title": "사전 준비",
+          "text": "원하시는 진료와 그동안 받으신 치료, 일정을 여쭤보고 준비하실 자료를 알려 드립니다."
+        },
+        {
+          "title": "병원 상담 예약",
+          "text": "맞는 병원을 골라 상담 날짜를 잡습니다."
+        }
+      ]
+    },
+    {
+      "type": "form_fields",
+      "tone": "sand",
+      "title": "신청서에 적어 주실 내용",
+      "lead": "남겨 주신 정보는 상담을 연결하는 데에만 사용합니다. 진단서나 검사 결과 같은 의료자료는 이 신청서에 올리지 말아 주세요. 필요한 자료는 상담하면서 담당 매니저가 따로 말씀드립니다.",
+      "items": [
+        {
+          "name": "성명",
+          "required": true
+        },
+        {
+          "name": "국가 / 거주지역",
+          "required": true,
+          "help": "국내·해외 고객을 구분하는 데 씁니다"
+        },
+        {
+          "name": "연락처",
+          "required": true,
+          "help": "해외에서는 국가번호를 함께 적어 주세요"
+        },
+        {
+          "name": "이메일",
+          "required": false
+        },
+        {
+          "name": "선호 연락수단",
+          "required": true,
+          "help": "전화 / 카카오톡 / WhatsApp / WeChat / 이메일"
+        },
+        {
+          "name": "관심 분야",
+          "required": true,
+          "help": "건강검진 / 재생의료·줄기세포 / 성형·피부 / 여성건강 / 남성건강 / 한방·웰니스 / atInc CARE / 제휴 문의 / 기타"
+        },
+        {
+          "name": "방문 예정일",
+          "required": false
+        },
+        {
+          "name": "문의내용",
+          "required": true,
+          "help": "의료자료는 올리지 마세요"
+        },
+        {
+          "name": "개인정보 수집·이용 동의",
+          "required": true
+        }
+      ],
+      "button": "상담 신청서 열기"
+    }
+  ]
+}

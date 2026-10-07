@@ -2,6 +2,6 @@
 {% from 'macros.html' import appt_card %}
 {% set item = field if field is defined else (program if program is defined else none) %}
 <section class="sec cband" id="contact"><div class="wrap cband__grid">
-<div class="cband__main"><p class="cband__label">{{ s.label or S.cband.label }}</p><h2 class="h1">{{ s.title }}</h2><p class="lead">{{ s.text }}</p>
-<div class="cband__why">{% if s.reasons_title %}<p class="cband__rt">{{ s.reasons_title }}</p>{% endif %}<ul class="plist">{% for r in (s.reasons or S.cband.promises) %}<li>{{ ic('check') }}<span>{{ r }}</span></li>{% endfor %}</ul></div></div>
-{{ appt_card(s.button or S.nav.cta, s.form_label or (item.form_label if item else '')) }}</div></section>
+<div class="cband__main"><p class="cband__label"{{ A((P ~ '.label') if s.label else 'settings#cband.label') }}>{{ s.label or S.cband.label }}</p><h2 class="h1"{{ A(P ~ '.title') }}>{{ s.title }}</h2><p class="lead"{{ A(P ~ '.text') }}>{{ s.text }}</p>
+<div class="cband__why">{% if s.reasons_title %}<p class="cband__rt"{{ A(P ~ '.reasons_title') }}>{{ s.reasons_title }}</p>{% endif %}<ul class="plist">{% for r in (s.reasons or S.cband.promises) %}{% set Q = (P ~ '.reasons.' ~ loop.index0) if s.reasons else ('settings#cband.promises.' ~ loop.index0) %}<li{{ IT(Q) }}>{{ ic('check') }}<span{{ A(Q) }}>{{ r }}</span></li>{% endfor %}</ul></div></div>
+{{ appt_card(s.button or S.nav.cta, s.form_label or (item.form_label if item else ''), (P ~ '.button') if s.button else 'settings#nav.cta') }}</div></section>

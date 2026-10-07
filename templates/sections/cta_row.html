@@ -1,3 +1,3 @@
 {# 한 줄 안내 + 버튼 #}
-<section class="sec sec--tight"><div class="wrap shead" style="margin-bottom: 0; align-items: center"><div><h2 class="h2">{{ s.title }}</h2>{% if s.notice %}<p class="notice">{{ s.notice }}</p>{% endif %}</div>
-<div style="justify-self: end"><a class="btn btn--ghost" href="{{ s.button.href }}">{{ s.button.label }}</a></div></div></section>
+<section class="sec sec--tight"><div class="wrap shead" style="margin-bottom: 0; align-items: center"><div><h2 class="h2"{{ A(P ~ '.title') }}>{{ s.title }}</h2>{% if s.notice %}<p class="notice"{{ A(P ~ '.notice') }}>{{ s.notice }}</p>{% endif %}</div>
+<div style="justify-self: end"><a class="btn btn--ghost" href="{{ s.button.href }}"{{ A(P ~ '.button.label') }}>{{ s.button.label }}</a></div></div></section>

@@ -1,14 +1,14 @@
 {# 상세 페이지 첫 화면: 큰 사진 + 제목 (진료 분야·케어 프로그램) #}
 {% from 'macros.html' import form_link %}
 {% set item = field if field is defined else program %}
-<section class="hero hero--photo" data-hdr-over><div class="hero__pic" aria-hidden="true">{{ pic(s.photo or item.photo, '', '100vw', (960, 1600, 2400), eager=True) }}</div>
+<section class="hero hero--photo" data-hdr-over><div class="hero__pic" aria-hidden="true">{{ pic(s.photo or item.photo, '', '100vw', (960, 1600, 2400), eager=True, path=(P ~ '.photo') if s.photo else (item._key ~ '#photo')) }}</div>
 <div class="wrap hero__in hero__in--short"><nav class="crumb" aria-label="현재 위치"><a href="index.html">홈</a> / {% if field is defined %}<a href="medical.html">{{ S.nav.medical }}</a>{% else %}<a href="care.html">{{ S.nav.care }}</a>{% endif %} / <span>{{ item.ko }}</span></nav>
-<p class="hero__label rise">{{ item.en }}</p><h1 class="hero__title rise">{{ item.ko }}</h1>
-<p class="hero__sub rise rise-2">{{ s.sub }}</p>
+<p class="hero__label rise"{{ A(item._key ~ '#en') }}>{{ item.en }}</p><h1 class="hero__title rise"{{ A(item._key ~ '#ko') }}>{{ item.ko }}</h1>
+<p class="hero__sub rise rise-2"{{ A(P ~ '.sub') }}>{{ s.sub }}</p>
 {% if s.meta %}
-<p class="hero__body rise rise-3">{{ s.text }}</p>{% if s.reg_note %}<p class="small" style="color: var(--on-dark-sub)">{{ s.reg_note }}</p>{% endif %}
-<div class="rise rise-4"><dl class="pmeta">{% for m in s.meta %}<div><dt>{{ m.k }}</dt><dd>{{ m.v }}</dd></div>{% endfor %}</dl></div>
+<p class="hero__body rise rise-3"{{ A(P ~ '.text') }}>{{ s.text }}</p>{% if s.reg_note %}<p class="small" style="color: var(--on-dark-sub)"{{ A(P ~ '.reg_note') }}>{{ s.reg_note }}</p>{% endif %}
+<div class="rise rise-4"><dl class="pmeta">{% for m in s.meta %}{% set Q = P ~ '.meta.' ~ loop.index0 %}<div{{ IT(Q) }}><dt{{ A(Q ~ '.k') }}>{{ m.k }}</dt><dd{{ A(Q ~ '.v') }}>{{ m.v }}</dd></div>{% endfor %}</dl></div>
 {% else %}
-<div class="hero__row"><p class="hero__body rise rise-3">{{ s.text }}</p><div class="rise rise-4">{{ form_link(s.button, item.form_label, 'btn btn--light') }}</div></div>
+<div class="hero__row"><p class="hero__body rise rise-3"{{ A(P ~ '.text') }}>{{ s.text }}</p><div class="rise rise-4">{{ form_link(s.button, item.form_label, 'btn btn--light', 'out', P ~ '.button') }}</div></div>
 {% endif %}
 </div></section>

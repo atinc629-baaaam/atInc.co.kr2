@@ -1,5 +1,5 @@
 {# 케어 프로그램 목록 (케어 프로그램 목록에서 자동) #}
 <section class="sec"><div class="wrap"><div class="clist">
-{% for p in programs %}<a class="clist__row" href="{{ p.page }}"><figure class="clist__pic">{{ pic(p.photo, '', '(max-width: 600px) 100vw, 320px', (480, 720)) }}</figure><span class="clist__no">{{ '%02d' % loop.index }}</span><div><p class="clist__en">{{ p.en }}</p><h2 class="clist__t">{{ p.ko }}</h2>
-<p class="clist__line">{{ p.index_line }}</p></div><span class="clist__meta">{{ p.index_meta }}</span></a>{% endfor %}
+{% for p in programs %}<a class="clist__row" href="{{ p.page }}"><figure class="clist__pic">{{ pic(p.photo, '', '(max-width: 600px) 100vw, 320px', (480, 720), path=p._key ~ '#photo') }}</figure><span class="clist__no">{{ '%02d' % loop.index }}</span><div><p class="clist__en"{{ A(p._key ~ '#en') }}>{{ p.en }}</p><h2 class="clist__t"{{ A(p._key ~ '#ko') }}>{{ p.ko }}</h2>
+<p class="clist__line"{{ A(p._key ~ '#index_line') }}>{{ p.index_line }}</p></div><span class="clist__meta"{{ A(p._key ~ '#index_meta') }}>{{ p.index_meta }}</span></a>{% endfor %}
 </div></div></section>

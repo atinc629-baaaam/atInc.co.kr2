@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """atInc 홈페이지 빌더
 
-content/ (관리자가 고치는 내용, YAML) + templates/ (디자인 틀, Jinja) + static/ (CSS·JS·이미지)
+content/ (관리자가 고치는 내용, JSON) + templates/ (디자인 틀, Jinja) + static/ (CSS·JS·이미지)
 → site/ (공개되는 HTML)
 
     python3 tools/build.py            # site/ 에 만들기
@@ -16,7 +16,6 @@ import re
 import shutil
 import sys
 
-import yaml
 from jinja2 import ChainableUndefined, Environment, FileSystemLoader, select_autoescape
 from markupsafe import Markup, escape
 
@@ -32,12 +31,22 @@ PRET = 'https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/varia
 # ------------------------------------------------------------------ content
 def load(path):
     with open(path, encoding='utf-8') as f:
-        return yaml.safe_load(f) or {}
+        return json.load(f)
 
 
-def load_collection(folder):
-    items = [load(p) for p in glob.glob(os.path.join(CONTENT, folder, '*.yml'))]
-    items = [x for x in items if not x.get('hidden')]
+def file_key(path):
+    """content/fields/checkup.json → 'fields/checkup' (편집기가 쓰는 파일 이름)"""
+    return os.path.splitext(os.path.relpath(path, CONTENT))[0].replace(os.sep, '/')
+
+
+def load_collection(folder, include_hidden=False):
+    items = []
+    for p in glob.glob(os.path.join(CONTENT, folder, '*.json')):
+        d = load(p)
+        d['_key'] = file_key(p)
+        items.append(d)
+    if not include_hidden:
+        items = [x for x in items if not x.get('hidden')]
     return sorted(items, key=lambda x: (x.get('order', 999), x.get('id', '')))
 
 
@@ -84,6 +93,30 @@ def ic2(name):
 
 UPLOAD_WIDTHS_NEEDED = set()
 
+# 편집용 페이지(site/admin/edit/)를 만들 때만 켜집니다. 켜지면 글·사진·항목에 "어느 내용인지" 표시가 붙습니다.
+EDIT = {'on': False}
+
+
+def A(path, kind=None):
+    """요소 하나가 값 하나만 담을 때: 그 요소에 편집 표시를 붙입니다."""
+    if not EDIT['on']:
+        return Markup('')
+    k = f' data-k="{kind}"' if kind else ''
+    return Markup(f' data-e="{escape(path)}"{k}')
+
+
+def W(path, value, kind='text'):
+    """값을 그대로 쓰되, 편집용 페이지에서는 표시가 붙은 span 으로 감쌉니다 (다른 내용과 섞여 있는 자리)."""
+    v = rich(value) if kind == 'rich' else escape('' if value is None else value)
+    if not EDIT['on']:
+        return Markup(v)
+    return Markup(f'<span data-e="{escape(path)}" data-k="{kind}">{v}</span>')
+
+
+def IT(path):
+    """목록 항목(카드·질문·단계 등): 편집기에서 복제·삭제·이동할 수 있게 표시합니다."""
+    return Markup(f' data-item="{escape(path)}"') if EDIT['on'] else Markup('')
+
 
 def unsplash_id(src):
     src = str(src or '')
@@ -113,7 +146,7 @@ def img_url(src, w):
     return src
 
 
-def pic(img, cls='', sizes='100vw', widths=(640, 960, 1400, 2000), eager=False):
+def pic(img, cls='', sizes='100vw', widths=(640, 960, 1400, 2000), eager=False, path=None):
     """<img> for a photo object {src, alt, pos}. Unsplash photos and uploaded photos get a srcset."""
     if not img or not img.get('src'):
         return Markup('')
@@ -125,8 +158,9 @@ def pic(img, cls='', sizes='100vw', widths=(640, 960, 1400, 2000), eager=False):
         srcset = ''
     load = ' fetchpriority="high"' if eager else ' loading="lazy"'
     pos = f' style="object-position: {escape(img["pos"])}"' if img.get('pos') else ''
+    ed = f' data-img="{escape(path)}"' if (EDIT['on'] and path) else ''
     return Markup(f'<img class="pic {cls}" src="{img_url(src, widths[min(1, len(widths) - 1)])}"{srcset} '
-                  f'alt="{escape(img.get("alt", ""))}" decoding="async"{load}{pos}>')
+                  f'alt="{escape(img.get("alt", ""))}" decoding="async"{load}{pos}{ed}>')
 
 
 def make_resized(out):
@@ -238,18 +272,18 @@ def structured_data(fn, body, S):
 class Site:
     def __init__(self, out):
         self.out = out
-        self.S = load(os.path.join(CONTENT, 'settings.yml'))
+        self.S = load(os.path.join(CONTENT, 'settings.json'))
         self.fields = load_collection('fields')
         self.programs = load_collection('programs')
-        self.regions = load(os.path.join(CONTENT, 'regions.yml')).get('regions', [])
-        self.pages = {os.path.splitext(os.path.basename(p))[0]: load(p) for p in glob.glob(os.path.join(CONTENT, 'pages', '*.yml'))}
+        self.regions = load(os.path.join(CONTENT, 'regions.json')).get('regions', [])
+        self.pages = {os.path.splitext(os.path.basename(p))[0]: load(p) for p in glob.glob(os.path.join(CONTENT, 'pages', '*.json'))}
         for f in self.fields:
             f.setdefault('page', f'medical-{f["id"]}.html')
         for p in self.programs:
             p.setdefault('page', f'care-{p["id"]}.html')
         self.env = Environment(loader=FileSystemLoader(TEMPLATES), autoescape=select_autoescape(['html']),
                                trim_blocks=True, lstrip_blocks=True, undefined=ChainableUndefined)
-        self.env.globals.update(ic=ic, ic2=ic2, pic=pic, rich=rich, lines=lines, josa=josa, img_url=img_url,
+        self.env.globals.update(A=A, W=W, IT=IT, ic=ic, ic2=ic2, pic=pic, rich=rich, lines=lines, josa=josa, img_url=img_url,
                                 S=self.S, site=self.S, fields=self.fields, programs=self.programs, regions=self.regions,
                                 form_url=self.S['contact']['form_url'])
         self.env.filters['rich'] = rich
@@ -264,17 +298,25 @@ class Site:
 
     def render_sections(self, sections, ctx):
         out = []
+        pf = ctx.get('pf', '')
         for i, s in enumerate(sections or []):
-            if not s or s.get('hidden'):
+            if not s or (s.get('hidden') and not EDIT['on']):
                 continue
+            P = f'{pf}#sections.{i}'
             t = self.env.get_template(f'sections/{s["type"]}.html')
-            out.append(t.render(s=s, idx=i, **ctx))
+            h = t.render(s=s, idx=i, P=P, **ctx).strip()
+            if EDIT['on']:
+                # 섹션 맨 바깥 태그에 '몇 번째 섹션인지' 표시 (편집기에서 이동·숨기기·복제·삭제)
+                mark = f' data-item="{escape(P)}" data-sec="{escape(s["type"])}"' + (' data-hidden="1"' if s.get('hidden') else '')
+                h = re.sub(r'^<([a-zA-Z0-9]+)', lambda m: '<' + m.group(1) + mark, h, count=1)
+            out.append(h)
         return ''.join(out)
 
-    def write_page(self, fn, data, cur=None, light=False, ctx=None):
+    def write_page(self, fn, data, cur=None, light=False, ctx=None, pf=''):
         ctx = dict(ctx or {})
         ctx.setdefault('page', data)
         ctx['fn'] = fn
+        ctx['pf'] = pf
         main = minify(self.render_sections(data.get('sections'), ctx))
         glass = 'data-hdr-over' in main
         shell = self.env.get_template('base.html')
@@ -289,34 +331,82 @@ class Site:
         if 'class="atmap"' in body:
             scripts += '<script src="assets/map-base.js"></script>'
         scripts += '<script src="assets/map.js"></script><script src="assets/site.js"></script>'
+        target = os.path.join(self.out, fn)
+        if EDIT['on']:
+            # 편집용 사본: site/admin/edit/<페이지>. 주소 기준을 사이트 맨 위로 맞추고, 편집기 도구를 붙입니다
+            info = json.dumps({'page': fn, 'file': pf, 'title': title}, ensure_ascii=False).replace('</', '<\\/')
+            head = ('<base href="../../"><meta name="robots" content="noindex, nofollow">' + head +
+                    '<link rel="stylesheet" href="admin/inject.css">'
+                    f'<script type="application/json" id="atinc-edit">{info}</script>')
+            scripts += '<script src="admin/inject.js"></script>'
+            target = os.path.join(self.out, 'admin', 'edit', fn)
+            os.makedirs(os.path.dirname(target), exist_ok=True)
         full = f'<!doctype html>\n<html lang="ko">\n<head>{head}</head>\n<body>\n{body}{scripts}\n</body>\n</html>\n'
-        with open(os.path.join(self.out, fn), 'w', encoding='utf-8') as f:
+        with open(target, 'w', encoding='utf-8') as f:
             f.write(full)
-        self.built.append(fn)
+        if not EDIT['on']:
+            self.built.append(fn)
+
+    def all_pages(self):
+        """(파일 이름, 내용, 메뉴 위치, 밝은 머리글, 추가 값, 내용 파일 이름, 편집기 목록 이름)"""
+        P = self.pages
+        yield 'index.html', P['home'], None, False, {}, 'pages/home', '홈'
+        yield 'about.html', P['about'], 'about', False, {}, 'pages/about', '회사소개'
+        yield 'medical.html', P['medical'], 'medical', False, {}, 'pages/medical', '진료 분야 목록'
+        for f in self.fields:
+            yield f['page'], f, 'medical', True, {'field': f}, f['_key'], '진료 분야 · ' + f['ko']
+        yield 'care.html', P['care'], 'care', False, {}, 'pages/care', '케어 프로그램 목록'
+        for p in self.programs:
+            yield p['page'], p, 'care', False, {'program': p}, p['_key'], '케어 프로그램 · ' + p['ko']
+        yield 'network.html', P['network'], 'network', False, {}, 'pages/network', '협력 네트워크'
+        yield 'partners.html', P['partners'], 'partners', False, {}, 'pages/partners', '제휴 안내'
+        yield 'consultation.html', P['consultation'], 'consult', False, {}, 'pages/consultation', '상담 안내'
+        yield 'privacy.html', P['privacy'], 'legal', False, {}, 'pages/privacy', '개인정보처리방침'
+        yield 'medical-notice.html', P['notice'], 'legal', False, {}, 'pages/notice', '의료서비스 관련 고지'
 
     def build(self):
         os.makedirs(self.out, exist_ok=True)
+        # 지난번에 만든 파일을 비웁니다 (지운 페이지·사진이 남지 않도록). 이 빌드가 만든 폴더일 때만 비웁니다.
+        if os.path.exists(os.path.join(self.out, 'index.html')) and os.path.isdir(os.path.join(self.out, 'assets')):
+            for name in os.listdir(self.out):
+                p = os.path.join(self.out, name)
+                shutil.rmtree(p) if os.path.isdir(p) and not os.path.islink(p) else os.remove(p)
         self.copy_static()
-        P = self.pages
-        self.write_page('index.html', P['home'])
-        self.write_page('about.html', P['about'], cur='about')
-        self.write_page('medical.html', P['medical'], cur='medical')
-        for f in self.fields:
-            self.write_page(f['page'], f, cur='medical', light=True, ctx={'field': f})
-        self.write_page('care.html', P['care'], cur='care')
-        for p in self.programs:
-            self.write_page(p['page'], p, cur='care', ctx={'program': p})
-        self.write_page('network.html', P['network'], cur='network')
-        self.write_page('partners.html', P['partners'], cur='partners')
-        self.write_page('consultation.html', P['consultation'], cur='consult')
-        self.write_page('privacy.html', P['privacy'], cur='legal')
-        self.write_page('medical-notice.html', P['notice'], cur='legal')
+        pages = list(self.all_pages())
+        for fn, data, cur, light, ctx, pf, label in pages:
+            self.write_page(fn, data, cur=cur, light=light, ctx=ctx, pf=pf)
+        # 편집기용 사본과 목록
+        EDIT['on'] = True
+        try:
+            for fn, data, cur, light, ctx, pf, label in pages:
+                self.write_page(fn, data, cur=cur, light=light, ctx=ctx, pf=pf)
+        finally:
+            EDIT['on'] = False
+        self.write_editor_index(pages)
         self.write_network_data()
         self.write_sitemap()
         n = make_resized(self.out)
         if n:
             print(n, 'resized photos')
         return self.built
+
+    def write_editor_index(self, pages):
+        """편집기가 읽는 목록: 페이지 목록, 내용 파일 버전(바뀌었는지 확인용), 숨긴 분야·프로그램"""
+        import hashlib
+
+        def blob_sha(path):
+            data = open(path, 'rb').read()
+            return hashlib.sha1(b'blob %d\0' % len(data) + data).hexdigest()
+        versions = {}
+        for path in glob.glob(os.path.join(CONTENT, '**', '*.json'), recursive=True):
+            versions[os.path.relpath(path, ROOT).replace(os.sep, '/')] = blob_sha(path)
+        hidden = [{'file': x['_key'], 'label': x.get('ko', x['_key'])} for x in load_collection('fields', True) + load_collection('programs', True) if x.get('hidden')]
+        index = {'pages': [{'page': fn, 'file': pf, 'label': label} for fn, data, cur, light, ctx, pf, label in pages],
+                 'fields': [{'id': f['id'], 'ko': f['ko']} for f in self.fields],
+                 'versions': versions, 'hidden': hidden}
+        os.makedirs(os.path.join(self.out, 'admin'), exist_ok=True)
+        with open(os.path.join(self.out, 'admin', 'site-index.json'), 'w', encoding='utf-8') as f:
+            json.dump(index, f, ensure_ascii=False, indent=1)
 
     def copy_static(self):
         for root, dirs, files in os.walk(STATIC):
@@ -329,12 +419,12 @@ class Site:
                 shutil.copy2(src, dst)
 
     def write_network_data(self):
-        """content/regions.yml + 진료 분야 목록 → assets/network-data.js (지도와 지역 카드가 읽는 파일)"""
+        """content/regions.json + 진료 분야 목록 → assets/network-data.js (지도와 지역 카드가 읽는 파일)"""
         fields = [{'id': f['id'], 'ko': f['ko']} for f in self.fields]
         regs = [{'area': r['area'], 'name': r['name'], 'short': r['name'], 'en': r.get('en', ''),
                  'cats': r.get('fields', []), 'note': r.get('note', '')} for r in self.regions if not r.get('hidden')]
         js = ('/* 자동으로 만들어지는 파일입니다. 고치지 마세요.\n'
-              '   지역은 content/regions.yml, 분야 이름은 content/fields/*.yml 에서 고칩니다. */\n'
+              '   지역은 content/regions.json, 분야 이름은 content/fields/*.json 에서 고칩니다. */\n'
               'window.ATINC_FIELDS = ' + json.dumps(fields, ensure_ascii=False) + ';\n'
               'window.ATINC_NETWORK = ' + json.dumps(regs, ensure_ascii=False, indent=1) + ';\n')
         os.makedirs(os.path.join(self.out, 'assets'), exist_ok=True)
@@ -350,13 +440,13 @@ class Site:
         with open(os.path.join(self.out, 'sitemap.xml'), 'w', encoding='utf-8') as f:
             f.write(f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">{urls}</urlset>\n')
         with open(os.path.join(self.out, 'robots.txt'), 'w', encoding='utf-8') as f:
-            f.write(f'User-agent: *\nAllow: /\n\nSitemap: {site_url}sitemap.xml\n')
+            f.write(f'User-agent: *\nAllow: /\nDisallow: /admin/\n\nSitemap: {site_url}sitemap.xml\n')
 
 
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--out', default=os.path.join(ROOT, 'site'))
-    ap.add_argument('--check', action='store_true', help='만든 뒤 공개 전 검사(금지 표현·비공개 단어·관리자 입력 칸)를 하고, 문제가 있으면 실패로 끝냅니다')
+    ap.add_argument('--check', action='store_true', help='만든 뒤 공개 전 검사(금지 표현·비공개 단어)를 하고, 문제가 있으면 실패로 끝냅니다')
     a = ap.parse_args()
     built = Site(a.out).build()
     print(len(built), 'pages →', a.out)
@@ -364,8 +454,11 @@ def main():
         import subprocess
         here = os.path.dirname(os.path.abspath(__file__))
         r1 = subprocess.run([sys.executable, os.path.join(here, 'qa', 'site_scan.py'), a.out])
-        r2 = subprocess.run([sys.executable, os.path.join(here, 'admin_config.py'), '--check'])
-        if r1.returncode or r2.returncode:
+        r2 = subprocess.run([sys.executable, os.path.join(here, 'qa', 'edit_marks.py'), a.out])
+        if r2.returncode:
+            print('\n편집용 표시가 내용과 맞지 않습니다. 템플릿을 고친 뒤 다시 만드세요.')
+            sys.exit(1)
+        if r1.returncode:
             print('\n공개 전 검사에서 문제가 나와 공개를 멈춥니다. 위 내용을 고친 뒤 다시 저장하세요.')
             sys.exit(1)
 

@@ -3,11 +3,11 @@
 {% set n = s.slides|length %}
 <section class="phx" data-hdr-over aria-roledescription="carousel" aria-label="주요 안내"><h1 class="sr-only">{{ s.sr_title }}</h1>
 <div class="phx__slides" data-slides>
-{% for sl in s.slides %}
-<div class="slide{% if loop.first %} is-on{% endif %}" role="group" aria-roledescription="slide" aria-label="{{ loop.index }} / {{ n }}">
-{{ pic(sl.photo, 'slide__pic', '100vw', (960, 1600, 2400), eager=loop.first) }}<span class="slide__veil" aria-hidden="true"></span>
-<div class="wrap slide__in"><p class="slide__label">{{ sl.label }}</p><p class="slide__t">{% for x in lines(sl.title) %}<span class="ln"><span>{{ x }}</span></span>{% endfor %}</p>
-<p class="slide__d">{{ sl.text }}</p><div class="slide__act">{{ button(sl.button) }}</div></div></div>
+{% for sl in s.slides %}{% set Q = P ~ '.slides.' ~ loop.index0 %}
+<div class="slide{% if loop.first %} is-on{% endif %}" role="group" aria-roledescription="slide" aria-label="{{ loop.index }} / {{ n }}"{{ IT(Q) }}>
+{{ pic(sl.photo, 'slide__pic', '100vw', (960, 1600, 2400), eager=loop.first, path=Q ~ '.photo') }}<span class="slide__veil" aria-hidden="true"></span>
+<div class="wrap slide__in"><p class="slide__label"{{ A(Q ~ '.label') }}>{{ sl.label }}</p><p class="slide__t"{{ A(Q ~ '.title', 'lines') }}>{% for x in lines(sl.title) %}<span class="ln"><span>{{ x }}</span></span>{% endfor %}</p>
+<p class="slide__d"{{ A(Q ~ '.text') }}>{{ sl.text }}</p><div class="slide__act">{{ button(sl.button, 'btn btn--line', Q ~ '.button') }}</div></div></div>
 {% endfor %}
 </div>
 <div class="wrap phx__ctrl"><p class="phx__count"><b data-cur>01</b><span> / {{ '%02d' % n }}</span></p>

@@ -1,6 +1,7 @@
 # 내용(content/)이나 디자인(templates/, static/)이 바뀌면 사이트를 다시 만들고 공개 전 검사를 합니다.
-# - 모든 브랜치·관리자 수정 요청(PR): 검사 결과가 ✓/✗ 로 표시됩니다.
-# - main: 검사를 통과하면 site/ 폴더를 다시 만들어 저장합니다 (GitHub Pages·미리보기 링크용).
+# - 모든 브랜치·수정 요청(PR): 검사 결과가 ✓/✗ 로 표시됩니다.
+# - main: 검사를 통과하면 site/ 폴더를 다시 만들어 저장하고, GitHub Pages에 다시 올리도록 요청합니다.
+#   편집기(site/admin/)에서 [저장]하면 이 순서로 1~2분 뒤 홈페이지에 반영됩니다.
 #   Cloudflare Pages를 연결한 뒤에는 Cloudflare가 직접 만들어 공개하므로 이 저장 단계는 지워도 됩니다.
 name: 사이트 빌드와 검사
 
@@ -13,12 +14,21 @@ on:
 
 permissions:
   contents: write
+  pages: write
+
+# main 에서는 한 번에 하나씩 차례로 만듭니다 (연달아 저장해도 가장 최신 내용이 마지막에 공개됩니다)
+concurrency:
+  group: site-${{ github.ref }}
+  cancel-in-progress: false
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          # main 은 항상 가장 최신 상태로 만듭니다 (기다리는 동안 다른 저장이 있었을 수 있으므로)
+          ref: ${{ (github.event_name == 'push' && github.ref == 'refs/heads/main') && 'main' || '' }}
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
@@ -34,5 +44,13 @@ jobs:
           git config user.email "actions@users.noreply.github.com"
           git add -A site
           if git diff --cached --quiet; then echo "바뀐 것 없음"; exit 0; fi
-          git commit -m "사이트 다시 만들기 (${GITHUB_SHA::7})"
-          git push
+          git commit -m "사이트 다시 만들기 ($(git rev-parse --short HEAD^))"
+          if ! git push; then
+            echo "그 사이에 새 저장이 있었습니다. 그 저장의 빌드가 최신 내용으로 다시 만듭니다."
+            exit 0
+          fi
+      - name: 홈페이지(GitHub Pages) 다시 올리기 요청
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api -X POST "repos/${{ github.repository }}/pages/builds" || echo "요청을 건너뜁니다 (저장만으로도 보통 다시 올라갑니다)"

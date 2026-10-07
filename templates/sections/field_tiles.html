@@ -1,9 +1,9 @@
 {# 홈 '진료 분야' 카드: 진료 분야 목록에서 자동으로 만들어집니다 #}
 {% from 'macros.html' import shd %}
-<section class="sec hsec" id="areas"><div class="wrap">{{ shd(s.label, s.title, s.more) }}
+<section class="sec hsec" id="areas"><div class="wrap">{{ shd(s.label, s.title, s.more, 'h2', P) }}
 <div class="tiles tiles--3">
-{% for f in fields %}<a class="tile" href="{{ f.page }}"><figure class="tile__pic">{{ pic(f.photo, '', '(max-width: 600px) 82vw, (max-width: 1100px) 50vw, 33vw', (480, 720, 1080)) }}</figure>
-<p class="tile__en">{{ f.en }}</p><h3 class="tile__t">{{ f.ko }}</h3><p class="tile__d">{{ f.tile_line }}</p></a>{% endfor %}
+{% for f in fields %}<a class="tile" href="{{ f.page }}"><figure class="tile__pic">{{ pic(f.photo, '', '(max-width: 600px) 82vw, (max-width: 1100px) 50vw, 33vw', (480, 720, 1080), path=f._key ~ '#photo') }}</figure>
+<p class="tile__en"{{ A(f._key ~ '#en') }}>{{ f.en }}</p><h3 class="tile__t"{{ A(f._key ~ '#ko') }}>{{ f.ko }}</h3><p class="tile__d"{{ A(f._key ~ '#tile_line') }}>{{ f.tile_line }}</p></a>{% endfor %}
 </div>
-{% if s.note %}<p class="hnote"><span>{{ s.note.label }}</span>{{ s.note.text }} <a href="{{ s.note.link_href }}">{{ s.note.link_label }}</a></p>{% endif %}
+{% if s.note %}<p class="hnote"><span{{ A(P ~ '.note.label') }}>{{ s.note.label }}</span>{{ W(P ~ '.note.text', s.note.text) }} <a href="{{ s.note.link_href }}"{{ A(P ~ '.note.link_label') }}>{{ s.note.link_label }}</a></p>{% endif %}
 </div></section>

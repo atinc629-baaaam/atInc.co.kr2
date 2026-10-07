@@ -1,4 +1,4 @@
 {# 넓은 사진 띠 (글자는 영문 분야 이름만) #}
 {% set item = field if field is defined else (program if program is defined else none) %}
-<section class="pband" aria-hidden="true"><figure class="pband__fig">{{ pic(s.photo, '', '100vw', (960, 1600, 2400)) }}
-<span class="pband__veil"></span><figcaption class="wrap pband__cap"><p class="pband__word">{{ s.word or (item.en if item else '') }}</p></figcaption></figure></section>
+<section class="pband" aria-hidden="true"><figure class="pband__fig">{{ pic(s.photo, '', '100vw', (960, 1600, 2400), path=P ~ '.photo') }}
+<span class="pband__veil"></span><figcaption class="wrap pband__cap"><p class="pband__word"{{ A(P ~ '.word') if s.word else (A(item._key ~ '#en') if item else '') }}>{{ s.word or (item.en if item else '') }}</p></figcaption></figure></section>

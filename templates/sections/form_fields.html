@@ -1,5 +1,5 @@
 {# 상담 신청서 항목 안내 #}
 {% from 'macros.html' import sh, form_link %}
-<section class="sec{% if s.tone == 'sand' %} sec--sand{% endif %}"><div class="wrap">{{ sh(s.title, s.lead) }}
-<ul class="rows" style="max-width: 980px">{% for r in s['items'] %}<li><span class="rows__no">{{ '필수' if r.required else '선택' }}</span><div><b>{{ r.name }}</b>{% if r.help %}<p class="small">{{ r.help }}</p>{% endif %}</div></li>{% endfor %}</ul>
-<div style="margin-top: 36px">{{ form_link(s.button, '', 'btn btn--dark') }}</div></div></section>
+<section class="sec{% if s.tone == 'sand' %} sec--sand{% endif %}"><div class="wrap">{{ sh(s.title, s.lead, P) }}
+<ul class="rows" style="max-width: 980px">{% for r in s['items'] %}{% set Q = P ~ '.items.' ~ loop.index0 %}<li{{ IT(Q) }}><span class="rows__no">{{ '필수' if r.required else '선택' }}</span><div><b{{ A(Q ~ '.name') }}>{{ r.name }}</b>{% if r.help %}<p class="small"{{ A(Q ~ '.help') }}>{{ r.help }}</p>{% endif %}</div></li>{% endfor %}</ul>
+<div style="margin-top: 36px">{{ form_link(s.button, '', 'btn btn--dark', 'out', P ~ '.button') }}</div></div></section>

@@ -4,17 +4,17 @@
 <a class="sr-only" href="#main">{{ N.skip }}</a>
 <header class="hdr"><div class="wrap hdr__wrap"><div class="hdr__in"{% if glass %} data-glass{% endif %}>{{ logo() }}
 <nav class="nav" aria-label="주 메뉴">
-<a class="nav__link" href="about.html"{% if cur == 'about' %} aria-current="page"{% endif %}>{{ N.about }}</a>
-<div class="nav__item"><a class="nav__link{% if cur == 'medical' %} is-current{% endif %}" href="medical.html">{{ N.medical }}{{ ic('chev') }}</a><div class="drop">
-{% for f in fields %}<a href="{{ f.page }}">{{ f.ko }}<span>{{ f.en }}</span></a>{% endfor %}
+<a class="nav__link" href="about.html"{% if cur == 'about' %} aria-current="page"{% endif %}{{ A('settings#nav.about') }}>{{ N.about }}</a>
+<div class="nav__item"><a class="nav__link{% if cur == 'medical' %} is-current{% endif %}" href="medical.html">{{ W('settings#nav.medical', N.medical) }}{{ ic('chev') }}</a><div class="drop">
+{% for f in fields %}<a href="{{ f.page }}">{{ W(f._key ~ '#ko', f.ko) }}<span{{ A(f._key ~ '#en') }}>{{ f.en }}</span></a>{% endfor %}
 </div></div>
-<div class="nav__item"><a class="nav__link{% if cur == 'care' %} is-current{% endif %}" href="care.html">{{ N.care }}{{ ic('chev') }}</a><div class="drop">
-{% for p in programs %}<a href="{{ p.page }}">{{ p.ko }}<span>{{ p.en }}</span></a>{% endfor %}
+<div class="nav__item"><a class="nav__link{% if cur == 'care' %} is-current{% endif %}" href="care.html">{{ W('settings#nav.care', N.care) }}{{ ic('chev') }}</a><div class="drop">
+{% for p in programs %}<a href="{{ p.page }}">{{ W(p._key ~ '#ko', p.ko) }}<span{{ A(p._key ~ '#en') }}>{{ p.en }}</span></a>{% endfor %}
 </div></div>
-<a class="nav__link" href="network.html"{% if cur == 'network' %} aria-current="page"{% endif %}>{{ N.network }}</a>
-<a class="nav__link" href="partners.html"{% if cur == 'partners' %} aria-current="page"{% endif %}>{{ N.partners }}</a>
+<a class="nav__link" href="network.html"{% if cur == 'network' %} aria-current="page"{% endif %}{{ A('settings#nav.network') }}>{{ N.network }}</a>
+<a class="nav__link" href="partners.html"{% if cur == 'partners' %} aria-current="page"{% endif %}{{ A('settings#nav.partners') }}>{{ N.partners }}</a>
 </nav>
-<div class="hdr__right"><a class="hdr__tel" href="tel:{{ S.contact.phone_tel }}" aria-label="{{ S.appt.line_label }} {{ S.contact.phone }}">{{ ic('phone') }}<span>{{ S.contact.phone }}</span></a>{{ form_link(N.cta, '', 'hdr__cta', None) }}
+<div class="hdr__right"><a class="hdr__tel" href="tel:{{ S.contact.phone_tel }}" aria-label="{{ S.appt.line_label }} {{ S.contact.phone }}">{{ ic('phone') }}<span{{ A('settings#contact.phone') }}>{{ S.contact.phone }}</span></a>{{ form_link(N.cta, '', 'hdr__cta', None, 'settings#nav.cta') }}
 <button class="menu-btn" id="menu-open" type="button" aria-controls="mnav" aria-expanded="false" aria-label="메뉴 열기">{{ ic('menu') }}</button></div>
 </div></div></header>
 
@@ -31,16 +31,16 @@
 
 {% set F = S.footer %}
 <footer class="ftr"><div class="wrap"><div class="ftr__top">
-<div>{{ logo() }}<p class="ftr__tag">{{ F.tagline }}</p><p class="ftr__sub">{{ F.sub }}</p><p class="ftr__contact"><a href="tel:{{ S.contact.phone_tel }}">{{ S.contact.phone }}</a><a href="mailto:{{ S.contact.email }}">{{ S.contact.email }}</a></p></div>
-<div><h2>{{ N.medical }}</h2><ul>{% for f in fields %}<li><a href="{{ f.page }}">{{ f.ko }}</a></li>{% endfor %}</ul></div>
-<div><h2>{{ N.care }}</h2><ul>{% for p in programs %}<li><a href="{{ p.page }}">{{ p.ko }}</a></li>{% endfor %}</ul></div>
-<div><h2>{{ S.site.name }}</h2><ul><li><a href="about.html">{{ N.about }}</a></li><li><a href="network.html">{{ N.network }}</a></li><li><a href="partners.html">{{ N.partners }}</a></li><li><a href="consultation.html">{{ N.consultation }}</a></li></ul></div>
+<div>{{ logo() }}<p class="ftr__tag"{{ A('settings#footer.tagline') }}>{{ F.tagline }}</p><p class="ftr__sub"{{ A('settings#footer.sub') }}>{{ F.sub }}</p><p class="ftr__contact"><a href="tel:{{ S.contact.phone_tel }}"{{ A('settings#contact.phone') }}>{{ S.contact.phone }}</a><a href="mailto:{{ S.contact.email }}"{{ A('settings#contact.email') }}>{{ S.contact.email }}</a></p></div>
+<div><h2{{ A('settings#nav.medical') }}>{{ N.medical }}</h2><ul>{% for f in fields %}<li><a href="{{ f.page }}"{{ A(f._key ~ '#ko') }}>{{ f.ko }}</a></li>{% endfor %}</ul></div>
+<div><h2{{ A('settings#nav.care') }}>{{ N.care }}</h2><ul>{% for p in programs %}<li><a href="{{ p.page }}"{{ A(p._key ~ '#ko') }}>{{ p.ko }}</a></li>{% endfor %}</ul></div>
+<div><h2>{{ S.site.name }}</h2><ul><li><a href="about.html"{{ A('settings#nav.about') }}>{{ N.about }}</a></li><li><a href="network.html"{{ A('settings#nav.network') }}>{{ N.network }}</a></li><li><a href="partners.html"{{ A('settings#nav.partners') }}>{{ N.partners }}</a></li><li><a href="consultation.html"{{ A('settings#nav.consultation') }}>{{ N.consultation }}</a></li></ul></div>
 </div>
-<div class="ftr__bot"><div class="ftr__legal"><a href="privacy.html">{{ N.privacy }}</a><a href="medical-notice.html">{{ N.notice }}</a></div>
+<div class="ftr__bot"><div class="ftr__legal"><a href="privacy.html"{{ A('settings#nav.privacy') }}>{{ N.privacy }}</a><a href="medical-notice.html"{{ A('settings#nav.notice') }}>{{ N.notice }}</a></div>
 {% set C = S.company %}
-<p>{{ C.legal_name }} ({{ S.site.name }}) · 대표 {{ C.ceo }} · 사업자등록번호 <span class=nw>{{ C.biz_no }}</span> · 외국인환자 유치업 등록번호 <span class=nw>{{ C.tourism_no }}</span>{% if C.address %} · {{ C.address }}{% endif %}</p>
-<p>{{ F.notice }}</p>
-<p>{{ F.copyright }}</p></div>
+<p>{{ W('settings#company.legal_name', C.legal_name) }} ({{ S.site.name }}) · 대표 {{ W('settings#company.ceo', C.ceo) }} · 사업자등록번호 <span class=nw{{ A('settings#company.biz_no') }}>{{ C.biz_no }}</span> · 외국인환자 유치업 등록번호 <span class=nw{{ A('settings#company.tourism_no') }}>{{ C.tourism_no }}</span>{% if C.address %} · {{ W('settings#company.address', C.address) }}{% endif %}</p>
+<p{{ A('settings#footer.notice') }}>{{ F.notice }}</p>
+<p{{ A('settings#footer.copyright') }}>{{ F.copyright }}</p></div>
 </div></footer>
 
 <div class="fab"><a class="fab__btn fab__btn--main" href="{{ form_url }}" target="_blank" rel="noopener" data-form="">{{ ic2('bubble') }}<span>{{ N.cta }}</span></a>

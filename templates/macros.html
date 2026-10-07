@@ -1,11 +1,14 @@
-{# 여러 섹션이 같이 쓰는 조각들 #}
-{% macro form_link(label, cat='', cls='btn btn--dark', icon='out') -%}
-<a class="{{ cls }}" href="{{ form_url }}" target="_blank" rel="noopener" data-form="{{ cat }}">{{ label }}{% if icon %}{{ ic(icon) }}{% endif %}</a>
+{# 여러 섹션이 같이 쓰는 조각들
+   편집 표시: A(경로) 는 요소에 붙이는 표시, W(경로, 값) 은 값을 감싸는 표시입니다. 공개 페이지에서는 아무것도 붙지 않습니다.
+   경로는 "파일#값 위치" 형식입니다 (예: pages/home#sections.2.title). #}
+
+{% macro form_link(label, cat='', cls='btn btn--dark', icon='out', lp=None) -%}
+<a class="{{ cls }}" href="{{ form_url }}" target="_blank" rel="noopener" data-form="{{ cat }}">{% if lp %}{{ W(lp, label) }}{% else %}{{ label }}{% endif %}{% if icon %}{{ ic(icon) }}{% endif %}</a>
 {%- endmacro %}
 
-{% macro button(b, default_cls='btn btn--line') -%}
+{% macro button(b, default_cls='btn btn--line', bp=None) -%}
 {# b: {label, href, style, form} — form: true 이면 상담 신청서로 연결 #}
-{% if b.form %}{{ form_link(b.label, b.form_label or '', b.style or default_cls, b.icon if b.icon is defined else None) }}{% else %}<a class="{{ b.style or default_cls }}" href="{{ b.href }}">{{ b.label }}</a>{% endif %}
+{% if b.form %}{{ form_link(b.label, b.form_label or '', b.style or default_cls, b.icon if b.icon is defined else None, (bp ~ '.label') if bp else None) }}{% else %}<a class="{{ b.style or default_cls }}" href="{{ b.href }}"{{ A(bp ~ '.label') if bp else '' }}>{{ b.label }}</a>{% endif %}
 {%- endmacro %}
 
 {% macro logo() -%}
@@ -13,35 +16,35 @@
 {%- endmacro %}
 
 {% macro contact_links(cls='contacts', tel=True, intl=False, style='') -%}
-<div class="{{ cls }}"{% if style %} style="{{ style }}"{% endif %}><a href="mailto:{{ S.contact.email }}">{{ ic('mail') }}{{ S.contact.email }}</a>{% if tel %}<a href="tel:{{ S.contact.phone_tel }}">{{ ic('phone') }}{{ S.appt.line_label }} {{ S.contact.phone }}</a>{% endif %}</div>
-{%- if intl %}<div class="intl"><p lang="en">{{ S.appt.intl_en }} <a href="tel:{{ S.contact.phone_tel }}">{{ S.contact.phone_intl }}</a>.</p><p lang="zh-Hans">{{ S.appt.intl_zh }} <a href="tel:{{ S.contact.phone_tel }}">{{ S.contact.phone_intl }}</a>。</p></div>{% endif %}
+<div class="{{ cls }}"{% if style %} style="{{ style }}"{% endif %}><a href="mailto:{{ S.contact.email }}">{{ ic('mail') }}{{ W('settings#contact.email', S.contact.email) }}</a>{% if tel %}<a href="tel:{{ S.contact.phone_tel }}">{{ ic('phone') }}{{ W('settings#appt.line_label', S.appt.line_label) }} {{ W('settings#contact.phone', S.contact.phone) }}</a>{% endif %}</div>
+{%- if intl %}<div class="intl"><p lang="en">{{ W('settings#appt.intl_en', S.appt.intl_en) }} <a href="tel:{{ S.contact.phone_tel }}"{{ A('settings#contact.phone_intl') }}>{{ S.contact.phone_intl }}</a>.</p><p lang="zh-Hans">{{ W('settings#appt.intl_zh', S.appt.intl_zh) }} <a href="tel:{{ S.contact.phone_tel }}"{{ A('settings#contact.phone_intl') }}>{{ S.contact.phone_intl }}</a>。</p></div>{% endif %}
 {%- endmacro %}
 
 {# 홈 섹션 머리: 작은 영문 라벨 + 제목 + 오른쪽 '전체 보기' #}
-{% macro shd(label, title, more=None, h='h2') -%}
-<div class="shd"><div><p class="shd__label">{{ label }}</p><{{ h }} class="shd__t">{{ title }}</{{ h }}></div>{% if more and more.label %}<a class="shd__more" href="{{ more.href }}">{{ more.label }}</a>{% endif %}</div>
+{% macro shd(label, title, more=None, h='h2', P=None) -%}
+<div class="shd"><div><p class="shd__label"{{ A(P ~ '.label') if P else '' }}>{{ label }}</p><{{ h }} class="shd__t"{{ A(P ~ '.title') if P else '' }}>{{ title }}</{{ h }}></div>{% if more and more.label %}<a class="shd__more" href="{{ more.href }}"{{ A(P ~ '.more.label') if P else '' }}>{{ more.label }}</a>{% endif %}</div>
 {%- endmacro %}
 
 {# 상세 페이지 섹션 머리: 한글 제목 + 설명 + 오른쪽 링크 #}
-{% macro dhd(title, lead=None, more=None) -%}
-<div class="shd"><div><h2 class="shd__t">{{ title }}</h2>{% if lead %}<p class="shd__lead">{{ lead }}</p>{% endif %}</div>{% if more and more.label %}<a class="shd__more" href="{{ more.href }}">{{ more.label }}</a>{% endif %}</div>
+{% macro dhd(title, lead=None, more=None, P=None, tk='title') -%}
+<div class="shd"><div><h2 class="shd__t"{{ A(P ~ '.' ~ tk) if P else '' }}>{{ title }}</h2>{% if lead %}<p class="shd__lead"{{ A(P ~ '.lead') if P else '' }}>{{ lead }}</p>{% endif %}</div>{% if more and more.label %}<a class="shd__more" href="{{ more.href }}"{{ A(P ~ '.more.label') if P else '' }}>{{ more.label }}</a>{% endif %}</div>
 {%- endmacro %}
 
-{# 상담 예약 카드 #}
-{% macro appt_card(btn='상담 예약', cat='') -%}
-<aside class="appt"><p class="appt__t">{{ S.appt.title }}</p><dl class="appt__dl">{% for r in S.appt.rows %}<dt>{{ r.k }}</dt><dd>{{ r.v }}</dd>{% endfor %}</dl>
-{{ form_link(btn, cat, 'btn btn--dark btn--wide') }}<p class="appt__form">{{ S.appt.form_note }}</p>
-<p class="appt__lines"><a href="tel:{{ S.contact.phone_tel }}">{{ S.appt.line_label }} {{ S.contact.phone }}</a><a href="mailto:{{ S.contact.email }}">{{ S.contact.email }}</a></p>
-<p class="appt__intl" lang="en">{{ S.appt.intl_en }} <a href="tel:{{ S.contact.phone_tel }}">{{ S.contact.phone_intl }}</a>.</p>
-<p class="appt__intl" lang="zh-Hans">{{ S.appt.intl_zh }} <a href="tel:{{ S.contact.phone_tel }}">{{ S.contact.phone_intl }}</a>。</p></aside>
+{# 상담 예약 카드 (내용은 사이트 설정) #}
+{% macro appt_card(btn='상담 예약', cat='', bp=None) -%}
+<aside class="appt"><p class="appt__t"{{ A('settings#appt.title') }}>{{ S.appt.title }}</p><dl class="appt__dl">{% for r in S.appt.rows %}<dt{{ A('settings#appt.rows.' ~ loop.index0 ~ '.k') }}>{{ r.k }}</dt><dd{{ A('settings#appt.rows.' ~ loop.index0 ~ '.v') }}>{{ r.v }}</dd>{% endfor %}</dl>
+{{ form_link(btn, cat, 'btn btn--dark btn--wide', 'out', bp) }}<p class="appt__form"{{ A('settings#appt.form_note') }}>{{ S.appt.form_note }}</p>
+<p class="appt__lines"><a href="tel:{{ S.contact.phone_tel }}">{{ W('settings#appt.line_label', S.appt.line_label) }} {{ W('settings#contact.phone', S.contact.phone) }}</a><a href="mailto:{{ S.contact.email }}"{{ A('settings#contact.email') }}>{{ S.contact.email }}</a></p>
+<p class="appt__intl" lang="en">{{ W('settings#appt.intl_en', S.appt.intl_en) }} <a href="tel:{{ S.contact.phone_tel }}"{{ A('settings#contact.phone_intl') }}>{{ S.contact.phone_intl }}</a>.</p>
+<p class="appt__intl" lang="zh-Hans">{{ W('settings#appt.intl_zh', S.appt.intl_zh) }} <a href="tel:{{ S.contact.phone_tel }}"{{ A('settings#contact.phone_intl') }}>{{ S.contact.phone_intl }}</a>。</p></aside>
 {%- endmacro %}
 
 {# 큰 제목형 섹션 머리 (회사소개·제휴·상담 페이지) #}
-{% macro sh(title, lead=None) -%}
-<div class="sh"><h2 class="disp-2">{{ title|rich }}</h2>{% if lead %}<p class="lead">{{ lead|rich }}</p>{% endif %}</div>
+{% macro sh(title, lead=None, P=None) -%}
+<div class="sh"><h2 class="disp-2"{{ A(P ~ '.title', 'rich') if P else '' }}>{{ title|rich }}</h2>{% if lead %}<p class="lead"{{ A(P ~ '.lead', 'rich') if P else '' }}>{{ lead|rich }}</p>{% endif %}</div>
 {%- endmacro %}
 
-{# 지역 이름이 들어가는 문장: {regions} 자리에 지역 목록이 들어갑니다 #}
+{# 지역 이름이 들어가는 문장: {regions} 자리에 지역 목록이 들어갑니다 (감싸는 요소에 A(경로, 'regions') 를 붙입니다) #}
 {% macro with_regions(text) -%}
 {% set parts = text.split('{regions}') %}{{ parts[0]|rich }}{% if parts|length > 1 %}<span data-net-regions>{{ regions_text }}</span>{{ parts[1]|rich }}{% endif %}
 {%- endmacro %}

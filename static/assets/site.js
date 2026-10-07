@@ -34,7 +34,8 @@
   // scroll gets cut off by the page change — before leaving and again while the new page loads.
   var embedded = false;
   try { embedded = window.self !== window.top; } catch (err) { embedded = true; }
-  if (embedded) {
+  // 홈페이지 편집기(admin/edit/) 안에서는 이 처리를 하지 않습니다: 글을 누를 때마다 맨 위로 튀지 않도록
+  if (embedded && !/\/admin\/edit\//.test(location.pathname)) {
     try { history.scrollRestoration = 'manual'; } catch (err) {}
     var moved = false;
     var toTop = function () {
