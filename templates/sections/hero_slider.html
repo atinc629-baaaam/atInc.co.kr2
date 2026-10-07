@@ -1,0 +1,17 @@
+{# 홈 첫 화면: 사진 여러 장이 넘어가는 슬라이드 #}
+{% from 'macros.html' import button %}
+{% set n = s.slides|length %}
+<section class="phx" data-hdr-over aria-roledescription="carousel" aria-label="주요 안내"><h1 class="sr-only">{{ s.sr_title }}</h1>
+<div class="phx__slides" data-slides>
+{% for sl in s.slides %}
+<div class="slide{% if loop.first %} is-on{% endif %}" role="group" aria-roledescription="slide" aria-label="{{ loop.index }} / {{ n }}">
+{{ pic(sl.photo, 'slide__pic', '100vw', (960, 1600, 2400), eager=loop.first) }}<span class="slide__veil" aria-hidden="true"></span>
+<div class="wrap slide__in"><p class="slide__label">{{ sl.label }}</p><p class="slide__t">{% for x in lines(sl.title) %}<span class="ln"><span>{{ x }}</span></span>{% endfor %}</p>
+<p class="slide__d">{{ sl.text }}</p><div class="slide__act">{{ button(sl.button) }}</div></div></div>
+{% endfor %}
+</div>
+<div class="wrap phx__ctrl"><p class="phx__count"><b data-cur>01</b><span> / {{ '%02d' % n }}</span></p>
+<span class="phx__bar" aria-hidden="true"><i data-bar></i></span>
+<button class="phx__btn" type="button" data-prev aria-label="이전 슬라이드">{{ ic2('prev') }}</button>
+<button class="phx__btn" type="button" data-pause aria-label="자동 넘김 멈추기">{{ ic2('pause') }}</button>
+<button class="phx__btn" type="button" data-next aria-label="다음 슬라이드">{{ ic2('next') }}</button></div></section>

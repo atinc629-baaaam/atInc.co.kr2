@@ -1,0 +1,4 @@
+{# 자주 묻는 질문 (홈) #}
+{% from 'macros.html' import shd %}
+<section class="sec hsec hfaq"><div class="wrap hfaq__grid"><div>{{ shd(s.label, s.title) }}</div>
+<div class="faq">{% for q in s['items'] %}<details><summary>{{ q.q }}{{ ic('chev') }}</summary><p class="body">{{ q.a }}</p></details>{% endfor %}</div></div></section>

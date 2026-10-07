@@ -1,51 +1,109 @@
-/*
-  atInc 협력 네트워크 데이터 — 이 파일 하나만 고치면 지도와 목록이 함께 바뀝니다.
-
-  병원을 추가하는 방법
-  1) 아래 목록에 { ... }, 한 덩어리를 복사해 붙입니다.
-  2) area  : 행정구역 이름. '시도 시군구'로 적습니다. 예) '서울 강남구', '경기 성남시 분당구', '대전 유성구'
-             시까지만 적어도 됩니다(예: '경기 용인시'). 시도만 적으면 시도 중심에 표시됩니다(예: '대구').
-  3) name  : 사이트에 보이는 지역 표기. 시·도까지만 적습니다(예: '인천'). 구·동 이름과 병원 이름은 적지 않습니다.
-     short : name과 같게 적습니다(예: '인천')
-     en    : 영문 시·도 표기(예: 'Incheon')
-     ※ area는 지도에 점을 찍을 위치라 구까지 적어도 되지만, 화면에는 시·도 이름만 나옵니다.
-       같은 시·도의 설명(note)은 한 카드에 모아 보여 주고, 지도 점은 시·도 단위 분야로만 강조됩니다.
-  4) cats  : 분야. checkup(건강검진) regenerative(재생의료·줄기세포) aesthetic(성형·피부)
-             women(여성건강) men(남성건강) korean-medicine(한방·웰니스) 가운데 해당하는 것
-  5) note  : 네트워크 페이지 카드에 들어갈 한 줄 설명. 그 지역에서 '받으실 수 있는 것'만 적고,
-             장비 사양·규모·인증·운영 재단처럼 병원을 알아볼 수 있는 내용은 적지 않습니다.
-
-  같은 지역에 병원이 여러 곳이면 한 줄씩 따로 적으면 됩니다. 지도에서는 한 점으로 묶이고 '외 n곳'으로 표시됩니다.
-*/
+/* 자동으로 만들어지는 파일입니다. 고치지 마세요.
+   지역은 content/regions.yml, 분야 이름은 content/fields/*.yml 에서 고칩니다. */
+window.ATINC_FIELDS = [{"id": "checkup", "ko": "건강검진"}, {"id": "regenerative", "ko": "재생의료·줄기세포"}, {"id": "aesthetic", "ko": "성형·피부"}, {"id": "women", "ko": "여성건강"}, {"id": "men", "ko": "남성건강"}, {"id": "korean-medicine", "ko": "한방·웰니스"}];
 window.ATINC_NETWORK = [
-  { area: '서울 강남구', name: '서울', short: '서울', en: 'Seoul',
-    cats: ['checkup', 'women', 'korean-medicine'],
-    note: '정밀 건강검진과 여성 진료, 한방 미용 진료를 받으실 수 있습니다.' },
-  { area: '인천 연수구', name: '인천', short: '인천', en: 'Incheon',
-    cats: ['aesthetic'],
-    note: '공항에서 가까운 곳에서 성형·피부 상담과 시술을 받으실 수 있습니다.' },
-  { area: '인천 서구', name: '인천', short: '인천', en: 'Incheon',
-    cats: ['korean-medicine', 'aesthetic'],
-    note: '한·양방 협진 진료와 주말에도 가능한 입원 회복, 성형외과·피부과 진료를 받으실 수 있습니다.' },
-  { area: '인천 부평구', name: '인천', short: '인천', en: 'Incheon',
-    cats: ['korean-medicine'],
-    note: '한·양방 협진 진료와 수술 후·교통사고 재활, 입원 치료를 받으실 수 있습니다.' },
-  { area: '인천 남동구', name: '인천', short: '인천', en: 'Incheon',
-    cats: ['korean-medicine'],
-    note: '양·한방 협진으로 뇌졸중·편마비·파킨슨처럼 회복이 오래 걸리는 질환의 입원 재활을 받으실 수 있습니다.' },
-  { area: '경기 성남시 분당구', name: '경기', short: '경기', en: 'Gyeonggi',
-    cats: ['regenerative'],
-    note: '재생의료 진료 상담과 세포 보관 상담을 받으실 수 있고, 외국어 상담도 가능합니다.' },
-  { area: '경기 군포시', name: '경기', short: '경기', en: 'Gyeonggi',
-    cats: ['regenerative'],
-    note: '본인 세포의 배양과 보관 상담을 받으실 수 있습니다.' },
-  { area: '경기 용인시', name: '경기', short: '경기', en: 'Gyeonggi',
-    cats: ['checkup'],
-    note: '정밀 건강검진을 받으실 수 있습니다.' },
-  { area: '대구', name: '대구', short: '대구', en: 'Daegu',
-    cats: ['women', 'men'],
-    note: '난임 검사와 시험관아기, 가임력 보존, 남성 난임 진료를 받으실 수 있습니다.' },
-  { area: '부산 남구', name: '부산', short: '부산', en: 'Busan',
-    cats: ['checkup'],
-    note: '정밀 건강검진과 외국어 안내를 받으실 수 있습니다.' }
+ {
+  "area": "서울 강남구",
+  "name": "서울",
+  "short": "서울",
+  "en": "Seoul",
+  "cats": [
+   "checkup",
+   "women",
+   "korean-medicine"
+  ],
+  "note": "정밀 건강검진과 여성 진료, 한방 미용 진료를 받으실 수 있습니다."
+ },
+ {
+  "area": "인천 연수구",
+  "name": "인천",
+  "short": "인천",
+  "en": "Incheon",
+  "cats": [
+   "aesthetic"
+  ],
+  "note": "공항에서 가까운 곳에서 성형·피부 상담과 시술을 받으실 수 있습니다."
+ },
+ {
+  "area": "인천 서구",
+  "name": "인천",
+  "short": "인천",
+  "en": "Incheon",
+  "cats": [
+   "korean-medicine",
+   "aesthetic"
+  ],
+  "note": "한·양방 협진 진료와 주말에도 가능한 입원 회복, 성형외과·피부과 진료를 받으실 수 있습니다."
+ },
+ {
+  "area": "인천 부평구",
+  "name": "인천",
+  "short": "인천",
+  "en": "Incheon",
+  "cats": [
+   "korean-medicine"
+  ],
+  "note": "한·양방 협진 진료와 수술 후·교통사고 재활, 입원 치료를 받으실 수 있습니다."
+ },
+ {
+  "area": "인천 남동구",
+  "name": "인천",
+  "short": "인천",
+  "en": "Incheon",
+  "cats": [
+   "korean-medicine"
+  ],
+  "note": "양·한방 협진으로 뇌졸중·편마비·파킨슨처럼 회복이 오래 걸리는 질환의 입원 재활을 받으실 수 있습니다."
+ },
+ {
+  "area": "경기 성남시 분당구",
+  "name": "경기",
+  "short": "경기",
+  "en": "Gyeonggi",
+  "cats": [
+   "regenerative"
+  ],
+  "note": "재생의료 진료 상담과 세포 보관 상담을 받으실 수 있고, 외국어 상담도 가능합니다."
+ },
+ {
+  "area": "경기 군포시",
+  "name": "경기",
+  "short": "경기",
+  "en": "Gyeonggi",
+  "cats": [
+   "regenerative"
+  ],
+  "note": "본인 세포의 배양과 보관 상담을 받으실 수 있습니다."
+ },
+ {
+  "area": "경기 용인시",
+  "name": "경기",
+  "short": "경기",
+  "en": "Gyeonggi",
+  "cats": [
+   "checkup"
+  ],
+  "note": "정밀 건강검진을 받으실 수 있습니다."
+ },
+ {
+  "area": "대구",
+  "name": "대구",
+  "short": "대구",
+  "en": "Daegu",
+  "cats": [
+   "women",
+   "men"
+  ],
+  "note": "난임 검사와 시험관아기, 가임력 보존, 남성 난임 진료를 받으실 수 있습니다."
+ },
+ {
+  "area": "부산 남구",
+  "name": "부산",
+  "short": "부산",
+  "en": "Busan",
+  "cats": [
+   "checkup"
+  ],
+  "note": "정밀 건강검진과 외국어 안내를 받으실 수 있습니다."
+ }
 ];

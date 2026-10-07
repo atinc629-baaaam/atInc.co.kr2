@@ -1,0 +1,47 @@
+{# 여러 섹션이 같이 쓰는 조각들 #}
+{% macro form_link(label, cat='', cls='btn btn--dark', icon='out') -%}
+<a class="{{ cls }}" href="{{ form_url }}" target="_blank" rel="noopener" data-form="{{ cat }}">{{ label }}{% if icon %}{{ ic(icon) }}{% endif %}</a>
+{%- endmacro %}
+
+{% macro button(b, default_cls='btn btn--line') -%}
+{# b: {label, href, style, form} — form: true 이면 상담 신청서로 연결 #}
+{% if b.form %}{{ form_link(b.label, b.form_label or '', b.style or default_cls, b.icon if b.icon is defined else None) }}{% else %}<a class="{{ b.style or default_cls }}" href="{{ b.href }}">{{ b.label }}</a>{% endif %}
+{%- endmacro %}
+
+{% macro logo() -%}
+<a class="logo" href="index.html" aria-label="{{ S.site.name }} 홈"><i>at</i><b>Inc</b></a>
+{%- endmacro %}
+
+{% macro contact_links(cls='contacts', tel=True, intl=False, style='') -%}
+<div class="{{ cls }}"{% if style %} style="{{ style }}"{% endif %}><a href="mailto:{{ S.contact.email }}">{{ ic('mail') }}{{ S.contact.email }}</a>{% if tel %}<a href="tel:{{ S.contact.phone_tel }}">{{ ic('phone') }}{{ S.appt.line_label }} {{ S.contact.phone }}</a>{% endif %}</div>
+{%- if intl %}<div class="intl"><p lang="en">{{ S.appt.intl_en }} <a href="tel:{{ S.contact.phone_tel }}">{{ S.contact.phone_intl }}</a>.</p><p lang="zh-Hans">{{ S.appt.intl_zh }} <a href="tel:{{ S.contact.phone_tel }}">{{ S.contact.phone_intl }}</a>。</p></div>{% endif %}
+{%- endmacro %}
+
+{# 홈 섹션 머리: 작은 영문 라벨 + 제목 + 오른쪽 '전체 보기' #}
+{% macro shd(label, title, more=None, h='h2') -%}
+<div class="shd"><div><p class="shd__label">{{ label }}</p><{{ h }} class="shd__t">{{ title }}</{{ h }}></div>{% if more and more.label %}<a class="shd__more" href="{{ more.href }}">{{ more.label }}</a>{% endif %}</div>
+{%- endmacro %}
+
+{# 상세 페이지 섹션 머리: 한글 제목 + 설명 + 오른쪽 링크 #}
+{% macro dhd(title, lead=None, more=None) -%}
+<div class="shd"><div><h2 class="shd__t">{{ title }}</h2>{% if lead %}<p class="shd__lead">{{ lead }}</p>{% endif %}</div>{% if more and more.label %}<a class="shd__more" href="{{ more.href }}">{{ more.label }}</a>{% endif %}</div>
+{%- endmacro %}
+
+{# 상담 예약 카드 #}
+{% macro appt_card(btn='상담 예약', cat='') -%}
+<aside class="appt"><p class="appt__t">{{ S.appt.title }}</p><dl class="appt__dl">{% for r in S.appt.rows %}<dt>{{ r.k }}</dt><dd>{{ r.v }}</dd>{% endfor %}</dl>
+{{ form_link(btn, cat, 'btn btn--dark btn--wide') }}<p class="appt__form">{{ S.appt.form_note }}</p>
+<p class="appt__lines"><a href="tel:{{ S.contact.phone_tel }}">{{ S.appt.line_label }} {{ S.contact.phone }}</a><a href="mailto:{{ S.contact.email }}">{{ S.contact.email }}</a></p>
+<p class="appt__intl" lang="en">{{ S.appt.intl_en }} <a href="tel:{{ S.contact.phone_tel }}">{{ S.contact.phone_intl }}</a>.</p>
+<p class="appt__intl" lang="zh-Hans">{{ S.appt.intl_zh }} <a href="tel:{{ S.contact.phone_tel }}">{{ S.contact.phone_intl }}</a>。</p></aside>
+{%- endmacro %}
+
+{# 큰 제목형 섹션 머리 (회사소개·제휴·상담 페이지) #}
+{% macro sh(title, lead=None) -%}
+<div class="sh"><h2 class="disp-2">{{ title|rich }}</h2>{% if lead %}<p class="lead">{{ lead|rich }}</p>{% endif %}</div>
+{%- endmacro %}
+
+{# 지역 이름이 들어가는 문장: {regions} 자리에 지역 목록이 들어갑니다 #}
+{% macro with_regions(text) -%}
+{% set parts = text.split('{regions}') %}{{ parts[0]|rich }}{% if parts|length > 1 %}<span data-net-regions>{{ regions_text }}</span>{{ parts[1]|rich }}{% endif %}
+{%- endmacro %}

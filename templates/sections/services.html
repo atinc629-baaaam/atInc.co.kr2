@@ -1,0 +1,5 @@
+{# 협력 기관에서 받으실 수 있는 진료 (휴대폰에서는 접힘) #}
+{% from 'macros.html' import dhd %}
+<section class="sec{% if s.tone != 'light' %} sec--sand{% endif %} msec"{% if s.anchor %} id="{{ s.anchor }}"{% endif %}><div class="wrap">{{ dhd(s.title, s.lead, s.more) }}
+<ul class="svcs{% if s['items']|length % 4 == 0 %} svcs--4{% endif %}">{% for v in s['items'] %}<li><details class="fold" open data-fold><summary><h3>{{ v.title }}</h3><p>{{ v.text }}</p></summary>{% if v.sub %}<ul class="svcs__sub">{% for x in v.sub %}<li>{{ x }}</li>{% endfor %}</ul>{% endif %}</details></li>{% endfor %}</ul>
+{% for n in s.notes or [] %}<p class="msec__note">{{ n }}</p>{% endfor %}</div></section>

@@ -1,0 +1,70 @@
+# 협력 네트워크 지역 목록 — 지도와 지역 카드가 이 목록으로 만들어집니다.
+# area: 지도에 점을 찍을 행정구역 (예: 서울 강남구, 경기 성남시 분당구). 화면에는 나오지 않습니다.
+# name: 화면에 보이는 시·도 이름 (예: 인천) — 구·동 이름과 병원 이름은 적지 않습니다.
+# fields: 그 지역에서 받을 수 있는 진료 분야 id (content/fields 의 id)
+# note: 지역 카드에 들어가는 한 줄. 받으실 수 있는 것만 적고, 병원을 알아볼 수 있는 내용(장비·규모·인증·재단)은 적지 않습니다.
+regions:
+- area: 서울 강남구
+  name: 서울
+  en: Seoul
+  fields:
+  - checkup
+  - women
+  - korean-medicine
+  note: 정밀 건강검진과 여성 진료, 한방 미용 진료를 받으실 수 있습니다.
+- area: 인천 연수구
+  name: 인천
+  en: Incheon
+  fields:
+  - aesthetic
+  note: 공항에서 가까운 곳에서 성형·피부 상담과 시술을 받으실 수 있습니다.
+- area: 인천 서구
+  name: 인천
+  en: Incheon
+  fields:
+  - korean-medicine
+  - aesthetic
+  note: 한·양방 협진 진료와 주말에도 가능한 입원 회복, 성형외과·피부과 진료를 받으실 수 있습니다.
+- area: 인천 부평구
+  name: 인천
+  en: Incheon
+  fields:
+  - korean-medicine
+  note: 한·양방 협진 진료와 수술 후·교통사고 재활, 입원 치료를 받으실 수 있습니다.
+- area: 인천 남동구
+  name: 인천
+  en: Incheon
+  fields:
+  - korean-medicine
+  note: 양·한방 협진으로 뇌졸중·편마비·파킨슨처럼 회복이 오래 걸리는 질환의 입원 재활을 받으실 수 있습니다.
+- area: 경기 성남시 분당구
+  name: 경기
+  en: Gyeonggi
+  fields:
+  - regenerative
+  note: 재생의료 진료 상담과 세포 보관 상담을 받으실 수 있고, 외국어 상담도 가능합니다.
+- area: 경기 군포시
+  name: 경기
+  en: Gyeonggi
+  fields:
+  - regenerative
+  note: 본인 세포의 배양과 보관 상담을 받으실 수 있습니다.
+- area: 경기 용인시
+  name: 경기
+  en: Gyeonggi
+  fields:
+  - checkup
+  note: 정밀 건강검진을 받으실 수 있습니다.
+- area: 대구
+  name: 대구
+  en: Daegu
+  fields:
+  - women
+  - men
+  note: 난임 검사와 시험관아기, 가임력 보존, 남성 난임 진료를 받으실 수 있습니다.
+- area: 부산 남구
+  name: 부산
+  en: Busan
+  fields:
+  - checkup
+  note: 정밀 건강검진과 외국어 안내를 받으실 수 있습니다.

@@ -1,0 +1,8 @@
+{# 해외에서 오시는 분께 (사진 + 목록) #}
+{% from 'macros.html' import shd, button %}
+<section class="sec hsec intl2"><div class="wrap intl2__grid"><figure class="intl2__pic">{{ pic(s.photo, '', '(max-width: 900px) 100vw, 50vw', (720, 1080, 1600)) }}</figure>
+<div class="intl2__txt">{{ shd(s.label, s.title) }}
+<p class="intl2__d">{{ s.text }}</p>
+<ul class="intl2__list">{% for x in s.list %}<li>{{ x }}</li>{% endfor %}</ul>
+<p class="intl2__en" lang="en">{{ s.en_text }} <a href="mailto:{{ S.contact.email }}">{{ S.contact.email }}</a>.</p>
+<p>{{ button(s.button, 'btn btn--dark') }}</p></div></div></section>

@@ -1,0 +1,7 @@
+{# 홈 맨 아래 상담 안내 + 상담 예약 카드 #}
+{% from 'macros.html' import shd, appt_card %}
+<section class="sec hsec contact2" id="contact"><div class="wrap contact2__grid"><div class="contact2__txt">{{ shd(s.label, s.title) }}
+<p class="contact2__d">{{ s.text }}</p>
+<ul class="contact2__notes">{% for x in s.notes %}<li>{{ x }}</li>{% endfor %}</ul>
+<p><a class="link" href="{{ s.link.href }}">{{ s.link.label }}</a></p></div>
+{{ appt_card(s.button or S.nav.cta, '') }}</div></section>

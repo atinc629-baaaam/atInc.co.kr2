@@ -1,0 +1,7 @@
+{# 홈 '케어 프로그램' 카드: 케어 프로그램 목록에서 자동으로 만들어집니다 #}
+{% from 'macros.html' import shd %}
+<section class="sec hsec hsec--tight"><div class="wrap">{{ shd(s.label, s.title, s.more) }}
+<div class="tiles tiles--4">
+{% for p in programs %}<a class="tile tile--prog" href="{{ p.page }}"><figure class="tile__pic">{{ pic(p.photo, '', '(max-width: 600px) 82vw, (max-width: 1100px) 50vw, 25vw', (480, 720, 1080)) }}
+<span class="tile__tag">{{ p.tile_tag }}</span></figure><p class="tile__en">{{ p.en }}</p><h3 class="tile__t">{{ p.ko }}</h3><p class="tile__d">{{ p.tile_line }}</p></a>{% endfor %}
+</div></div></section>

@@ -1,0 +1,4 @@
+{# 함께 일하는 곳의 종류 #}
+{% from 'macros.html' import sh %}
+<section class="sec{% if s.tone == 'sand' %} sec--sand{% endif %}"><div class="wrap">{{ sh(s.title, s.lead) }}
+<ul class="ptypes">{% for t in s['items'] %}<li><h3>{{ t.title }}</h3><p class="body">{{ t.text }}</p><ul>{% for x in t.examples %}<li>{{ x }}</li>{% endfor %}</ul></li>{% endfor %}</ul></div></section>

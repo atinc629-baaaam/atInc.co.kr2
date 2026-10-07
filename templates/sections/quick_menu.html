@@ -1,0 +1,4 @@
+{# 홈 첫 화면 아래 바로가기 메뉴 #}
+<nav class="qmenu" aria-label="바로가기"><div class="wrap"><ul class="qmenu__list">
+{% for q in s['items'] %}<li><a href="{{ q.href }}">{{ ic2(q.icon) }}<span>{{ q.label }}</span></a></li>{% endfor %}
+</ul></div></nav>

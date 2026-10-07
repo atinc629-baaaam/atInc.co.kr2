@@ -1,0 +1,5 @@
+{# 제휴 문의 띠 #}
+{% from 'macros.html' import form_link, contact_links %}
+<section class="sec cband" id="contact"><div class="wrap cband__grid"><div style="display: grid; gap: 22px"><h2 class="h1">{{ s.title }}</h2><p class="lead">{{ s.text }}</p></div>
+<div class="cband__side"><a class="btn btn--light btn--wide" href="{{ S.contact.partner_mail }}">{{ s.mail_button }}</a>{{ form_link(s.form_button, s.form_label, 'btn btn--ghost-light btn--wide', None) }}
+{{ contact_links('contacts', intl=True) }}</div></div></section>

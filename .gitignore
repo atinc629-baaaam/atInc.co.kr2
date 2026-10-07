@@ -3,4 +3,7 @@ __pycache__/
 build/site_artifact_index.html
 build/map_test.svg
 .DS_Store
-build/qa/site_qa/
+
+tools/qa/private-words.txt
+tools/qa/site_qa/
+tools/qa/qa_report.json

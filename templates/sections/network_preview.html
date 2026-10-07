@@ -1,0 +1,8 @@
+{# 홈 '전국 협력 의료기관' (지도 + 지역 목록) #}
+{% from 'macros.html' import shd %}
+{% set parts = s.text.split('{regions}') %}
+<section class="sec hsec net2" data-net><div class="wrap net2__grid"><div class="net2__txt">{{ shd(s.label, s.title) }}
+<p class="net2__d">{{ parts[0] }}{% if parts|length > 1 %}<span data-net-regions>{{ regions_text }}</span>{{ parts[1] }}{% endif %}</p>
+<p class="net-empty" hidden>{{ s.empty }}</p><div class="atnet-list" data-variant="compact"></div>
+<p><a class="link" href="{{ s.link.href }}">{{ s.link.label }}</a></p></div>
+<div class="map mapcard"><div class="atmap" data-uid="home"></div><p class="atmap__note"><em>{{ s.map_note_en }}</em><span>{{ s.map_note }}</span></p></div></div></section>

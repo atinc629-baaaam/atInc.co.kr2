@@ -1,0 +1,4 @@
+{# 옆으로 흐르는 진료 분야 글자 띠 #}
+<div class="mq" aria-label="진료 분야: {{ s.words|join(', ') }}"><div class="mq__track" aria-hidden="true">
+{% for k in range(2) %}<div class="mq__run">{% for w in s.words %}<span>{{ w }}</span><i aria-hidden="true"></i>{% endfor %}</div>{% endfor %}
+</div></div>

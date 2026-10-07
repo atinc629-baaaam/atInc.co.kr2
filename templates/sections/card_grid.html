@@ -1,0 +1,7 @@
+{# 카드 3~4개 묶음 (회사소개) — style: label(작은 글씨 머리) / title(제목) / en(영문형 머리) #}
+<section class="sec{% if s.tone == 'sand' %} sec--sand{% endif %}"><div class="wrap"><div class="shead"><div><h2 class="h1">{{ s.title }}</h2></div>{% if s.lead %}<p class="lead">{{ s.lead }}</p>{% endif %}</div>
+<div class="grid{{ s.columns or 3 }}">{% for c in s['items'] %}<div class="card">
+{% if s.style == 'label' %}<p class="eyebrow eyebrow--ko">{{ c.title }}</p><p class="body" style="font-size: 16px; color: var(--ink)">{{ c.text }}</p>
+{% elif s.style == 'en' %}<p class="en-title">{{ c.title }}</p><p class="body">{{ c.text }}</p>
+{% else %}<h3 class="h3">{{ c.title }}</h3><p class="body">{{ c.text }}</p>{% endif %}
+</div>{% endfor %}</div></div></section>

@@ -1,0 +1,6 @@
+{# 협력 네트워크: 분야 필터 + 지도 + 지역 카드 (지역 목록에서 자동) #}
+<section class="sec" data-net style="padding-top: clamp(48px, 5vw, 72px)"><div class="wrap" style="display: grid; gap: 28px">
+<div class="filters" role="group" aria-label="분야로 거점 보기"><button type="button" data-cat="all" aria-pressed="true">{{ s.all_label }}</button>{% for f in fields %}<button type="button" data-cat="{{ f.id }}" aria-pressed="false">{{ f.ko }}</button>{% endfor %}</div>
+<p class="net-empty" hidden>{{ s.empty }}</p>
+<div class="net__grid" style="align-items: start"><div class="map mapcard" style="position: sticky; top: calc(var(--hdr-h) + 24px)"><div class="atmap" data-uid="net"></div><p class="atmap__note"><em>{{ s.map_note_en }}</em><span>{{ s.map_note }}</span></p></div>
+<div style="display: grid; gap: 14px; min-width: 0"><div class="atnet-list" data-variant="cards"></div><p class="small" style="margin-top: 8px">{{ s.note }}</p></div></div></div></section>

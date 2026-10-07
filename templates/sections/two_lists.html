@@ -1,0 +1,5 @@
+{# 두 칸 목록: 왼쪽 기준(제목+설명), 오른쪽 점 목록 #}
+{% from 'macros.html' import sh %}
+<section class="sec{% if s.tone == 'sand' %} sec--sand{% endif %}"><div class="wrap cf">
+<div class="cf__col">{{ sh(s.left.title, s.left.lead) }}<ul class="rows rows--plain">{% for r in s.left['items'] %}<li><div><b class="h3">{{ r.title }}</b><p class="body">{{ r.text }}</p></div></li>{% endfor %}</ul></div>
+<div class="cf__col">{{ sh(s.right.title, s.right.lead) }}<ul class="doclist">{% for x in s.right['items'] %}<li>{{ x }}</li>{% endfor %}</ul></div></div></section>

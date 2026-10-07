@@ -1,0 +1,10 @@
+{# 안쪽 페이지 첫 화면: 제목 + 설명 (+ 오른쪽 사진) #}
+{% from 'macros.html' import button, contact_links, with_regions %}
+<section class="phero"><div class="wrap phero__grid"{% if not s.photo %} style="grid-template-columns: minmax(0, 1fr)"{% endif %}><div class="phero__text">
+<nav class="crumb" aria-label="현재 위치"><a href="index.html">홈</a> / <span>{{ s.crumb }}</span></nav><h1 class="h1 rise">{{ s.title|rich }}</h1>
+<div class="rise rise-2" style="display: grid; gap: 18px">{% if s.lead %}<p class="lead">{{ with_regions(s.lead) }}</p>{% endif %}
+{% if s.notice %}<p class="notice" style="max-width: 62ch; padding-left: 16px; border-left: 2px solid var(--latte)">{{ s.notice }}</p>{% endif %}
+{% if s.buttons %}<div class="hero__actions">{% for b in s.buttons %}{{ button(b, 'btn btn--dark') }}{% endfor %}</div>{% endif %}
+{% if s.contacts %}{{ contact_links('contacts contacts--dark', intl=True) }}{% endif %}</div></div>
+{% if s.photo %}<div class="phero__art rise rise-3"><figure class="phero__pic">{{ pic(s.photo, '', '(max-width: 900px) 100vw, 40vw', (640, 960, 1400), eager=True) }}</figure></div>{% endif %}
+</div></section>

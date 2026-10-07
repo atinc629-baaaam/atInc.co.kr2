@@ -1,0 +1,51 @@
+{% from 'macros.html' import logo, form_link, contact_links %}
+{% set N = S.nav %}
+<div class="page{% if light %} hdr-light{% endif %}{% if glass %} hdr-glass{% endif %}">
+<a class="sr-only" href="#main">{{ N.skip }}</a>
+<header class="hdr"><div class="wrap hdr__wrap"><div class="hdr__in"{% if glass %} data-glass{% endif %}>{{ logo() }}
+<nav class="nav" aria-label="주 메뉴">
+<a class="nav__link" href="about.html"{% if cur == 'about' %} aria-current="page"{% endif %}>{{ N.about }}</a>
+<div class="nav__item"><a class="nav__link{% if cur == 'medical' %} is-current{% endif %}" href="medical.html">{{ N.medical }}{{ ic('chev') }}</a><div class="drop">
+{% for f in fields %}<a href="{{ f.page }}">{{ f.ko }}<span>{{ f.en }}</span></a>{% endfor %}
+</div></div>
+<div class="nav__item"><a class="nav__link{% if cur == 'care' %} is-current{% endif %}" href="care.html">{{ N.care }}{{ ic('chev') }}</a><div class="drop">
+{% for p in programs %}<a href="{{ p.page }}">{{ p.ko }}<span>{{ p.en }}</span></a>{% endfor %}
+</div></div>
+<a class="nav__link" href="network.html"{% if cur == 'network' %} aria-current="page"{% endif %}>{{ N.network }}</a>
+<a class="nav__link" href="partners.html"{% if cur == 'partners' %} aria-current="page"{% endif %}>{{ N.partners }}</a>
+</nav>
+<div class="hdr__right"><a class="hdr__tel" href="tel:{{ S.contact.phone_tel }}" aria-label="{{ S.appt.line_label }} {{ S.contact.phone }}">{{ ic('phone') }}<span>{{ S.contact.phone }}</span></a>{{ form_link(N.cta, '', 'hdr__cta', None) }}
+<button class="menu-btn" id="menu-open" type="button" aria-controls="mnav" aria-expanded="false" aria-label="메뉴 열기">{{ ic('menu') }}</button></div>
+</div></div></header>
+
+<div class="mnav" id="mnav" hidden role="dialog" aria-modal="true" aria-label="전체 메뉴">
+<div class="mnav__top">{{ logo() }}<button class="menu-btn" id="menu-close" type="button" aria-label="메뉴 닫기" style="display: inline-flex">{{ ic('close') }}</button></div>
+<div class="mnav__group"><h2 class="eyebrow"><a href="medical.html" style="text-decoration: none">{{ N.medical }}</a></h2><div class="mnav__grid">{% for f in fields %}<a href="{{ f.page }}">{{ f.ko }}</a>{% endfor %}</div></div>
+<div class="mnav__group"><h2 class="eyebrow"><a href="care.html" style="text-decoration: none">{{ N.care }}</a></h2><div class="mnav__grid">{% for p in programs %}<a href="{{ p.page }}">{{ p.ko }}</a>{% endfor %}</div></div>
+<div class="mnav__group mnav__links"><a href="about.html">{{ N.about }}</a><a href="network.html">{{ N.network }}</a><a href="partners.html">{{ N.partners }}</a><a href="consultation.html">{{ N.consultation }}</a></div>
+{{ form_link(N.cta, '', 'btn btn--dark btn--wide') }}
+{{ contact_links('contacts contacts--dark', style='margin-top: 18px') }}
+</div>
+
+<main id="main">{{ main }}</main>
+
+{% set F = S.footer %}
+<footer class="ftr"><div class="wrap"><div class="ftr__top">
+<div>{{ logo() }}<p class="ftr__tag">{{ F.tagline }}</p><p class="ftr__sub">{{ F.sub }}</p><p class="ftr__contact"><a href="tel:{{ S.contact.phone_tel }}">{{ S.contact.phone }}</a><a href="mailto:{{ S.contact.email }}">{{ S.contact.email }}</a></p></div>
+<div><h2>{{ N.medical }}</h2><ul>{% for f in fields %}<li><a href="{{ f.page }}">{{ f.ko }}</a></li>{% endfor %}</ul></div>
+<div><h2>{{ N.care }}</h2><ul>{% for p in programs %}<li><a href="{{ p.page }}">{{ p.ko }}</a></li>{% endfor %}</ul></div>
+<div><h2>{{ S.site.name }}</h2><ul><li><a href="about.html">{{ N.about }}</a></li><li><a href="network.html">{{ N.network }}</a></li><li><a href="partners.html">{{ N.partners }}</a></li><li><a href="consultation.html">{{ N.consultation }}</a></li></ul></div>
+</div>
+<div class="ftr__bot"><div class="ftr__legal"><a href="privacy.html">{{ N.privacy }}</a><a href="medical-notice.html">{{ N.notice }}</a></div>
+{% set C = S.company %}
+<p>{{ C.legal_name }} ({{ S.site.name }}) · 대표 {{ C.ceo }} · 사업자등록번호 <span class=nw>{{ C.biz_no }}</span> · 외국인환자 유치업 등록번호 <span class=nw>{{ C.tourism_no }}</span>{% if C.address %} · {{ C.address }}{% endif %}</p>
+<p>{{ F.notice }}</p>
+<p>{{ F.copyright }}</p></div>
+</div></footer>
+
+<div class="fab"><a class="fab__btn fab__btn--main" href="{{ form_url }}" target="_blank" rel="noopener" data-form="">{{ ic2('bubble') }}<span>{{ N.cta }}</span></a>
+<a class="fab__btn" href="tel:{{ S.contact.phone_tel }}">{{ ic2('phone') }}<span>{{ N.fab_call }}</span></a>
+<button class="fab__btn fab__top" type="button" data-top>{{ ic2('up') }}<span>{{ N.fab_top }}</span></button></div>
+<nav class="mbar" aria-label="빠른 상담"><a href="tel:{{ S.contact.phone_tel }}">{{ ic2('phone') }}{{ N.mbar_call }}</a>
+<a class="mbar__main" href="{{ form_url }}" target="_blank" rel="noopener" data-form="">{{ ic2('bubble') }}{{ N.cta }}</a></nav>
+</div>

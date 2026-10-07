@@ -1,0 +1,4 @@
+{# 번호 카드 3~4개 (atInc가 함께하는 방식 / 이런 분께 맞습니다) #}
+{% from 'macros.html' import dhd %}
+<section class="sec{% if s.tone == 'sand' %} sec--sand{% endif %} msec"{% if s.anchor %} id="{{ s.anchor }}"{% endif %}><div class="wrap">{{ dhd(s.title, s.lead, s.more) }}
+<ol class="ways{% if s.variant == 'who' %} ways--who{% endif %}">{% for w in s['items'] %}<li><span class="ways__no">{{ '%02d' % loop.index }}</span><h3>{{ w.title }}</h3>{% if w.text %}<p>{{ w.text }}</p>{% endif %}</li>{% endfor %}</ol></div></section>

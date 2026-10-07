@@ -1,0 +1,5 @@
+{# 제목 + 설명 카드 목록 (함께하는 의료기관 / 구성 선택 등) #}
+{% from 'macros.html' import dhd %}
+<section class="sec{% if s.tone == 'sand' %} sec--sand{% endif %} msec"{% if s.anchor %} id="{{ s.anchor }}"{% endif %}><div class="wrap">{{ dhd(s.title, s.lead, s.more) }}
+<ul class="ptn">{% for c in s['items'] %}<li>{% if c.en %}<p class="svcs__en">{{ c.en }}</p>{% endif %}<h3>{{ c.title }}</h3><p>{{ c.text }}{% if c.fit %}<span class="ptn__fit">{{ c.fit }}</span>{% endif %}</p></li>{% endfor %}</ul>
+{% for n in s.notes or [] %}<p class="msec__note">{{ n }}</p>{% endfor %}</div></section>
