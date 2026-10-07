@@ -332,6 +332,9 @@ class Site:
             scripts += '<script src="assets/map-base.js"></script>'
         scripts += '<script src="assets/map.js"></script><script src="assets/site.js"></script>'
         target = os.path.join(self.out, fn)
+        if self.S['site'].get('noindex') and not EDIT['on']:
+            # 공개 전 확인 기간: 검색엔진에 안 나오게 합니다 (사이트 설정에서 끕니다)
+            head = '<meta name="robots" content="noindex, nofollow">' + head
         if EDIT['on']:
             # 편집용 사본: site/admin/edit/<페이지>. 주소 기준을 사이트 맨 위로 맞추고, 편집기 도구를 붙입니다
             info = json.dumps({'page': fn, 'file': pf, 'title': title}, ensure_ascii=False).replace('</', '<\\/')
@@ -440,7 +443,10 @@ class Site:
         with open(os.path.join(self.out, 'sitemap.xml'), 'w', encoding='utf-8') as f:
             f.write(f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">{urls}</urlset>\n')
         with open(os.path.join(self.out, 'robots.txt'), 'w', encoding='utf-8') as f:
-            f.write(f'User-agent: *\nAllow: /\nDisallow: /admin/\n\nSitemap: {site_url}sitemap.xml\n')
+            if self.S['site'].get('noindex'):
+                f.write('User-agent: *\nDisallow: /\n')
+            else:
+                f.write(f'User-agent: *\nAllow: /\nDisallow: /admin/\n\nSitemap: {site_url}sitemap.xml\n')
 
 
 def main():

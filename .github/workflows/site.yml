@@ -1,8 +1,10 @@
 # 내용(content/)이나 디자인(templates/, static/)이 바뀌면 사이트를 다시 만들고 공개 전 검사를 합니다.
 # - 모든 브랜치·수정 요청(PR): 검사 결과가 ✓/✗ 로 표시됩니다.
-# - main: 검사를 통과하면 site/ 폴더를 다시 만들어 저장하고, GitHub Pages에 다시 올리도록 요청합니다.
-#   편집기(site/admin/)에서 [저장]하면 이 순서로 1~2분 뒤 홈페이지에 반영됩니다.
-#   Cloudflare Pages를 연결한 뒤에는 Cloudflare가 직접 만들어 공개하므로 이 저장 단계는 지워도 됩니다.
+# - main: 검사를 통과하면
+#   1) 카페24 서버(atinc.co.kr)에 올립니다. 접속 정보(비밀값 CAFE24_FTP_HOST/USER/PASSWORD)가 있을 때만.
+#      올릴 폴더는 저장소 변수 CAFE24_DIR (기본: www/preview → atinc.co.kr/preview/). 정식 공개 때 www 로 바꿉니다.
+#   2) site/ 폴더를 다시 만들어 저장하고 GitHub Pages에 다시 올리도록 요청합니다 (저장소가 공개일 때만 의미 있음).
+#   편집기(admin/)에서 [저장]하면 이 순서로 1~2분 뒤 홈페이지에 반영됩니다.
 name: 사이트 빌드와 검사
 
 on:
@@ -24,6 +26,10 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      CAFE24_FTP_HOST: ${{ secrets.CAFE24_FTP_HOST }}
+      CAFE24_FTP_USER: ${{ secrets.CAFE24_FTP_USER }}
+      CAFE24_DIR: ${{ vars.CAFE24_DIR || 'www/preview' }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -37,6 +43,19 @@ jobs:
         env:
           ATINC_PRIVATE_WORDS: ${{ secrets.ATINC_PRIVATE_WORDS }}
         run: python3 tools/build.py --check
+      - name: 카페24(atinc.co.kr)에 올리기 (main 만)
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main' && env.CAFE24_FTP_HOST != ''
+        env:
+          LFTP_PASSWORD: ${{ secrets.CAFE24_FTP_PASSWORD }}
+        run: |
+          sudo apt-get install -y -qq lftp > /dev/null
+          DIR="${CAFE24_DIR%/}"
+          # 미리보기 폴더는 지운 파일도 맞춰 지우고, 사이트 맨 위(www)에서는 다른 파일을 건드리지 않습니다
+          DEL=""; if [ "$DIR" != "www" ] && [ "$DIR" != "/www" ]; then DEL="--delete"; fi
+          lftp -c "set ftp:ssl-allow true; set ssl:verify-certificate no; set net:max-retries 3; set net:timeout 30; \
+            open --env-password -u \"$CAFE24_FTP_USER\" \"$CAFE24_FTP_HOST\"; \
+            cls -1; mkdir -pf \"$DIR\"; mirror -R --verbose=1 --parallel=4 $DEL site/ \"$DIR\""
+          echo "올린 곳: $DIR"
       - name: site/ 저장 (main 만)
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         run: |
