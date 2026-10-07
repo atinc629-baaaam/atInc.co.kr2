@@ -8,7 +8,7 @@ sections:
   sr_title: atInc 프라이빗 헬스케어 컨시어지
   slides:
   - photo:
-      src: unsplash:1621293954908-907159247fc8
+      src: https://images.unsplash.com/photo-1621293954908-907159247fc8
       alt: 나무 벽과 소파가 놓인 조용한 라운지
       pos: 60% 50%
     label: Private Healthcare Concierge
@@ -21,7 +21,7 @@ sections:
       form: true
       style: btn btn--light
   - photo:
-      src: unsplash:1666214282459-c7dff167ecc0
+      src: https://images.unsplash.com/photo-1666214282459-c7dff167ecc0
       alt: 비어 있는 영상 검사실의 장비
       pos: 60% 50%
     label: Health Checkup
@@ -34,7 +34,7 @@ sections:
       href: medical-checkup.html
       style: btn btn--line
   - photo:
-      src: unsplash:1546874177-9e664107314e
+      src: https://images.unsplash.com/photo-1546874177-9e664107314e
       alt: 해 질 무렵 불이 켜진 서울 도심
       pos: 50% 60%
     label: Private Consultation
@@ -47,7 +47,7 @@ sections:
       href: '#process'
       style: btn btn--line
   - photo:
-      src: unsplash:1695334716127-016737141491
+      src: https://images.unsplash.com/photo-1695334716127-016737141491
       alt: 가죽 시트가 놓인 고급 차량 뒷좌석
       pos: 50% 50%
     label: Global Medical Journey
@@ -153,7 +153,7 @@ sections:
   map_note: 협력 병원을 전국으로 넓혀 가고 있습니다
 - type: intl
   photo:
-    src: unsplash:1786526818707-d28a60d7c21f
+    src: https://images.unsplash.com/photo-1786526818707-d28a60d7c21f
     alt: 도시 야경이 보이는 호텔 객실 창가
     pos: 50% 50%
   label: International

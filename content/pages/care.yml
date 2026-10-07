@@ -8,7 +8,7 @@ sections:
   title: 하루 검진부터 1년 관리까지
   lead: 케어 프로그램은 병원 예약에 더해 사전 준비와 전체 일정, 결과가 나온 뒤의 관리까지 atInc가 맡는 서비스입니다. 목적과 기간에 따라 네 가지 중에서 고르시면 됩니다.
   photo:
-    src: unsplash:1512394005248-f047741d263e
+    src: https://images.unsplash.com/photo-1512394005248-f047741d263e
     alt: 안경과 찻잔이 놓인 책상
     pos: 50% 50%
 - type: program_list

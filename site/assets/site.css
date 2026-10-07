@@ -1982,3 +1982,9 @@ details.fold > summary h3 + p { margin-top: 4px; }
 .pband__fig .pic { inset: 0; height: 100%; }
 /* the hover zoom on cards stays (it only runs under the pointer) */
 .rv .tile:hover .tile__pic img { transform: scale(1.04); transition: transform .8s cubic-bezier(.2, .7, .1, 1); }
+
+/* ---------- v19 · blocks added from the admin ---------- */
+.tblock { max-width: 760px; }
+.tblock p { font-size: 16.5px; line-height: 1.85; color: var(--body); }
+.tblock p + p { margin-top: 14px; }
+.tblock a { color: var(--brown-deep); text-underline-offset: 4px; }

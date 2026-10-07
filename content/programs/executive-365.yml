@@ -4,7 +4,7 @@ order: 3
 ko: 연간 헬스 오피스
 en: Executive 365
 photo:
-  src: unsplash:1764410481612-7544525b2991
+  src: https://images.unsplash.com/photo-1764410481612-7544525b2991
   alt: 큰 창이 있는 집무실의 책상과 의자
   pos: 50% 50%
 form_label: atInc CARE
@@ -33,6 +33,7 @@ sections:
   - title: 기업 CEO·오너·임원
   - title: 해외와 한국을 오가며 일하시는 분
   - title: 가족 진료 일정까지 맡기고 싶은 분
+  tone: light
 - type: guide
   fold: false
   title: 포함된 것

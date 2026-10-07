@@ -14,7 +14,7 @@ sections:
     style: btn btn--dark
   contacts: true
   photo:
-    src: unsplash:1642543492421-5a1f854e126c
+    src: https://images.unsplash.com/photo-1642543492421-5a1f854e126c
     alt: 찻잔 옆 노트에 메모하는 손
     pos: 50% 50%
 - type: steps

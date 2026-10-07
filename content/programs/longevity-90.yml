@@ -4,7 +4,7 @@ order: 2
 ko: 90일 롱제비티
 en: Longevity 90
 photo:
-  src: unsplash:1477332552946-cfb384aeaf1c
+  src: https://images.unsplash.com/photo-1477332552946-cfb384aeaf1c
   alt: 가을 햇살 속 시골길을 걷는 사람의 뒷모습
   pos: 50% 55%
 form_label: atInc CARE
@@ -33,6 +33,7 @@ sections:
   - title: 건강수명·웰에이징에 관심 있는 고객
   - title: 일정이 빠듯한 경영진
   - title: 정기적으로 점검받고 싶은 고객
+  tone: light
 - type: guide
   fold: false
   title: 포함된 것

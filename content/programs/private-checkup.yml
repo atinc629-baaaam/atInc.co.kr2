@@ -4,7 +4,7 @@ order: 1
 ko: 프라이빗 정밀검진
 en: Private Checkup
 photo:
-  src: unsplash:1777805865927-a6ee4c4eacb1
+  src: https://images.unsplash.com/photo-1777805865927-a6ee4c4eacb1
   alt: 갈색 바탕 위의 청진기와 클립보드
   pos: 50% 50%
 form_label: 건강검진
@@ -33,6 +33,7 @@ sections:
   - title: 국내외 VIP·CEO·임원
   - title: 가족력이 있어 정밀검진이 필요한 분
   - title: 한국에 짧게 머무는 동안 검진받고 싶은 해외 고객
+  tone: light
 - type: guide
   fold: false
   title: 포함된 것

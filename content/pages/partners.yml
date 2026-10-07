@@ -15,7 +15,7 @@ sections:
     href: '#process'
     style: link
   photo:
-    src: unsplash:1617177435596-1c9e30d6d608
+    src: https://images.unsplash.com/photo-1617177435596-1c9e30d6d608
     alt: 갈색 봉투 위에 놓인 만년필
     pos: 50% 50%
 - type: partner_types

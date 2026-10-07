@@ -1,0 +1,5 @@
+{# 글 섹션: 제목 + 문단 (+ 버튼). 빈 줄로 문단을 나눕니다 #}
+{% from 'macros.html' import dhd, button %}
+<section class="sec{% if s.tone == 'sand' %} sec--sand{% endif %} msec"{% if s.anchor %} id="{{ s.anchor }}"{% endif %}><div class="wrap">{{ dhd(s.title, s.lead, s.more) }}
+<div class="tblock">{% for para in (s.text or '').split('\n\n') if para.strip() %}<p>{{ para.strip()|rich }}</p>{% endfor %}</div>
+{% if s.button and s.button.label %}<p style="margin-top: 28px">{{ button(s.button, 'btn btn--dark') }}</p>{% endif %}</div></section>

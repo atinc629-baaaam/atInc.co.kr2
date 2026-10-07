@@ -85,6 +85,14 @@ def ic2(name):
 UPLOAD_WIDTHS_NEEDED = set()
 
 
+def unsplash_id(src):
+    src = str(src or '')
+    if src.startswith('unsplash:'):
+        return src[9:]
+    m = re.match(r'https?://images\.unsplash\.com/photo-([^?#]+)', src)
+    return m.group(1) if m else None
+
+
 def is_upload(src):
     return str(src or '').lstrip('/').startswith('uploads/')
 
@@ -92,8 +100,9 @@ def is_upload(src):
 def img_url(src, w):
     """Unsplash 사진은 크기를 주소로 고르고, 직접 올린 사진은 빌드 때 만든 크기별 사본을 씁니다."""
     src = str(src or '')
-    if src.startswith('unsplash:'):
-        return f'https://images.unsplash.com/photo-{src[9:]}?auto=format&fit=crop&w={w}&q=72'
+    uid = unsplash_id(src)
+    if uid:
+        return f'https://images.unsplash.com/photo-{uid}?auto=format&fit=crop&w={w}&q=72'
     if is_upload(src):
         path = src.lstrip('/')
         if os.path.exists(os.path.join(STATIC, path)):
@@ -110,7 +119,7 @@ def pic(img, cls='', sizes='100vw', widths=(640, 960, 1400, 2000), eager=False):
         return Markup('')
     src = str(img['src'])
     widths = list(widths)
-    if src.startswith('unsplash:') or (is_upload(src) and os.path.exists(os.path.join(STATIC, src.lstrip('/')))):
+    if unsplash_id(src) or (is_upload(src) and os.path.exists(os.path.join(STATIC, src.lstrip('/')))):
         srcset = ' srcset="' + ', '.join(f'{img_url(src, w)} {w}w' for w in widths) + f'" sizes="{sizes}"'
     else:
         srcset = ''
@@ -347,10 +356,18 @@ class Site:
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--out', default=os.path.join(ROOT, 'site'))
-    ap.add_argument('--only', help='comma separated page names (debug)')
+    ap.add_argument('--check', action='store_true', help='만든 뒤 공개 전 검사(금지 표현·비공개 단어·관리자 입력 칸)를 하고, 문제가 있으면 실패로 끝냅니다')
     a = ap.parse_args()
     built = Site(a.out).build()
     print(len(built), 'pages →', a.out)
+    if a.check:
+        import subprocess
+        here = os.path.dirname(os.path.abspath(__file__))
+        r1 = subprocess.run([sys.executable, os.path.join(here, 'qa', 'site_scan.py'), a.out])
+        r2 = subprocess.run([sys.executable, os.path.join(here, 'admin_config.py'), '--check'])
+        if r1.returncode or r2.returncode:
+            print('\n공개 전 검사에서 문제가 나와 공개를 멈춥니다. 위 내용을 고친 뒤 다시 저장하세요.')
+            sys.exit(1)
 
 
 if __name__ == '__main__':

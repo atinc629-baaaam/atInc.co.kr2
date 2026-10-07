@@ -4,7 +4,7 @@ order: 4
 ko: 글로벌 메디컬 저니
 en: Global Medical Journey
 photo:
-  src: unsplash:1729350038150-495c628bd695
+  src: https://images.unsplash.com/photo-1729350038150-495c628bd695
   alt: 해 질 무렵 비행기 창밖의 날개
   pos: 50% 50%
 form_label: atInc CARE
@@ -34,6 +34,7 @@ sections:
   - title: 해외 VIP·재외동포
   - title: 한국 진료를 원하는 해외 고객
   - title: 진료와 체류를 함께 맡기고 싶은 고객
+  tone: light
 - type: guide
   fold: false
   title: 포함된 것

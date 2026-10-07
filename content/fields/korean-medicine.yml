@@ -4,7 +4,7 @@ order: 6
 ko: 한방·웰니스
 en: Korean Medicine & Wellness
 photo:
-  src: unsplash:1545840716-c82e9eec6930
+  src: https://images.unsplash.com/photo-1545840716-c82e9eec6930
   alt: 말린 약재가 담긴 유리병과 놋그릇
   pos: 50% 50%
 form_label: 한방·웰니스
@@ -85,9 +85,10 @@ sections:
     - 체질과 상태에 맞춘 처방
   notes:
   - 어떤 검사와 진료를 받을지는 의료진이 진찰한 뒤 정합니다. atInc는 맞는 기관을 찾아 예약하고, 그 앞뒤의 상담과 일정을 맡습니다.
+  tone: sand
 - type: photo_band
   photo:
-    src: unsplash:1598555763574-dca77e10427e
+    src: https://images.unsplash.com/photo-1598555763574-dca77e10427e
     alt: 피부에 놓인 침
     pos: 50% 50%
 - type: cards
@@ -105,6 +106,7 @@ sections:
     text: 매선·미용침·근막 교정 같은 한방 미용과 항노화를 진료하는 곳
   notes:
   - 기관 이름은 상담에서 고객님께만 따로 말씀드립니다.
+  tone: light
 - type: steps
   anchor: process
   title: 진행 과정
@@ -121,6 +123,7 @@ sections:
     text: 상태 변화를 지켜보면서, 필요하면 치료 계획을 바꿉니다.
   - title: 후속관리
     text: 퇴원하시거나 귀국하신 뒤에도 경과 상담과 다음 진료 날짜를 잡아 드립니다.
+  tone: sand
 - type: guide
   anchor: guide
   title: 협력 기관이 안내하는 준비와 회복
@@ -164,6 +167,7 @@ sections:
     - 수유 중이면 수유와 근육을 지키며 천천히 줄이는 쪽으로 상의합니다
   notes:
   - 협력 기관들이 고객에게 안내하는 일반적인 내용입니다. 실제 준비와 회복 일정은 예약하신 기관의 담당 의료진이 정하고, atInc는 그 안내를 일정에 넣어 전날 다시 알려 드립니다.
+  tone: light
 - type: faq_more
   faq_title: 자주 묻는 질문
   faq:
@@ -194,17 +198,23 @@ sections:
       - 구분
       - 내용
       rows:
-      - - 침 · 약침 · 봉침
+      - cells:
+        - 침 · 약침 · 봉침
         - 경혈을 자극하는 침 치료와, 경혈에 한약 추출액을 주입해 침 자극과 한약 작용을 함께 활용하는 약침
-      - - 뜸
+      - cells:
+        - 뜸
         - 주로 쑥을 이용해 몸의 특정 부위에 온열 자극을 주는 치료
-      - - 추나
+      - cells:
+        - 추나
         - 한의사가 손이나 신체 일부로 관절·근육·인대를 조정·교정하는 수기요법
-      - - 한약
+      - cells:
+        - 한약
         - 한의사의 처방에 따라 의약품용 규격 한약재로 조제
-      - - 비수술 재활 치료
+      - cells:
+        - 비수술 재활 치료
         - 도수치료, 체외충격파, 증식치료
-      - - 입원 재활
+      - cells:
+        - 입원 재활
         - 수술 후·교통사고·뇌졸중(중풍) 이후의 입원 회복과 재활
   how:
     title: 원리와 방식

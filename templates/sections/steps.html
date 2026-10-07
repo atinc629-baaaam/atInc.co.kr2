@@ -3,6 +3,6 @@
 {% if s.layout == 'plain' %}
 <section class="sec{% if s.tone == 'sand' %} sec--sand{% endif %}"{% if s.anchor %} id="{{ s.anchor }}"{% endif %}><div class="wrap">{{ sh(s.title, s.lead) }}
 {% else %}
-<section class="sec{% if s.tone != 'light' %} sec--sand{% endif %} msec"{% if s.anchor %} id="{{ s.anchor }}"{% endif %}><div class="wrap">{{ dhd(s.title, s.lead, s.more) }}
+<section class="sec{% if s.tone == 'sand' %} sec--sand{% endif %} msec"{% if s.anchor %} id="{{ s.anchor }}"{% endif %}><div class="wrap">{{ dhd(s.title, s.lead, s.more) }}
 {% endif %}
 <ol class="steps{% if s['items']|length == 5 %} steps--5{% endif %}">{% for st in s['items'] %}<li class="step"><span class="step__no">{{ '%02d' % loop.index }}</span><h3 class="h3">{{ st.title }}</h3><p class="body">{{ st.text }}</p></li>{% endfor %}</ol></div></section>

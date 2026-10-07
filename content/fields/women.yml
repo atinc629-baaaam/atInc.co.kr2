@@ -4,7 +4,7 @@ order: 4
 ko: 여성건강
 en: Women's Health
 photo:
-  src: unsplash:1677000753622-03c5b7e987f8
+  src: https://images.unsplash.com/photo-1677000753622-03c5b7e987f8
   alt: 햇빛이 비치는 리넨 커튼
   pos: 50% 50%
 form_label: 여성건강
@@ -95,9 +95,10 @@ sections:
     - 산후검진
   notes:
   - 어떤 검사와 진료를 받을지는 의료진이 진찰한 뒤 정합니다. atInc는 맞는 기관을 찾아 예약하고, 그 앞뒤의 상담과 일정을 맡습니다.
+  tone: sand
 - type: photo_band
   photo:
-    src: unsplash:1639772823907-a716be4bdecc
+    src: https://images.unsplash.com/photo-1639772823907-a716be4bdecc
     alt: 현미경을 다루는 장갑 낀 손
     pos: 50% 50%
 - type: cards
@@ -115,6 +116,7 @@ sections:
     text: 영어·중국어·일본어·베트남어로 상담받을 수 있는 곳
   notes:
   - 기관 이름은 상담에서 고객님께만 따로 말씀드립니다.
+  tone: light
 - type: steps
   anchor: process
   title: 진행 과정
@@ -129,6 +131,7 @@ sections:
     text: 충분한 설명을 듣고 동의한 뒤 진행합니다.
   - title: 사후 관리
     text: 골반근육 운동 등 회복 방법을 듣고, 경과 진료와 다음 상담 날짜를 잡습니다.
+  tone: sand
 - type: guide
   anchor: guide
   title: 협력 기관이 안내하는 준비와 회복
@@ -196,6 +199,7 @@ sections:
     - 백신을 맞았어도 자궁경부암 검진은 계속 받으셔야 합니다
   notes:
   - 협력 기관들이 고객에게 안내하는 일반적인 내용입니다. 실제 준비와 회복 일정은 예약하신 기관의 담당 의료진이 정하고, atInc는 그 안내를 일정에 넣어 전날 다시 알려 드립니다.
+  tone: light
 - type: faq_more
   faq_title: 자주 묻는 질문
   faq:
@@ -228,19 +232,26 @@ sections:
       - 구분
       - 내용
       rows:
-      - - 여성 검진
+      - cells:
+        - 여성 검진
         - 자궁경부 세포검사, HPV 검사, 부인과 초음파
-      - - 여성 질환
+      - cells:
+        - 여성 질환
         - 여성 질환 진료와 상담
-      - - 임신 준비·산후 회복
+      - cells:
+        - 임신 준비·산후 회복
         - 임신 전 상담, 출산 후 회복 상담
-      - - 갱년기·폐경기
+      - cells:
+        - 갱년기·폐경기
         - 폐경 전후 증상 평가와 호르몬 요법·비수술·수술 선택지 상담
-      - - 골반저·배뇨
+      - cells:
+        - 골반저·배뇨
         - 자궁탈출, 질 이완, 방광류·직장류, 요실금
-      - - 여성 성형
+      - cells:
+        - 여성 성형
         - 질성형, 소음순·대음순 수술, 재수술
-      - - 예방접종
+      - cells:
+        - 예방접종
         - 자궁경부암 예방백신
   how:
     title: 원리와 방식
