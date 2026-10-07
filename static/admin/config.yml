@@ -5,6 +5,8 @@ backend:
   repo: atinc629-baaaam/atInc.co.kr2
   branch: main
   cms_label_prefix: cms/
+  auth_methods:
+  - token
   commit_messages:
     create: '관리자: {{collection}} 「{{slug}}」 추가'
     update: '관리자: {{collection}} 「{{slug}}」 수정'

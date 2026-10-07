@@ -377,6 +377,8 @@ def config():
     return {
         'app_title': 'atInc 홈페이지 관리',
         'backend': {'name': 'github', 'repo': REPO, 'branch': 'main', 'cms_label_prefix': 'cms/',
+                    # 로그인은 액세스 토큰만 (GitHub 버튼은 별도 로그인 서버가 있어야 해서 숨김)
+                    'auth_methods': ['token'],
                     'commit_messages': {'create': '관리자: {{collection}} 「{{slug}}」 추가', 'update': '관리자: {{collection}} 「{{slug}}」 수정',
                                         'delete': '관리자: {{collection}} 「{{slug}}」 삭제', 'uploadMedia': '관리자: 사진 올림 {{path}}',
                                         'deleteMedia': '관리자: 사진 지움 {{path}}'}},
