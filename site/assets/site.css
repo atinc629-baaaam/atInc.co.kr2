@@ -1991,3 +1991,53 @@ details.fold > summary h3 + p { margin-top: 4px; }
 
 /* v20 — 떠 있는 버튼 글자: 두 줄이 되어도 가운데 정렬 (VIP CONTACT) */
 .fab__btn span { text-align: center; line-height: 1.2; letter-spacing: .02em; }
+
+/* =====================================================================
+   v21 — 색 조합 ① 캐시미어 & 코코아 (2026-10-07 선택)
+   바탕 캐시미어 60% · 면 밀크와 띠 카멜 30% · 주색 코코아 10% · 포인트 샴페인은 가는 선과 진한 바탕 위 작은 글자에만.
+   배치는 그대로 두고 색만 바꿉니다.
+   ===================================================================== */
+:root {
+  --ivory: #F4EEE6;            /* 바탕 · 캐시미어 */
+  --paper: #FBF8F4;            /* 면 · 밀크 (카드, 상단 메뉴, 상담 카드) */
+  --sand: #E4D3BD; --linen: #E4D3BD; --band: #E4D3BD;   /* 띠 · 카멜 */
+  --sand-deep: #DAC6AC;
+  --latte: #CBB08F; --photo-bg: #E4D3BD;
+  --line: #E2D5C4; --line-strong: #CDB89C;
+  --ink: #2F231C;              /* 글자 · 에스프레소 */
+  --body: #56473C; --sub: #64544A; --stone: #64544A; --notice: #56473C;
+  --brown: #6E4C37;            /* 주색 · 코코아 */
+  --brown-deep: #573A28;
+  --cocoa: #2F231C; --espresso: #2F231C; --night: #2F231C;
+  --brass: #B8976A; --gold: #B8976A; --champagne: #6E4C37;   /* 포인트 · 샴페인 */
+  --on-dark: #F4EEE6; --on-dark-sub: #CDBBA6;
+  --veil: 47, 35, 28;
+}
+body { background: var(--ivory); color: var(--ink); }
+::selection { background: #E4D3BD; }
+
+/* 흰색으로 남아 있던 면을 밀크로 */
+.hdr, .hdr.is-solid { background: rgba(244, 238, 230, .96); }
+.subnav { background: rgba(244, 238, 230, .97); }
+.drop, .mnav, .qmenu__list, .net2, .pline, .ways li, .fab__btn, .appt, .hdo__col:not(.hdo__col--dark) { background: var(--paper); }
+.tile__tag { background: rgba(251, 248, 244, .95); }
+@media (max-width: 760px) { .mbar { background: var(--paper); } }
+
+/* 단추: 코코아, 사진 위 밝은 단추는 밀크 */
+.btn--dark, .hdr__cta, .page .hdr .hdr__cta, .hdr.is-solid .hdr__cta, .page:not(.hdr-light) .hdr__cta, .fab__btn--main { background: var(--brown); border-color: var(--brown); color: #fff; }
+.btn--dark:hover, .page .hdr .hdr__cta:hover, .fab__btn--main:hover { background: var(--brown-deep); border-color: var(--brown-deep); }
+.btn--light, .btn--ivory, .page.hdr-glass .hdr:not(.is-solid) .hdr__cta, .page.hdr-light .hdr:not(.is-solid) .hdr__cta { background: var(--paper); border-color: var(--paper); color: var(--brown-deep); }
+.btn--light:hover, .btn--ivory:hover { background: #fff; border-color: #fff; }
+.btn--ghost:hover { background: var(--sand); color: var(--brown-deep); }
+@media (max-width: 760px) { .mbar a.mbar__main { background: var(--brown); } }
+
+/* 진한 면: 에스프레소, 위에 놓이는 작은 글자는 샴페인 */
+.ftr { background: var(--espresso); }
+.ftr h2 { color: #E4D3BD; }
+.hdo__col--dark { background: var(--espresso); border-color: var(--espresso); }
+.hdo__reg, .hdo__dont li::before { color: var(--brass); }
+.phx, .hero--photo, .intl2__pic { background: var(--cocoa); }
+
+/* 카멜 띠 위의 선과 카드 */
+.sec--sand .svcs li, .sec--sand .guide__col { border-top-color: var(--line-strong); }
+.contact2 { background: var(--sand); }
