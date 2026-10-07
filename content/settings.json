@@ -3,6 +3,12 @@
     "name": "atInc",
     "url": "https://atinc.co.kr/",
     "noindex": true,
+    "theme": "",
+    "candidates": [
+      "a",
+      "b",
+      "c"
+    ],
     "theme_color": "#2B211B",
     "org_description": "목적에 맞는 한국의 병원을 함께 고르고 예약·통역·결과 이후 일정까지 함께하는 헬스케어 컨시어지",
     "keep_together": [

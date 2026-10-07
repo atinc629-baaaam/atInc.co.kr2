@@ -1,0 +1,146 @@
+/* =====================================================================
+   디자인 후보 A — 초대장 (Engraved Invitation)
+   프라이빗 뱅크의 초대장·호텔 문구류처럼: 명조 제목, 가운데 정렬, 사진은 액자 매트 안에,
+   첫 화면은 이중 테두리로 '찍어 낸' 카드. 장식은 놋쇠색 가는 선 하나로만.
+   ===================================================================== */
+[data-theme=a] {
+  --ivory: #F7F4EF; --paper: #FFFEFB; --sand: #EFE8DD; --linen: #EFE8DD; --sand-deep: #E6DCCE; --band: #EFE8DD;
+  --line: #E4DACC; --line-strong: #CDBCA5; --photo-bg: #E3D8C9;
+  --ink: #2A1F18; --body: #564940; --sub: #6F6156; --notice: #564940;
+  --brown: #5C3F2E; --brown-deep: #46301F; --cocoa: #3A2A20; --espresso: #33251C; --night: #33251C;
+  --brass: #A88A5C; --brass-ink: #7E6440; --gold: #A88A5C;
+  --on-dark: #F7F1E8; --on-dark-sub: #CDBBA4;
+  --veil: 40, 28, 20;
+  --f-serif: 'Noto Serif KR', 'Nanum Myeongjo', 'AppleMyungjo', serif;
+  --f-it: 'Cormorant Garamond', 'Times New Roman', serif;
+  --r-ctl: 0px; --r-panel: 0px;
+  --fs-h2: clamp(27px, 2.5vw, 38px);
+}
+[data-theme=a] body { background: var(--ivory); font-size: 16px; }
+[data-theme=a] ::selection { background: #E8DCC8; }
+
+/* ---- 글꼴: 제목은 명조, 작은 영문은 기울인 Cormorant (대문자로 늘어놓지 않음) ---- */
+[data-theme=a] :is(.shd__t, .slide__t, .hero__title, .hero__sub, .tile__t, .mcard__t, .clist__t, .h1, .h2, .disp, .disp-2, .stmt__h,
+  .hdo__t, .flow h3, .appt__t, .pband__t, .cband .h1, .faq-h, .hfaq h2, .ways h3, .svcs h3, .guide__col h3, .step h3, .ptn h3, .netgroup__h, .gday__t) {
+  font-family: var(--f-serif); font-weight: 400; letter-spacing: -.02em;
+}
+[data-theme=a] :is(.slide__label, .hero__label, .shd__label, .tile__en, .mcard__en, .clist__en, .appt__label, .cband__label, .pband__en, .svcs__en) {
+  font-family: var(--f-it); font-style: italic; font-weight: 500; font-size: 19px; letter-spacing: .01em; text-transform: none; color: var(--brass-ink);
+}
+[data-theme=a] .shd__t { font-size: var(--fs-h2); line-height: 1.42; }
+[data-theme=a] .tile__t, [data-theme=a] .mcard__t { font-size: clamp(21px, 1.6vw, 24px); font-weight: 400; }
+[data-theme=a] .lead, [data-theme=a] .body { line-height: 1.85; }
+
+/* ---- 단추: 각진 호두색, 글자 간격을 조금 띄움 ---- */
+[data-theme=a] .btn { min-height: 54px; padding: 0 30px; font-weight: 500; letter-spacing: .04em; border-radius: 0 !important; }
+[data-theme=a] .btn--dark { background: var(--brown); border-color: var(--brown); }
+[data-theme=a] .btn--dark:hover { background: var(--brown-deep); border-color: var(--brown-deep); }
+[data-theme=a] .btn--line, [data-theme=a] .btn--ghost-light { border-color: rgba(255, 255, 255, .7); background: rgba(40, 28, 20, .12); }
+[data-theme=a] .hdr__cta { border-radius: 0 !important; letter-spacing: .04em; font-weight: 500; }
+
+/* ---- 머리글 ---- */
+[data-theme=a] .hdr, [data-theme=a] .hdr.is-solid { background: rgba(247, 244, 239, .97); box-shadow: 0 1px 0 var(--line); }
+[data-theme=a] .nav__link { font-weight: 400; letter-spacing: .02em; }
+
+/* ---- 첫 화면: 이중 테두리 카드, 가운데 정렬 명조 ---- */
+[data-theme=a] .phx::after { content: ""; position: absolute; z-index: 1; pointer-events: none;
+  inset: calc(var(--hdr-h) + 6px) clamp(14px, 2vw, 28px) 84px;
+  border: 1px solid rgba(255, 255, 255, .55); outline: 1px solid rgba(255, 255, 255, .28); outline-offset: -8px; }
+@media (max-width: 1100px) { [data-theme=a] .phx::after { bottom: clamp(14px, 2vw, 28px); } }
+[data-theme=a] .slide__veil { background: radial-gradient(ellipse 70% 62% at 50% 56%, rgba(var(--veil), .52) 0%, rgba(var(--veil), .28) 55%, rgba(var(--veil), .12) 100%); }
+[data-theme=a] .slide { align-items: center; }
+[data-theme=a] .slide__in { justify-items: center; text-align: center; gap: 22px; padding-top: calc(var(--hdr-h) + 24px); padding-bottom: 150px; }
+[data-theme=a] .slide__label { color: #EAD9BE; font-size: 21px; }
+[data-theme=a] .slide__t { max-width: 18em; font-size: clamp(36px, 4.4vw, 64px); font-weight: 300; line-height: 1.32; letter-spacing: -.03em; }
+[data-theme=a] .slide__d { max-width: 30em; }
+[data-theme=a] .slide__in::after { content: ""; order: 2; width: 44px; height: 1px; background: rgba(234, 217, 190, .8); }
+[data-theme=a] .slide__label { order: 0; } [data-theme=a] .slide__t { order: 1; } [data-theme=a] .slide__d { order: 3; } [data-theme=a] .slide__act { order: 4; }
+[data-theme=a] .phx__ctrl { justify-content: center; bottom: 112px; }
+@media (max-width: 1100px) { [data-theme=a] .phx__ctrl { bottom: 44px; } }
+[data-theme=a] .phx__btn { border-radius: 0; border-color: rgba(255, 255, 255, .4); }
+
+/* ---- 바로가기: 종이 카드 + 안쪽 가는 선 ---- */
+[data-theme=a] .qmenu__list { border-radius: 0; background: var(--paper); box-shadow: 0 30px 50px -40px rgba(58, 40, 28, .45); outline: 1px solid var(--line); outline-offset: -8px; }
+[data-theme=a] .qmenu__list li + li { border-left-color: var(--line); }
+[data-theme=a] .qmenu__list a { font-weight: 500; letter-spacing: .02em; }
+[data-theme=a] .qmenu__list svg { color: var(--brass); }
+[data-theme=a] .qmenu__list a:hover { background: var(--ivory); box-shadow: none; }
+
+/* ---- 홈 섹션 머리: 가운데, 제목 아래 놋쇠 선 ---- */
+[data-theme=a] .hsec .shd { flex-direction: column; align-items: center; text-align: center; gap: 14px; }
+[data-theme=a] .hsec .shd > div { display: grid; justify-items: center; }
+[data-theme=a] .hsec .shd > div::after { content: ""; width: 40px; height: 1px; margin-top: 22px; background: var(--brass); }
+[data-theme=a] .hsec .shd__label { margin-bottom: 8px; }
+[data-theme=a] .shd__more { text-decoration: none; border-bottom: 1px solid var(--brass); min-height: 0; padding-bottom: 4px; font-weight: 500; letter-spacing: .03em; }
+[data-theme=a] .hdo__head, [data-theme=a] .net2__txt .shd, [data-theme=a] .intl2__txt .shd, [data-theme=a] .contact2__txt .shd, [data-theme=a] .hfaq .shd { text-align: left; }
+[data-theme=a] :is(.hdo__head, .net2__txt, .intl2__txt, .contact2__txt, .hfaq) .shd { align-items: flex-start; text-align: left; }
+[data-theme=a] :is(.hdo__head, .net2__txt, .intl2__txt, .contact2__txt, .hfaq) .shd > div { justify-items: start; }
+
+/* ---- 사진: 액자 매트 (종이 여백 + 놋쇠 가는 선) ---- */
+[data-theme=a] :is(.tile__pic, .intl2__pic, .mcard__pic, .clist__pic, .phero__pic, .contact2__pic) {
+  padding: clamp(10px, 1vw, 14px); background: var(--paper); border: 1px solid var(--line); border-radius: 0; overflow: hidden;
+}
+[data-theme=a] :is(.tile__pic, .intl2__pic, .mcard__pic, .clist__pic, .phero__pic, .contact2__pic) .pic { outline: 1px solid rgba(168, 138, 92, .55); outline-offset: -1px; }
+[data-theme=a] .tile:hover .pic { transform: none; }
+[data-theme=a] .tile:hover .tile__pic { border-color: var(--brass); }
+[data-theme=a] .tile { justify-items: center; text-align: center; gap: 4px; }
+[data-theme=a] .tile__pic { width: 100%; margin-bottom: 18px; }
+[data-theme=a] .tile__d { max-width: 22em; }
+[data-theme=a] .tile__tag { left: 50%; top: auto; bottom: 22px; transform: translateX(-50%); padding: 7px 14px; border-radius: 0; background: var(--paper); font-weight: 500; letter-spacing: .03em; color: var(--brown-deep); }
+[data-theme=a] .hnote { text-align: center; border-top-color: var(--line); }
+
+/* ---- 하는 일 / 하지 않는 일: 종이 카드와 호두색 카드, 둘 다 안쪽 테두리 ---- */
+[data-theme=a] .hdo__col { position: relative; border-radius: 0; }
+[data-theme=a] .hdo__col::before { content: ""; position: absolute; inset: 8px; border: 1px solid var(--line); pointer-events: none; }
+[data-theme=a] .hdo__col--dark { background: var(--espresso); border-color: var(--espresso); }
+[data-theme=a] .hdo__col--dark::before { border-color: rgba(168, 138, 92, .4); }
+[data-theme=a] .hdo__do b { font-weight: 500; }
+
+/* ---- 진행 방식 ---- */
+[data-theme=a] .flow { border-top: 1px solid var(--brass); }
+[data-theme=a] .flow li + li { border-left-color: var(--line); }
+[data-theme=a] .flow__no, [data-theme=a] .ways__no { font-family: var(--f-it); font-style: italic; font-weight: 500; font-size: 34px; color: var(--brass-ink); }
+
+/* ---- 지도: 놋쇠 이중 테두리 ---- */
+[data-theme=a] .mapcard { border-radius: 0 !important; outline: 1px solid rgba(168, 138, 92, .45); outline-offset: -10px; }
+
+/* ---- 상담 카드 ---- */
+[data-theme=a] .appt { border-radius: 0; }
+[data-theme=a] .appt::before { inset: 8px; border-radius: 0; border-color: var(--line); }
+[data-theme=a] .appt__t { font-size: clamp(23px, 2vw, 28px); }
+[data-theme=a] .appt__dl dt { font-weight: 500; }
+
+/* ---- 상세 페이지 첫 화면: 같은 이중 테두리, 가운데 정렬 ---- */
+[data-theme=a] .hero--photo::before { content: ""; position: absolute; z-index: 0; pointer-events: none;
+  inset: calc(var(--hdr-h) + 6px) clamp(14px, 2vw, 28px) clamp(14px, 2vw, 28px);
+  border: 1px solid rgba(255, 255, 255, .5); outline: 1px solid rgba(255, 255, 255, .25); outline-offset: -8px; }
+[data-theme=a] .hero.hero--photo::after { background: radial-gradient(ellipse 72% 70% at 50% 58%, rgba(var(--veil), .58) 0%, rgba(var(--veil), .32) 60%, rgba(var(--veil), .18) 100%); }
+[data-theme=a] .hero--photo .hero__in { justify-items: center; text-align: center; }
+[data-theme=a] .hero--photo .hero__label { color: #EAD9BE; font-size: 21px; }
+[data-theme=a] .hero--photo .hero__title { font-weight: 300; }
+[data-theme=a] .hero--photo .hero__sub { font-weight: 400; }
+[data-theme=a] .hero--photo .hero__row { justify-content: center; }
+[data-theme=a] .hero--photo .hero__body { margin-inline: auto; }
+
+/* ---- 넓은 사진 띠의 영문: 기울인 Cormorant ---- */
+[data-theme=a] .pband__word { font-family: var(--f-it); font-style: italic; font-weight: 400; letter-spacing: -.01em; font-size: clamp(44px, 6.4vw, 104px); }
+
+/* ---- 상세 페이지 목록·카드 ---- */
+[data-theme=a] .ways li { border-radius: 0; background: var(--paper); }
+[data-theme=a] .svcs li { border-top-color: var(--line-strong); }
+[data-theme=a] .svcs__sub li::before { background: var(--brass); }
+[data-theme=a] :is(.card, .opt, .fact, .check, .itin, .hcard, .macc, .tbl-wrap, .support, .principle, .qcard, .doc, .netgroup--next) { border-radius: 0 !important; }
+
+/* ---- 바닥글 ---- */
+[data-theme=a] .ftr { background: #2B1F17; }
+[data-theme=a] .ftr__tag { font-family: var(--f-serif); font-size: 17px; }
+[data-theme=a] .ftr h2 { font-family: var(--f-serif); font-size: 15px; font-weight: 500; letter-spacing: .02em; color: #E3CFAE; }
+
+@media (max-width: 760px) {
+  [data-theme=a] .phx::after { inset: calc(var(--hdr-h) + 4px) 10px 10px; outline-offset: -6px; }
+  [data-theme=a] .slide__in { padding-bottom: 104px; gap: 16px; }
+  [data-theme=a] .slide__t { font-size: clamp(30px, 8.2vw, 38px); }
+  [data-theme=a] .hero--photo::before { inset: calc(var(--hdr-h) + 4px) 10px 10px; outline-offset: -6px; }
+  [data-theme=a] :is(.slide__label, .hero__label, .shd__label, .tile__en) { font-size: 17px; }
+  [data-theme=a] .tile { justify-items: start; text-align: left; }
+}

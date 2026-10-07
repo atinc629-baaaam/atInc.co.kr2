@@ -25,6 +25,12 @@ TEMPLATES = os.path.join(ROOT, 'templates')
 STATIC = os.path.join(ROOT, 'static')
 
 FONTS = 'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&display=swap'
+# 디자인 테마: static/assets/theme-<이름>.css 를 site.css 위에 덧씌웁니다 (사이트 설정 site.theme, 또는 --theme)
+THEME_FONTS = {
+    'a': 'https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400;1,500&display=swap',
+    'b': 'https://fonts.googleapis.com/css2?family=Hahmlet:wght@300;400;500&family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;1,6..96,400;1,6..96,500&display=swap',
+    'c': 'https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Cormorant+Garamond:ital,wght@0,500;1,400;1,500&display=swap',
+}
 PRET = 'https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css'
 
 
@@ -270,9 +276,14 @@ def structured_data(fn, body, S):
 
 
 class Site:
-    def __init__(self, out):
+    def __init__(self, out, theme=None, switcher=None, edit=True):
         self.out = out
+        self.edit = edit  # False: 편집기 사본 없이 공개 페이지만 (디자인 후보용)
         self.S = load(os.path.join(CONTENT, 'settings.json'))
+        self.theme = (theme if theme is not None else self.S['site'].get('theme', '')) or ''
+        if self.theme and not os.path.exists(os.path.join(STATIC, 'assets', f'theme-{self.theme}.css')):
+            raise SystemExit(f'theme-{self.theme}.css 가 없습니다')
+        self.switcher = switcher  # 디자인 후보 비교용: [(이름, 폴더)] — 페이지 구석에 후보 바꾸기 단추
         self.fields = load_collection('fields')
         self.programs = load_collection('programs')
         self.regions = load(os.path.join(CONTENT, 'regions.json')).get('regions', [])
@@ -327,6 +338,10 @@ class Site:
         url = self.S['site']['url'] + ('' if fn == 'index.html' else fn)
         head = minify(self.env.get_template('head.html').render(title=title, desc=desc, url=url, PRET=PRET, FONTS=FONTS))
         head += structured_data(fn, body, self.S)
+        if self.theme:
+            if THEME_FONTS.get(self.theme):
+                head += f'<link rel="stylesheet" href="{THEME_FONTS[self.theme]}">'
+            head += f'<link rel="stylesheet" href="assets/theme-{self.theme}.css">'
         scripts = '<script src="assets/network-data.js"></script>'
         if 'class="atmap"' in body:
             scripts += '<script src="assets/map-base.js"></script>'
@@ -344,7 +359,16 @@ class Site:
             scripts += '<script src="admin/inject.js"></script>'
             target = os.path.join(self.out, 'admin', 'edit', fn)
             os.makedirs(os.path.dirname(target), exist_ok=True)
-        full = f'<!doctype html>\n<html lang="ko">\n<head>{head}</head>\n<body>\n{body}{scripts}\n</body>\n</html>\n'
+        if self.switcher and not EDIT['on']:
+            here = self.theme or 'cur'
+            links = ''.join(f'<a href="../{folder}/{fn}"{" aria-current=\"true\"" if folder == here else ""}>{escape(name)}</a>' for name, folder in self.switcher)
+            body += ('<nav class="cand" aria-label="디자인 후보"><span>디자인 후보</span>' + links + '</nav>'
+                     '<style>.cand{position:fixed;z-index:60;left:16px;bottom:16px;display:flex;align-items:center;gap:2px;padding:4px;border-radius:999px;'
+                     'background:rgba(20,16,13,.86);box-shadow:0 10px 30px -10px rgba(0,0,0,.5);font:600 13px/1 "Pretendard Variable",Pretendard,sans-serif;letter-spacing:0}'
+                     '.cand span{padding:0 10px 0 12px;color:#cdbba5;font-weight:500}.cand a{padding:8px 12px;border-radius:999px;color:#fff;text-decoration:none}'
+                     '.cand a[aria-current]{background:#fff;color:#2a1e17}@media(max-width:760px){.cand{left:50%;bottom:68px;transform:translateX(-50%)}.cand span{display:none}}</style>')
+        html_attr = f' data-theme="{self.theme}"' if self.theme else ''
+        full = f'<!doctype html>\n<html lang="ko"{html_attr}>\n<head>{head}</head>\n<body>\n{body}{scripts}\n</body>\n</html>\n'
         with open(target, 'w', encoding='utf-8') as f:
             f.write(full)
         if not EDIT['on']:
@@ -378,19 +402,28 @@ class Site:
         pages = list(self.all_pages())
         for fn, data, cur, light, ctx, pf, label in pages:
             self.write_page(fn, data, cur=cur, light=light, ctx=ctx, pf=pf)
-        # 편집기용 사본과 목록
-        EDIT['on'] = True
-        try:
-            for fn, data, cur, light, ctx, pf, label in pages:
-                self.write_page(fn, data, cur=cur, light=light, ctx=ctx, pf=pf)
-        finally:
-            EDIT['on'] = False
-        self.write_editor_index(pages)
+        if self.edit:
+            # 편집기용 사본과 목록
+            EDIT['on'] = True
+            try:
+                for fn, data, cur, light, ctx, pf, label in pages:
+                    self.write_page(fn, data, cur=cur, light=light, ctx=ctx, pf=pf)
+            finally:
+                EDIT['on'] = False
+            self.write_editor_index(pages)
         self.write_network_data()
         self.write_sitemap()
         n = make_resized(self.out)
         if n:
             print(n, 'resized photos')
+        # 디자인 후보 비교: 사이트 설정 site.candidates 에 적힌 테마마다 candidates/<이름>/ 에 사이트 전체를 한 벌씩 만듭니다
+        cands = [c for c in (self.S['site'].get('candidates') or []) if c]
+        if cands and self.edit:
+            sw = [('현재', 'cur')] + [(c.upper(), c) for c in cands]
+            for name, folder in sw:
+                Site(os.path.join(self.out, 'candidates', folder), theme='' if folder == 'cur' else folder,
+                     switcher=sw, edit=False).build()
+            print('디자인 후보:', ', '.join(f for _, f in sw), '→ candidates/')
         return self.built
 
     def write_editor_index(self, pages):
@@ -413,6 +446,8 @@ class Site:
 
     def copy_static(self):
         for root, dirs, files in os.walk(STATIC):
+            if not self.edit and os.path.relpath(root, STATIC).split(os.sep)[0] == 'admin':
+                continue
             for name in files:
                 if name.startswith('.'):
                     continue
@@ -452,9 +487,12 @@ class Site:
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--out', default=os.path.join(ROOT, 'site'))
+    ap.add_argument('--theme', default=None, help='디자인 테마 (a, b, c …). 비워 두면 사이트 설정 site.theme')
+    ap.add_argument('--switcher', default=None, help='디자인 후보 비교 단추: "현재:cur,A:a,B:b" (폴더 이름)')
     ap.add_argument('--check', action='store_true', help='만든 뒤 공개 전 검사(금지 표현·비공개 단어)를 하고, 문제가 있으면 실패로 끝냅니다')
     a = ap.parse_args()
-    built = Site(a.out).build()
+    sw = [tuple(x.split(':', 1)) for x in a.switcher.split(',')] if a.switcher else None
+    built = Site(a.out, theme=a.theme, switcher=sw).build()
     print(len(built), 'pages →', a.out)
     if a.check:
         import subprocess
