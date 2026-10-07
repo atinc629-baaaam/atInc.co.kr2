@@ -251,22 +251,6 @@
       io.observe(el);
     });
     document.documentElement.classList.add('rv');
-    var px = touch ? [] : document.querySelectorAll('.hero--photo .hero__pic img, .intl2__pic img, .phero__pic img, .pband__fig img');
-    px.forEach(function (im) { im.setAttribute('data-px', ''); });
-    var ticking = false;
-    var movePx = function () {
-      ticking = false;
-      var vh = window.innerHeight;
-      px.forEach(function (im) {
-        var r = im.parentElement.getBoundingClientRect();
-        if (r.bottom < -100 || r.top > vh + 100) return;
-        var y = Math.max(-36, Math.min(36, (r.top + r.height / 2 - vh / 2) * -0.07));
-        im.style.transform = 'translateY(' + y.toFixed(1) + 'px) scale(1.1)';
-      });
-    };
-    if (px.length) {
-      window.addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(movePx); } }, { passive: true });
-      movePx();
-    }
+    // no scroll-driven photo effects (parallax removed 2026-10-07: photos lagged while scrolling)
   }
 })();

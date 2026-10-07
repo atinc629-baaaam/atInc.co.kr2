@@ -1974,3 +1974,11 @@ details.fold > summary h3 + p { margin-top: 4px; }
   .pband__fig { height: 240px; }
   .pband__word { font-size: 34px; }
 }
+
+/* ---------- v18 · photos stay still while scrolling (curtain, zoom and parallax removed: they lagged) ---------- */
+.rv [data-rv] .tile__pic, .rv [data-rv].intl2__pic img, .rv [data-rv].phero__pic img, .rv [data-rv] .mcard__pic, .rv [data-rv] .clist__pic { clip-path: none; transition: none; }
+.rv [data-rv] .tile__pic img, .rv [data-rv].intl2__pic img, .rv [data-rv].phero__pic img, .rv [data-rv] .mcard__pic img, .rv [data-rv] .clist__pic img { transform: none; transition: none; }
+.rv [data-rv].is-in .tile__pic, .rv [data-rv].is-in.intl2__pic img, .rv [data-rv].is-in.phero__pic img, .rv [data-rv].is-in .mcard__pic, .rv [data-rv].is-in .clist__pic { clip-path: none; }
+.pband__fig .pic { inset: 0; height: 100%; }
+/* the hover zoom on cards stays (it only runs under the pointer) */
+.rv .tile:hover .tile__pic img { transform: scale(1.04); transition: transform .8s cubic-bezier(.2, .7, .1, 1); }
