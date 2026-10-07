@@ -380,7 +380,7 @@ def config():
                     'commit_messages': {'create': '관리자: {{collection}} 「{{slug}}」 추가', 'update': '관리자: {{collection}} 「{{slug}}」 수정',
                                         'delete': '관리자: {{collection}} 「{{slug}}」 삭제', 'uploadMedia': '관리자: 사진 올림 {{path}}',
                                         'deleteMedia': '관리자: 사진 지움 {{path}}'}},
-        'publish_mode': 'editorial_workflow',
+        'publish_mode': 'simple',  # 저장하면 바로 GitHub에 반영 (승인 단계를 쓰려면 'editorial_workflow')
         'media_folder': 'static/uploads',
         'public_folder': '/uploads',
         'site_url': 'https://atinc.co.kr',

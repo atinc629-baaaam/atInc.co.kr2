@@ -11,7 +11,7 @@ backend:
     delete: '관리자: {{collection}} 「{{slug}}」 삭제'
     uploadMedia: '관리자: 사진 올림 {{path}}'
     deleteMedia: '관리자: 사진 지움 {{path}}'
-publish_mode: editorial_workflow
+publish_mode: simple
 media_folder: static/uploads
 public_folder: /uploads
 site_url: https://atinc.co.kr
