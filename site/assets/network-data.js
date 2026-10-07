@@ -1,5 +1,5 @@
 /* 자동으로 만들어지는 파일입니다. 고치지 마세요.
-   지역은 content/regions.yml, 분야 이름은 content/fields/*.yml 에서 고칩니다. */
+   지역은 content/regions.json, 분야 이름은 content/fields/*.json 에서 고칩니다. */
 window.ATINC_FIELDS = [{"id": "checkup", "ko": "건강검진"}, {"id": "regenerative", "ko": "재생의료·줄기세포"}, {"id": "aesthetic", "ko": "성형·피부"}, {"id": "women", "ko": "여성건강"}, {"id": "men", "ko": "남성건강"}, {"id": "korean-medicine", "ko": "한방·웰니스"}];
 window.ATINC_NETWORK = [
  {

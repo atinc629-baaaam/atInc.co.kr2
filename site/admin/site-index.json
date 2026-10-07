@@ -1,0 +1,149 @@
+{
+ "pages": [
+  {
+   "page": "index.html",
+   "file": "pages/home",
+   "label": "홈"
+  },
+  {
+   "page": "about.html",
+   "file": "pages/about",
+   "label": "회사소개"
+  },
+  {
+   "page": "medical.html",
+   "file": "pages/medical",
+   "label": "진료 분야 목록"
+  },
+  {
+   "page": "medical-checkup.html",
+   "file": "fields/checkup",
+   "label": "진료 분야 · 건강검진"
+  },
+  {
+   "page": "medical-regenerative.html",
+   "file": "fields/regenerative",
+   "label": "진료 분야 · 재생의료·줄기세포"
+  },
+  {
+   "page": "medical-aesthetic.html",
+   "file": "fields/aesthetic",
+   "label": "진료 분야 · 성형·피부"
+  },
+  {
+   "page": "medical-women.html",
+   "file": "fields/women",
+   "label": "진료 분야 · 여성건강"
+  },
+  {
+   "page": "medical-men.html",
+   "file": "fields/men",
+   "label": "진료 분야 · 남성건강"
+  },
+  {
+   "page": "medical-korean-medicine.html",
+   "file": "fields/korean-medicine",
+   "label": "진료 분야 · 한방·웰니스"
+  },
+  {
+   "page": "care.html",
+   "file": "pages/care",
+   "label": "케어 프로그램 목록"
+  },
+  {
+   "page": "care-private-checkup.html",
+   "file": "programs/private-checkup",
+   "label": "케어 프로그램 · 프라이빗 정밀검진"
+  },
+  {
+   "page": "care-longevity-90.html",
+   "file": "programs/longevity-90",
+   "label": "케어 프로그램 · 90일 롱제비티"
+  },
+  {
+   "page": "care-executive-365.html",
+   "file": "programs/executive-365",
+   "label": "케어 프로그램 · 연간 헬스 오피스"
+  },
+  {
+   "page": "care-global-medical-journey.html",
+   "file": "programs/global-medical-journey",
+   "label": "케어 프로그램 · 글로벌 메디컬 저니"
+  },
+  {
+   "page": "network.html",
+   "file": "pages/network",
+   "label": "협력 네트워크"
+  },
+  {
+   "page": "partners.html",
+   "file": "pages/partners",
+   "label": "제휴 안내"
+  },
+  {
+   "page": "consultation.html",
+   "file": "pages/consultation",
+   "label": "상담 안내"
+  },
+  {
+   "page": "privacy.html",
+   "file": "pages/privacy",
+   "label": "개인정보처리방침"
+  },
+  {
+   "page": "medical-notice.html",
+   "file": "pages/notice",
+   "label": "의료서비스 관련 고지"
+  }
+ ],
+ "fields": [
+  {
+   "id": "checkup",
+   "ko": "건강검진"
+  },
+  {
+   "id": "regenerative",
+   "ko": "재생의료·줄기세포"
+  },
+  {
+   "id": "aesthetic",
+   "ko": "성형·피부"
+  },
+  {
+   "id": "women",
+   "ko": "여성건강"
+  },
+  {
+   "id": "men",
+   "ko": "남성건강"
+  },
+  {
+   "id": "korean-medicine",
+   "ko": "한방·웰니스"
+  }
+ ],
+ "versions": {
+  "content/settings.json": "9a48c4805800533d34bcaf89c4f90220befbec39",
+  "content/regions.json": "77d712e0db4965240392ff8e8afa47728b6b4e95",
+  "content/fields/women.json": "7370727983df34e5821459ab9312e671dacbba08",
+  "content/fields/aesthetic.json": "4cf9e14f5dcd255b05d6c5a1710d04f48257e2b9",
+  "content/fields/regenerative.json": "527b0bf6b5075cb0475f1054ba7dfae951066b69",
+  "content/fields/checkup.json": "52d0356fd482876bc9f70ed3e8dafa7bb86a1272",
+  "content/fields/korean-medicine.json": "77e9e2b2e09ed4f9bedf55f1077c3c659490b344",
+  "content/fields/men.json": "411a95504f6e1d0c7fc961e5a0d409fe293bc478",
+  "content/pages/network.json": "6af58b5fd18305c1c4886814ecfb70449201dbf4",
+  "content/pages/about.json": "2f761e3634771dea3b7aff68eba1d1a0aa5cc9c7",
+  "content/pages/home.json": "cb1e350bf686205da707d7caecea839786221033",
+  "content/pages/medical.json": "1be40c6be2019b93a0a7ca9e3b560e23e8425708",
+  "content/pages/partners.json": "a2886d3a4b1f95817013aa8e68eab85b6e976beb",
+  "content/pages/consultation.json": "6f360e3604f2a0723873eb098d6dee767ac49caf",
+  "content/pages/care.json": "35d7b127f731f2cabbf9ccbc636f1fb7da091480",
+  "content/pages/notice.json": "9980658989e85ecf6003c35240bc09ee58272040",
+  "content/pages/privacy.json": "253913a14280ca6ed1854f69e616d884508b41c4",
+  "content/programs/private-checkup.json": "d069d32c5a4ebf06ec2c1aee3898e76f91f038fe",
+  "content/programs/global-medical-journey.json": "01af42681a611811489511c1da7e43452f49debf",
+  "content/programs/executive-365.json": "a0022e22a466b5c018196f7b3bbee7ea818feef0",
+  "content/programs/longevity-90.json": "225696340ac879c1bcaf76339ca46d5e62078504"
+ },
+ "hidden": []
+}
