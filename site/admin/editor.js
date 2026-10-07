@@ -32,7 +32,7 @@
     doc: '“## 제목” 줄은 소제목, “- ”로 시작하는 줄은 목록, 빈 줄은 문단 나눔입니다. 링크는 [글자](주소).'
   };
   var KEY_LABELS = {
-    site: '사이트', name: '이름', url: '사이트 주소', theme_color: '휴대폰 주소창 색', org_description: '검색엔진용 회사 소개',
+    site: '사이트', name: '이름', url: '사이트 주소', noindex: '검색엔진에 안 나오게 하기 (공개 전 확인 기간에만 켜 두고, 정식 공개 때 끄기)', theme_color: '휴대폰 주소창 색', org_description: '검색엔진용 회사 소개',
     keep_together: '휴대폰에서 줄이 바뀌면 안 되는 말 (한 줄에 하나)', contact: '연락처', email: '이메일', phone: '전화 (화면 표기)',
     phone_tel: '전화 (+82로 시작, 띄어쓰기 없이)', phone_intl: '전화 (해외 표기)', phone_schema: '전화 (검색엔진용)',
     form_url: '상담 신청서 주소 (구글 폼)', partner_mail: '제휴 문의 메일 (mailto:)', company: '회사 정보', legal_name: '법인명', ceo: '대표',

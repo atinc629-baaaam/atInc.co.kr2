@@ -1,5 +1,2 @@
 User-agent: *
-Allow: /
-Disallow: /admin/
-
-Sitemap: https://atinc.co.kr/sitemap.xml
+Disallow: /
