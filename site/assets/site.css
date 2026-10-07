@@ -1988,3 +1988,6 @@ details.fold > summary h3 + p { margin-top: 4px; }
 .tblock p { font-size: 16.5px; line-height: 1.85; color: var(--body); }
 .tblock p + p { margin-top: 14px; }
 .tblock a { color: var(--brown-deep); text-underline-offset: 4px; }
+
+/* v20 — 떠 있는 버튼 글자: 두 줄이 되어도 가운데 정렬 (VIP CONTACT) */
+.fab__btn span { text-align: center; line-height: 1.2; letter-spacing: .02em; }
