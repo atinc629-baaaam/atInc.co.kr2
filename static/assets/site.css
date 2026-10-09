@@ -2017,8 +2017,8 @@ body { background: var(--ivory); color: var(--ink); }
 ::selection { background: #E4D3BD; }
 
 /* 흰색으로 남아 있던 면을 밀크로 */
-.hdr, .hdr.is-solid { background: rgba(244, 238, 230, .96); }
-.subnav { background: rgba(244, 238, 230, .97); }
+.hdr, .hdr.is-solid { background: var(--ivory); }   /* 불투명: 뒤 글자가 비치지 않게 */
+.subnav { background: var(--ivory); }
 .drop, .mnav, .qmenu__list, .net2, .pline, .ways li, .fab__btn, .appt, .hdo__col:not(.hdo__col--dark) { background: var(--paper); }
 .tile__tag { background: rgba(251, 248, 244, .95); }
 @media (max-width: 760px) { .mbar { background: var(--paper); } }
@@ -2041,3 +2041,66 @@ body { background: var(--ivory); color: var(--ink); }
 /* 카멜 띠 위의 선과 카드 */
 .sec--sand .svcs li, .sec--sand .guide__col { border-top-color: var(--line-strong); }
 .contact2 { background: var(--sand); }
+
+/* =====================================================================
+   v22 — 품격 있는 글꼴과 홈 회사 소개 (2026-10-09)
+   제목은 명조(Noto Serif KR), 본문·메뉴·단추는 Pretendard, 작은 영문 머리는 Cormorant 기울임(대문자로 늘어놓지 않음).
+   ===================================================================== */
+:root { --f-serif: 'Noto Serif KR', 'Nanum Myeongjo', 'AppleMyungjo', serif; --f-it: 'Cormorant Garamond', 'Times New Roman', serif; }
+:is(.shd__t, .slide__t, .hero__title, .hero__sub, .h1, .h2, .disp, .disp-2, .stmt__h, .tile__t, .mcard__t, .clist__t, .appt__t, .hdo__t,
+  .pband__t, .cband .h1, .sh h2, .idx__head h2, .hintro__t, .hpil__t, .ftr__tag) {
+  font-family: var(--f-serif); font-weight: 500; letter-spacing: -.02em;
+}
+.slide__t, .hero__title { font-weight: 500; letter-spacing: -.025em; line-height: 1.32; }
+.hero__sub { font-weight: 400; }
+.shd__t { line-height: 1.4; }
+:is(.shd__label, .slide__label, .hero__label, .tile__en, .mcard__en, .clist__en, .pband__en, .cband__label, .appt__label, .hpil__en) {
+  font-family: var(--f-it); font-style: italic; font-weight: 500; font-size: 18px; letter-spacing: .01em; text-transform: none; color: var(--brown);
+}
+.slide__label, .hero--photo .hero__label { font-size: 20px; color: #EAD9BE; }
+.tile__en, .mcard__en, .clist__en, .hpil__en { font-size: 17px; }
+.mcard__t, .tile__t { font-weight: 500; }
+
+/* 홈 회사 소개 */
+.hintro__grid { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: 28px clamp(36px, 6vw, 104px); align-items: start; }
+.hintro__head { display: grid; gap: 12px; }
+.hintro__t { font-size: clamp(26px, 2.6vw, 38px); line-height: 1.45; color: var(--ink); text-wrap: balance; }
+.hintro__t .ln { display: block; }
+.hintro__body { display: grid; gap: 26px; min-width: 0; }
+.hintro__text { display: grid; gap: 14px; font-size: var(--fs-lg); line-height: 1.9; color: var(--body); }
+.hintro__text p { margin: 0; text-wrap: pretty; }
+.hintro__facts { display: grid; grid-template-columns: minmax(0, max-content) minmax(0, max-content) minmax(0, 1fr); margin: 0; border-top: 1px solid var(--line-strong); }
+.hintro__facts > div { display: grid; gap: 6px; align-content: start; padding: 18px 18px 0 0; }
+.hintro__facts > div + div { padding-left: 18px; border-left: 1px solid var(--line); }
+.hintro__facts dt { font-size: 13px; font-weight: 500; color: var(--sub); }
+.hintro__facts dd { margin: 0; font-size: 15.5px; font-weight: 500; line-height: 1.55; color: var(--ink); }
+.hintro .link { justify-self: start; }
+
+/* 홈 서비스 카드 */
+.hpil__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(16px, 2vw, 28px); }
+.hpil__card { display: grid; align-content: start; gap: 6px; padding-bottom: 6px; color: var(--ink); text-decoration: none; }
+.hpil__pic { position: relative; aspect-ratio: 4 / 3; overflow: hidden; margin: 0 0 14px; border-radius: var(--r-ctl); background: var(--photo-bg); }
+.hpil__pic .pic { transition: transform 1s cubic-bezier(.2, .7, .2, 1); }
+.hpil__card:hover .pic { transform: scale(1.03); }
+.hpil__t { font-size: clamp(21px, 1.7vw, 25px); line-height: 1.35; color: var(--ink); }
+.hpil__d { font-size: 15px; line-height: 1.75; color: var(--body); text-wrap: pretty; }
+.hpil__more { justify-self: start; margin-top: 8px; padding-bottom: 3px; border-bottom: 1px solid var(--brown); font-size: 14px; font-weight: 600; color: var(--brown-deep); }
+.hpil__card:hover .hpil__more { color: var(--brown); }
+
+@media (max-width: 900px) {
+  .hintro__grid { grid-template-columns: minmax(0, 1fr); }
+  .hpil__grid { grid-template-columns: minmax(0, 1fr); gap: 36px; }
+  .hpil__pic { aspect-ratio: 16 / 10; }
+}
+@media (max-width: 600px) {
+  .phx { height: max(520px, 74svh); }
+  .slide__in { padding-bottom: 56px; }
+  .hintro__facts { grid-template-columns: minmax(0, 1fr); }
+  .hintro__facts > div, .hintro__facts > div + div { padding: 14px 0; border-left: 0; }
+  .hintro__facts > div + div { border-top: 1px solid var(--line); }
+  :is(.shd__label, .slide__label, .hero__label) { font-size: 17px; }
+}
+@media (prefers-reduced-motion: reduce) { .hpil__pic .pic { transition: none; } }
+
+/* ---- v23: 바닥글 영문 줄도 대문자 대신 Cormorant 기울임 ---- */
+.ftr__sub { margin-top: 4px; font-family: var(--f-it, 'Cormorant Garamond', serif); font-style: italic; font-weight: 500; font-size: 17px; letter-spacing: .01em; text-transform: none; color: var(--brass); }

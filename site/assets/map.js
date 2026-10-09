@@ -56,13 +56,13 @@
     var cat = el.getAttribute('data-net-for');
     var hit = [];
     sites.forEach(function (s) { if (s.cats.indexOf(cat) > -1 && hit.indexOf(SHORT[s.prov]) < 0) hit.push(SHORT[s.prov]); });
-    el.textContent = hit.length ? hit.join(' · ') : '지역과 관계없이 상담 후 병원을 찾아 드립니다';
+    el.textContent = hit.length ? hit.join(' · ') : '지역과 관계없이 상담에서 알맞은 기관을 안내합니다';
   });
 
   // ---- lists (the last row says the network keeps growing)
-  var NEXT_LI = '<li class="hubs__next"><div><b>그 밖의 지역</b><small>협력 병원을 계속 늘려 가고 있습니다</small></div><span class="hubs__cats">가까운 병원은 상담 후 찾아 드립니다</span></li>';
+  var NEXT_LI = '<li class="hubs__next"><div><b>그 밖의 지역</b><small>협력 네트워크를 넓혀 가고 있습니다</small></div><span class="hubs__cats">가까운 기관은 상담에서 안내합니다</span></li>';
   var NEXT_CARD = '<section class="netgroup netgroup--next"><h2 class="netgroup__h"><span>그 밖의 지역</span><em>Expanding nationwide</em></h2>' +
-    '<p class="body">같은 기준으로 고른 협력 병원을 지역마다 계속 늘려 가고 있습니다. 지금 목록에 없는 지역이라도, 상담하시면 가까운 곳에서 맞는 병원을 찾아 드립니다.</p></section>';
+    '<p class="body">같은 기준으로 선정한 협력 의료기관을 지역마다 넓혀 가고 있습니다. 목록에 없는 지역이라도 상담에서 가까운 기관을 안내합니다.</p></section>';
   document.querySelectorAll('.atnet-list').forEach(function (box) {
     var v = box.getAttribute('data-variant') || 'compact', h = '';
     if (v === 'compact') {

@@ -4,5 +4,5 @@
 <div class="intl2__txt">{{ shd(s.label, s.title, None, 'h2', P) }}
 <p class="intl2__d"{{ A(P ~ '.text') }}>{{ s.text }}</p>
 <ul class="intl2__list">{% for x in s.list %}{% set Q = P ~ '.list.' ~ loop.index0 %}<li{{ IT(Q) }}{{ A(Q) }}>{{ x }}</li>{% endfor %}</ul>
-<p class="intl2__en" lang="en">{{ W(P ~ '.en_text', s.en_text) }} <a href="mailto:{{ S.contact.email }}">{{ S.contact.email }}</a>.</p>
-<p>{{ button(s.button, 'btn btn--dark', P ~ '.button') }}</p></div></div></section>
+{% if s.en_text %}<p class="intl2__en" lang="en">{{ W(P ~ '.en_text', s.en_text) }} <a href="mailto:{{ S.contact.email }}">{{ S.contact.email }}</a>.</p>{% endif %}
+{% if s.button and s.button.label %}<p>{{ button(s.button, 'btn btn--dark', P ~ '.button') }}</p>{% endif %}</div></div></section>

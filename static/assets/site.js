@@ -20,9 +20,11 @@
   var hdr = document.querySelector('.hdr');
   // pages that open with the moving field keep the glass header until the field has scrolled away
   var over = document.querySelector('[data-hdr-over], .hero[data-fx]');
+  // 휴대폰에서는 머리글이 사진 위 글자·단추와 겹치지 않도록 조금만 내려도 바로 불투명하게 바꿉니다
+  var narrow = window.matchMedia ? window.matchMedia('(max-width: 760px)') : { matches: false };
   function onScroll() {
     if (!hdr) return;
-    var limit = over ? Math.max(24, over.offsetTop + over.offsetHeight - hdr.offsetHeight - 8) : 24;
+    var limit = over && !narrow.matches ? Math.max(24, over.offsetTop + over.offsetHeight - hdr.offsetHeight - 8) : 24;
     if (window.scrollY > limit) hdr.classList.add('is-solid');
     else hdr.classList.remove('is-solid');
   }

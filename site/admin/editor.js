@@ -21,7 +21,7 @@
     program_links: '다른 프로그램 링크', page_hero: '첫 화면', card_grid: '카드 묶음', company_info: '회사 정보',
     field_cards: '진료 분야 목록', access: '그 밖의 전문 진료', cta_row: '한 줄 안내', program_list: '케어 프로그램 목록',
     network: '지도 + 지역', partner_types: '함께 일하는 곳', two_lists: '두 칸 목록', partner_contact: '제휴 문의',
-    form_fields: '신청서 항목', doc: '문서', text_block: '글 섹션'
+    form_fields: '신청서 항목', doc: '문서', text_block: '글 섹션', intro: '회사 소개', pillars: '서비스 카드'
   };
   var KIND_HINT = {
     text: '',

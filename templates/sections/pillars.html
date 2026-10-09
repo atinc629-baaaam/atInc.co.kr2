@@ -1,0 +1,7 @@
+{# 홈 서비스 카드: 사진 + 영문 이름 + 제목 + 한 줄 설명 + 링크 #}
+{% from 'macros.html' import shd %}
+<section class="sec hsec hpil"><div class="wrap">{{ shd(s.label, s.title, s.more, 'h2', P) }}
+<div class="hpil__grid hpil__grid--{{ s['items']|length }}">{% for c in s['items'] %}{% set Q = P ~ '.items.' ~ loop.index0 %}<a class="hpil__card" href="{{ c.href }}"{{ IT(Q) }}>
+<figure class="hpil__pic">{{ pic(c.photo, '', '(max-width: 760px) 100vw, 33vw', (480, 720, 1080), path=Q ~ '.photo') }}</figure>
+<p class="hpil__en"{{ A(Q ~ '.en') }}>{{ c.en }}</p><h3 class="hpil__t"{{ A(Q ~ '.title') }}>{{ c.title }}</h3><p class="hpil__d"{{ A(Q ~ '.text') }}>{{ c.text }}</p>
+{% if c.link_label %}<span class="hpil__more"{{ A(Q ~ '.link_label') }}>{{ c.link_label }}</span>{% endif %}</a>{% endfor %}</div></div></section>

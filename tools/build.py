@@ -24,7 +24,7 @@ CONTENT = os.path.join(ROOT, 'content')
 TEMPLATES = os.path.join(ROOT, 'templates')
 STATIC = os.path.join(ROOT, 'static')
 
-FONTS = 'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&display=swap'
+FONTS = 'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Noto+Serif+KR:wght@400;500;600&display=swap'
 # 디자인 테마: static/assets/theme-<이름>.css 를 site.css 위에 덧씌웁니다 (사이트 설정 site.theme, 또는 --theme)
 THEME_FONTS = {
     'a': 'https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400;1,500&display=swap',

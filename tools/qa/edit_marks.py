@@ -49,6 +49,8 @@ def plain(v, kind):
     v = str(v)
     if kind == 'rich':
         v = v.replace('\n', '')
+    if kind == 'paras':
+        v = re.sub(r'\s*\n\s*\n\s*', '', v)   # 문단 사이 빈 줄은 화면에서 문단 나눔으로만 남습니다
     if kind in ('rich', 'regions', 'paras'):
         v = re.sub(r'\[([^\]]+)\]\(([^)\s]+)\)', r'\1', v).replace('**', '')
     return norm(v)

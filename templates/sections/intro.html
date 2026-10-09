@@ -1,0 +1,6 @@
+{# 홈 회사 소개: 작은 영문 머리 + 제목(줄바꿈 그대로) + 소개 문단 + 핵심 사실 몇 줄 #}
+<section class="sec hsec hintro"{% if s.anchor %} id="{{ s.anchor }}"{% endif %}><div class="wrap hintro__grid">
+<div class="hintro__head"><p class="shd__label"{{ A(P ~ '.label') }}>{{ s.label }}</p><h2 class="hintro__t"{{ A(P ~ '.title', 'lines') }}>{% for x in lines(s.title) %}<span class="ln"><span>{{ x }}</span></span>{% endfor %}</h2></div>
+<div class="hintro__body"><div class="hintro__text"{{ A(P ~ '.text', 'paras') }}>{% for para in (s.text or '').split('\n\n') if para.strip() %}<p>{{ para.strip()|rich }}</p>{% endfor %}</div>
+<dl class="hintro__facts">{% for f in s.facts %}{% set Q = P ~ '.facts.' ~ loop.index0 %}<div{{ IT(Q) }}><dt{{ A(Q ~ '.k') }}>{{ f.k }}</dt><dd{{ A(Q ~ '.v') }}>{{ f.v }}</dd></div>{% endfor %}</dl>
+{% if s.link and s.link.label %}<a class="link" href="{{ s.link.href }}"{{ A(P ~ '.link.label') }}>{{ s.link.label }}</a>{% endif %}</div></div></section>
